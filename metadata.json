@@ -1,0 +1,8 @@
+{
+  "name": "Barangay Maysan AI-Assist",
+  "description": "An AI-powered complaint prioritization and management system for Barangay Maysan officials and residents.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}
