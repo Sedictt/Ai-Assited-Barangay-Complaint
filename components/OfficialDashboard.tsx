@@ -230,89 +230,99 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Column: List */}
-        <div className="lg:col-span-1 bg-slate-100 rounded-2xl shadow-lg border border-slate-200 overflow-hidden flex flex-col h-[650px] ring-1 ring-black/5">
-          {/* Priority Legend Helper */}
-          <div className="p-3 bg-white border-b border-gray-200 flex items-center justify-between gap-2 text-xs text-gray-500 shadow-sm z-10 relative">
-             <div className="flex items-center gap-1">
-               <span className="w-2 h-2 rounded-full bg-red-500"></span> High
-             </div>
-             <div className="flex items-center gap-1">
-               <span className="w-2 h-2 rounded-full bg-orange-400"></span> Med
-             </div>
-             <div className="flex items-center gap-1">
-               <span className="w-2 h-2 rounded-full bg-green-500"></span> Low
+        <div className="lg:col-span-1 bg-slate-100 rounded-2xl shadow-lg border-2 border-indigo-500 overflow-hidden flex flex-col h-[650px]">
+          {/* Priority Legend Helper (softer title bar) */}
+          <div className="p-3 bg-indigo-500 text-white flex items-center justify-between gap-2 text-sm shadow-sm sticky top-0 z-1">
+             <div className="flex items-center gap-4">
+               <div className="flex items-center gap-2">
+                 <span className="w-2 h-2 rounded-full bg-red-500"></span>
+                 <span className="opacity-90">High</span>
+               </div>
+               <div className="flex items-center gap-2">
+                 <span className="w-2 h-2 rounded-full bg-orange-400"></span>
+                 <span className="opacity-90">Med</span>
+               </div>
+               <div className="flex items-center gap-2">
+                 <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                 <span className="opacity-90">Low</span>
+               </div>
              </div>
              <Tooltip content="Colors represent the AI Priority Score. Red is highest priority." placement="bottom">
-               <span className="ml-auto text-blue-600 flex items-center gap-1 cursor-help">
-                 <Info className="w-3 h-3" /> Priority Legend
+               <span className="ml-auto text-white/90 flex items-center gap-2 cursor-help">
+                 <Info className="w-4 h-4" /> Priority Legend
                </span>
              </Tooltip>
           </div>
-
-          <div className="p-4 border-b border-gray-200 bg-white flex justify-between items-center z-10 relative">
-            <div>
-                <h3 className="font-bold text-gray-900">Complaints Queue</h3>
-                <p className="text-xs text-gray-500 mt-1">
-                    {filteredComplaints.length} result{filteredComplaints.length !== 1 ? 's' : ''}
-                </p>
-            </div>
-          </div>
-          <div className="overflow-y-auto flex-1 p-3 space-y-3">
-            {filteredComplaints.length === 0 ? (
-                <div className="flex flex-col items-center justify-center h-full text-center p-4">
-                    <p className="text-gray-400 text-sm">No complaints match the selected filters.</p>
-                    <button 
-                        onClick={() => { setStatusFilter('ALL'); setUrgencyFilter('ALL'); setCategoryFilter('ALL'); }}
-                        className="mt-2 text-blue-600 text-sm font-medium hover:underline"
-                    >
-                        Clear Filters
-                    </button>
+ 
+          {/* Complaints Queue header bar (sticky under legend) */}
+          <div className="p-4 bg-indigo-400 text-white flex justify-between items-center sticky top-[44px] z-10">
+             <div>
+                 <h3 className="font-bold text-white">Complaints Queue</h3>
+                 <p className="text-xs text-indigo-100/80 mt-1">
+                     {filteredComplaints.length} result{filteredComplaints.length !== 1 ? 's' : ''}
+                 </p>
+             </div>
+           </div>
+ 
+          {/* Scroll area sits on a gentle slate; items are white cards with lighter lift */}
+          <div className="overflow-y-auto flex-1 p-4 bg-slate-100">
+            <div className="space-y-3">
+               {filteredComplaints.length === 0 ? (
+                <div className="flex flex-col items-center justify-center h-48 text-center p-6">
+                  <p className="text-gray-400 text-sm">No complaints match the selected filters.</p>
+                  <button 
+                    onClick={() => { setStatusFilter('ALL'); setUrgencyFilter('ALL'); setCategoryFilter('ALL'); }}
+                    className="mt-2 text-blue-600 text-sm font-medium hover:underline"
+                  >
+                    Clear Filters
+                  </button>
                 </div>
-            ) : (
-                filteredComplaints.map(c => (
-                <div 
+               ) : (
+                 filteredComplaints.map(c => (
+                  <div
                     key={c.id}
                     onClick={() => setSelectedId(c.id)}
-                    className={`relative p-4 rounded-xl cursor-pointer transition-all border shadow-sm group ${selectedId === c.id ? 'bg-white border-blue-600 ring-1 ring-blue-600 shadow-md scale-[1.01]' : 'bg-white border-transparent hover:border-blue-300 hover:shadow-md'}`}
-                >
-                    {/* Visual Priority Indicator Bar */}
-                    {c.aiAnalysis && (
-                      <div 
-                        className={`absolute left-0 top-0 bottom-0 w-1.5 rounded-l-xl ${getPriorityBarColor(c.aiAnalysis.priorityScore)}`} 
-                      />
-                    )}
-                    
-                    {/* Escalation Flag Indicator */}
-                    {c.isEscalated && (
-                        <div className="absolute top-0 right-0 p-1 bg-red-100 rounded-bl-lg rounded-tr-lg z-10">
-                            <Flag className="w-3.5 h-3.5 text-red-600 fill-current" />
-                        </div>
-                    )}
+                    aria-selected={selectedId === c.id}
+                    className={`relative bg-white rounded-lg shadow-sm border border-gray-200 p-4 cursor-pointer transition-transform transform ${selectedId === c.id ? 'scale-[1.02] border-2 border-indigo-500 shadow-lg' : 'hover:shadow-md'}`}
+                  >
+                     {/* Visual Priority Indicator Bar (kept for strong color cue) */}
+                     {c.aiAnalysis && (
+                       <div className={`absolute left-3 top-3 bottom-3 w-1.5 ${getPriorityBarColor(c.aiAnalysis.priorityScore)} rounded`} />
+                     )}
 
-                    <div className="flex justify-between items-start mb-1">
-                    <div className="flex-1 min-w-0 pl-2 pr-6">
-                        <p className={`text-sm font-bold truncate ${selectedId === c.id ? 'text-blue-700' : 'text-gray-900'}`}>{c.title}</p>
-                        <p className="text-xs text-gray-500 mt-0.5">{c.category} • {new Date(c.submittedAt).toLocaleDateString()}</p>
-                    </div>
-                    {c.aiAnalysis ? (
-                        <Tooltip content="AI Priority Score (0-100)" placement="left">
-                            <div className={`text-xs font-bold px-2 py-1 rounded whitespace-nowrap ml-2 ${c.aiAnalysis.priorityScore > 80 ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-600'}`}>
-                                {c.aiAnalysis.priorityScore}
-                            </div>
-                        </Tooltip>
-                    ) : (
-                        <Loader2 className="w-4 h-4 text-gray-400 animate-spin ml-2" />
-                    )}
-                    </div>
-                    <div className="flex justify-between items-center mt-3 pl-2">
-                      <StatusBadge status={c.status} />
-                      {c.aiAnalysis && <StatusBadge urgency={c.aiAnalysis.urgencyLevel} />}
-                    </div>
-                </div>
-                ))
-            )}
+                     {/* Escalation Flag Indicator */}
+                     {c.isEscalated && (
+                       <div className="absolute right-3 top-3 p-1 bg-red-100 rounded-md z-10">
+                         <Flag className="w-3.5 h-3.5 text-red-600 fill-current" />
+                       </div>
+                     )}
+ 
+                     <div className="flex-1 min-w-0 pl-6 pr-6">
+                       <p className={`text-sm font-semibold truncate ${selectedId === c.id ? 'text-indigo-700' : 'text-gray-900'}`}>{c.title}</p>
+                       <p className="text-xs text-gray-500 mt-0.5">{c.category} • {new Date(c.submittedAt).toLocaleDateString()}</p>
+                     </div>
+ 
+                     <div className="flex flex-col items-end gap-2">
+                       {c.aiAnalysis ? (
+                         <Tooltip content="AI Priority Score (0-100)" placement="left">
+                           <div className={`text-xs font-bold px-2 py-1 rounded whitespace-nowrap ${c.aiAnalysis.priorityScore > 80 ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-600'}`}>
+                             {c.aiAnalysis.priorityScore}
+                           </div>
+                         </Tooltip>
+                       ) : (
+                         <Loader2 className="w-4 h-4 text-gray-400 animate-spin" />
+                       )}
+                       <div className="flex items-center gap-2">
+                         <StatusBadge status={c.status} />
+                         {c.aiAnalysis && <StatusBadge urgency={c.aiAnalysis.urgencyLevel} />}
+                       </div>
+                     </div>
+                   </div>
+                 ))
+               )}
+            </div>
           </div>
-        </div>
+         </div>
 
         {/* Right Column: Detail & AI Analysis */}
         <div className="lg:col-span-2 space-y-6">
