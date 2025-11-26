@@ -81,7 +81,7 @@ const Tooltip: React.FC<TooltipProps> = ({ content, children, placement = 'top' 
       {children}
       {isVisible && (
         <div 
-          className="fixed z-[9999] px-3 py-2 text-xs font-medium text-white bg-gray-900 rounded-lg shadow-xl pointer-events-none animate-in fade-in zoom-in duration-200 max-w-[200px] text-center"
+          className="fixed z-[99999] px-3 py-2 text-xs font-medium text-white bg-gray-900 rounded-lg shadow-xl pointer-events-none animate-in fade-in zoom-in duration-200 max-w-[200px] text-center"
           style={{ 
             top: coords.top, 
             left: coords.left, 

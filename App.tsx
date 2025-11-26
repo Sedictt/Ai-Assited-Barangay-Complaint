@@ -5,6 +5,7 @@ import OfficialDashboard from './components/OfficialDashboard';
 import NotificationToast, { AppNotification } from './components/NotificationToast';
 import HelpGuide from './components/HelpGuide';
 import { HelpCircle } from './components/Icons';
+import { Users, AlertTriangle, CheckCircle, TrendingUp, FileText } from 'lucide-react';
 
 // Dummy Initial Data
 const INITIAL_COMPLAINTS: Complaint[] = [
@@ -81,15 +82,15 @@ const App: React.FC = () => {
     // In-app Toast
     const id = Date.now().toString();
     setNotifications(prev => [...prev, { id, title, message, type }]);
-    
+
     // Auto-dismiss toast
     setTimeout(() => {
-       setNotifications(prev => prev.filter(n => n.id !== id));
+      setNotifications(prev => prev.filter(n => n.id !== id));
     }, 6000);
 
     // Browser Notification
     if ('Notification' in window && Notification.permission === 'granted') {
-       new Notification(title, { body: message });
+      new Notification(title, { body: message });
     }
   };
 
@@ -103,27 +104,27 @@ const App: React.FC = () => {
       console.error("Access Denied: Officials cannot submit complaints.");
       return;
     }
-    
+
     setComplaints(prev => {
-        const exists = prev.find(c => c.id === complaint.id);
-        if (exists) {
-            // Check if this is an AI update that turned out CRITICAL
-            if (!exists.aiAnalysis && complaint.aiAnalysis) {
-               const urgency = complaint.aiAnalysis.urgencyLevel;
-               if (urgency === UrgencyLevel.CRITICAL || urgency === UrgencyLevel.HIGH) {
-                  // Wait a tick to ensure simulation feels real
-                  setTimeout(() => {
-                     triggerNotification(
-                        `⚠️ High Priority Alert`, 
-                        `New ${urgency} priority complaint reported: "${complaint.title}"`,
-                        'critical'
-                     );
-                  }, 500);
-               }
-            }
-            return prev.map(c => c.id === complaint.id ? complaint : c);
+      const exists = prev.find(c => c.id === complaint.id);
+      if (exists) {
+        // Check if this is an AI update that turned out CRITICAL
+        if (!exists.aiAnalysis && complaint.aiAnalysis) {
+          const urgency = complaint.aiAnalysis.urgencyLevel;
+          if (urgency === UrgencyLevel.CRITICAL || urgency === UrgencyLevel.HIGH) {
+            // Wait a tick to ensure simulation feels real
+            setTimeout(() => {
+              triggerNotification(
+                `⚠️ High Priority Alert`,
+                `New ${urgency} priority complaint reported: "${complaint.title}"`,
+                'critical'
+              );
+            }, 500);
+          }
         }
-        return [complaint, ...prev];
+        return prev.map(c => c.id === complaint.id ? complaint : c);
+      }
+      return [complaint, ...prev];
     });
   };
 
@@ -134,7 +135,7 @@ const App: React.FC = () => {
       return;
     }
 
-    setComplaints(prev => prev.map(c => 
+    setComplaints(prev => prev.map(c =>
       c.id === id ? { ...c, status } : c
     ));
   };
@@ -143,19 +144,19 @@ const App: React.FC = () => {
     if (role !== Role.OFFICIAL) return;
 
     setComplaints(prev => prev.map(c => {
-        if (c.id === id) {
-            const newValue = !c.isEscalated;
-            if (newValue) {
-                // Trigger notification only when escalating (not de-escalating)
-                triggerNotification(
-                    "Escalation Alert",
-                    `Complaint "${c.title}" has been escalated to higher authority for immediate review.`,
-                    'critical'
-                );
-            }
-            return { ...c, isEscalated: newValue };
+      if (c.id === id) {
+        const newValue = !c.isEscalated;
+        if (newValue) {
+          // Trigger notification only when escalating (not de-escalating)
+          triggerNotification(
+            "Escalation Alert",
+            `Complaint "${c.title}" has been escalated to higher authority for immediate review.`,
+            'critical'
+          );
         }
-        return c;
+        return { ...c, isEscalated: newValue };
+      }
+      return c;
     }));
   };
 
@@ -180,21 +181,60 @@ const App: React.FC = () => {
       <header className="bg-white shadow-sm border-b border-gray-200 z-10 sticky top-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
           <div className="flex items-center gap-3">
-             <div className="bg-blue-600 text-white p-2 rounded-lg font-bold">BM</div>
-             <div>
-                <h1 className="font-bold text-gray-900 leading-tight">Barangay Maysan</h1>
-                <p className="text-xs text-gray-500">AI-Assisted Governance</p>
-             </div>
+            <div className="bg-blue-600 text-white p-2 rounded-lg font-bold">BM</div>
+            <div>
+              <h1 className="font-bold text-gray-900 leading-tight">Barangay Maysan</h1>
+              <p className="text-xs text-gray-500">AI-Assisted Governance</p>
+            </div>
           </div>
-          
+
+          {/* Stats Cards - embedded in header */}
+          <div className="hidden md:flex flex-wrap gap-4 items-center justify-center">
+            <div className="flex items-center gap-2">
+              <span className="p-2 bg-blue-100 rounded-full text-blue-600">
+                <Users className="w-5 h-5" />
+              </span>
+              <span className="font-bold text-gray-900">{complaints.length}</span>
+              <span className="text-xs text-gray-500">Total</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="p-2 bg-red-100 rounded-full text-red-600 animate-pulse">
+                <AlertTriangle className="w-5 h-5" />
+              </span>
+              <span className="font-bold text-red-700">{complaints.filter(c => c.aiAnalysis?.urgencyLevel === UrgencyLevel.CRITICAL && c.status !== ComplaintStatus.RESOLVED).length}</span>
+              <span className="text-xs text-gray-500">Critical</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="p-2 bg-green-100 rounded-full text-green-600">
+                <CheckCircle className="w-5 h-5" />
+              </span>
+              <span className="font-bold text-green-700">{complaints.filter(c => c.status === ComplaintStatus.RESOLVED).length}</span>
+              <span className="text-xs text-gray-500">Resolved</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="p-2 bg-amber-100 rounded-full text-amber-600">
+                <TrendingUp className="w-5 h-5" />
+              </span>
+              <span className="font-bold text-amber-700">{complaints.filter(c => c.status === ComplaintStatus.PENDING).length}</span>
+              <span className="text-xs text-gray-500">Pending</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="p-2 bg-purple-100 rounded-full text-purple-600">
+                <FileText className="w-5 h-5" />
+              </span>
+              <span className="font-bold text-purple-700">{complaints.filter(c => c.submittedBy.toLowerCase().includes('resident')).length}</span>
+              <span className="text-xs text-gray-500">Resident</span>
+            </div>
+          </div>
+
           <div className="flex bg-gray-100 p-1 rounded-lg">
-            <button 
+            <button
               onClick={() => setRole(Role.RESIDENT)}
               className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${role === Role.RESIDENT ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-900'}`}
             >
               Resident View
             </button>
-            <button 
+            <button
               onClick={() => setRole(Role.OFFICIAL)}
               className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${role === Role.OFFICIAL ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500 hover:text-gray-900'}`}
             >
@@ -206,11 +246,11 @@ const App: React.FC = () => {
 
       {/* Main Content */}
       <main className="flex-1 bg-gray-50 max-w-7xl mx-auto w-full">
-         {role === Role.RESIDENT ? (
-           <ResidentView role={role} complaints={complaints} addComplaint={addComplaint} />
-         ) : (
-           <OfficialDashboard role={role} complaints={complaints} updateStatus={updateStatus} toggleEscalation={toggleEscalation} />
-         )}
+        {role === Role.RESIDENT ? (
+          <ResidentView role={role} complaints={complaints} addComplaint={addComplaint} />
+        ) : (
+          <OfficialDashboard role={role} complaints={complaints} updateStatus={updateStatus} toggleEscalation={toggleEscalation} />
+        )}
       </main>
 
       {/* Footer */}
