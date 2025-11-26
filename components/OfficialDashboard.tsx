@@ -1,7 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Complaint, ComplaintStatus, UrgencyLevel, Role } from '../types';
 import StatusBadge from './StatusBadge';
-import { AlertTriangle, TrendingUp, CheckCircle, Users, Loader2, MapPin, Filter, Calendar, Lock, FileText, Info, Flag, Activity } from './Icons';
+import { AlertTriangle, TrendingUp, CheckCircle, Users, Loader2, MapPin, Filter, Calendar, Lock, FileText, Info, Flag, Activity, Search } from './Icons';
 import { PieChart, Pie, Cell, Tooltip as RechartsTooltip, ResponsiveContainer, Legend } from 'recharts';
 import Tooltip from './Tooltip';
 
@@ -68,18 +68,17 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
     return result;
   }, [complaints, statusFilter, urgencyFilter, categoryFilter, sortOrder]);
 
-  const selectedComplaint = complaints.find(c => c.id === selectedId);
+  // Auto-select first complaint on load or when filter changes
+  useEffect(() => {
+    if (!selectedId && filteredComplaints.length > 0) {
+      setSelectedId(filteredComplaints[0].id);
+    } else if (selectedId && !filteredComplaints.some(c => c.id === selectedId)) {
+      // If the currently selected complaint is no longer in the filtered list, select the first one or clear
+      setSelectedId(filteredComplaints.length > 0 ? filteredComplaints[0].id : null);
+    }
+  }, [filteredComplaints, selectedId]);
 
-  // Stats calculation (Based on TOTAL complaints, not filtered)
-  const stats = useMemo(() => {
-    return {
-      total: complaints.length,
-      pending: complaints.filter(c => c.status === ComplaintStatus.PENDING).length,
-      critical: complaints.filter(c => c.aiAnalysis?.urgencyLevel === UrgencyLevel.CRITICAL && c.status !== ComplaintStatus.RESOLVED).length,
-      resolved: complaints.filter(c => c.status === ComplaintStatus.RESOLVED).length,
-      residentSubmissions: complaints.filter(c => c.submittedBy.toLowerCase().includes('resident')).length,
-    };
-  }, [complaints]);
+  const selectedComplaint = complaints.find(c => c.id === selectedId);
 
   // Chart Data: Full Status Breakdown
   const chartData = useMemo(() => [
@@ -96,68 +95,9 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
   };
 
   return (
-    <div className="p-6 space-y-8">
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6">
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex items-center gap-4">
-          <Tooltip content="The total number of complaints currently in the system database." placement="bottom">
-            <div className="p-3 bg-blue-100 rounded-full text-blue-600 cursor-help">
-              <Users className="w-6 h-6" />
-            </div>
-          </Tooltip>
-          <div>
-            <p className="text-sm text-gray-500">Total Complaints</p>
-            <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
-          </div>
-        </div>
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex items-center gap-4">
-          <Tooltip content="Complaints marked 'Critical' by AI that are not yet resolved." placement="bottom">
-            <div className="p-3 bg-red-100 rounded-full text-red-600 animate-pulse cursor-help">
-              <AlertTriangle className="w-6 h-6" />
-            </div>
-          </Tooltip>
-          <div>
-            <p className="text-sm text-gray-500">Critical Issues</p>
-            <p className="text-2xl font-bold text-gray-900">{stats.critical}</p>
-          </div>
-        </div>
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex items-center gap-4">
-          <Tooltip content="Complaints that have been successfully closed." placement="bottom">
-            <div className="p-3 bg-green-100 rounded-full text-green-600 cursor-help">
-              <CheckCircle className="w-6 h-6" />
-            </div>
-          </Tooltip>
-          <div>
-            <p className="text-sm text-gray-500">Resolved</p>
-            <p className="text-2xl font-bold text-gray-900">{stats.resolved}</p>
-          </div>
-        </div>
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex items-center gap-4">
-          <Tooltip content="Complaints waiting for initial review or action." placement="bottom">
-            <div className="p-3 bg-amber-100 rounded-full text-amber-600 cursor-help">
-              <TrendingUp className="w-6 h-6" />
-            </div>
-          </Tooltip>
-          <div>
-            <p className="text-sm text-gray-500">Pending</p>
-            <p className="text-2xl font-bold text-gray-900">{stats.pending}</p>
-          </div>
-        </div>
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-purple-200 flex items-center gap-4 ring-1 ring-purple-100">
-          <Tooltip content="Complaints submitted directly by residents via the app." placement="bottom">
-            <div className="p-3 bg-purple-100 rounded-full text-purple-600 cursor-help">
-              <FileText className="w-6 h-6" />
-            </div>
-          </Tooltip>
-          <div>
-            <p className="text-sm text-gray-500">Resident Submissions</p>
-            <p className="text-2xl font-bold text-gray-900">{stats.residentSubmissions}</p>
-          </div>
-        </div>
-      </div>
-
+    <div className="p-6 space-y-6">
       {/* Toolbar: Filter & Sort */}
-      <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-200 flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+      <div className="bg-gradient-to-br from-white to-gray-50/50 p-4 rounded-xl shadow-md border border-gray-200/80 flex flex-col xl:flex-row xl:items-center justify-between gap-4 transition-all duration-300 hover:shadow-lg backdrop-blur-sm">
         <div className="flex flex-col md:flex-row gap-3 flex-1">
           <div className="flex items-center gap-2 text-gray-700 font-medium md:hidden">
             <Filter className="w-4 h-4" /> Filters
@@ -168,7 +108,7 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
               <Filter className="h-4 w-4 text-gray-400" />
             </div>
             <select
-              className="block w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none"
+              className="block w-full pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-400 appearance-none transition-all hover:border-gray-400 shadow-sm"
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
               style={{ backgroundImage: 'none' }}
@@ -180,7 +120,7 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
 
           {/* Filter by Urgency */}
           <select
-            className="block w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="block w-full px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-400 transition-all hover:border-gray-400 shadow-sm"
             value={urgencyFilter}
             onChange={(e) => setUrgencyFilter(e.target.value)}
           >
@@ -190,7 +130,7 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
 
           {/* Filter by Category */}
           <select
-            className="block w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="block w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors hover:bg-gray-50"
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
           >
@@ -206,7 +146,7 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
               <Calendar className="h-4 w-4 text-gray-400" />
             </div>
             <select
-              className="block w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="block w-full pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-400 transition-all hover:border-gray-400 shadow-sm"
               value={sortOrder}
               onChange={(e) => setSortOrder(e.target.value as any)}
             >
@@ -230,7 +170,7 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Column: List */}
-        <div className="lg:col-span-1 bg-slate-100 rounded-2xl shadow-lg border border-slate-200 overflow-hidden flex flex-col h-[650px] ring-1 ring-black/5">
+        <div className="lg:col-span-1 bg-slate-100 rounded-2xl shadow-lg border border-slate-200 overflow-hidden flex flex-col max-h-[650px] min-h-[400px] ring-1 ring-black/5">
           {/* Priority Legend Helper */}
           <div className="p-3 bg-white border-b border-gray-200 flex items-center justify-between gap-2 text-xs text-gray-500 shadow-sm z-10 relative">
             <div className="flex items-center gap-1">
@@ -249,7 +189,7 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
             </Tooltip>
           </div>
 
-          <div className="p-4 border-b border-gray-200 bg-white flex justify-between items-center z-10 relative">
+          <div className="p-4 border-b border-gray-200 bg-white flex justify-between items-center z-0 relative">
             <div>
               <h3 className="font-bold text-gray-900">Complaints Queue</h3>
               <p className="text-xs text-gray-500 mt-1">
@@ -259,63 +199,252 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
           </div>
           <div className="overflow-y-auto flex-1 p-3 space-y-3">
             {filteredComplaints.length === 0 ? (
-              <div className="flex flex-col items-center justify-center h-full text-center p-4">
-                <p className="text-gray-400 text-sm">No complaints match the selected filters.</p>
+              <div className="flex flex-col items-center justify-center h-full text-center p-8 animate-in fade-in duration-500">
+                <div className="bg-white p-4 rounded-full shadow-sm mb-3">
+                  <Search className="w-8 h-8 text-gray-300" />
+                </div>
+                <h3 className="text-gray-900 font-medium mb-1">No complaints found</h3>
+                <p className="text-gray-500 text-xs max-w-[200px] mx-auto mb-4">
+                  Try adjusting your filters or search criteria to find what you're looking for.
+                </p>
                 <button
                   onClick={() => { setStatusFilter('ALL'); setUrgencyFilter('ALL'); setCategoryFilter('ALL'); }}
-                  className="mt-2 text-blue-600 text-sm font-medium hover:underline"
+                  className="px-4 py-2 bg-white border border-gray-200 text-gray-700 text-xs font-bold rounded-lg hover:bg-gray-50 hover:border-gray-300 transition-all shadow-sm"
                 >
-                  Clear Filters
+                  Clear All Filters
                 </button>
               </div>
             ) : (
-              filteredComplaints.map(c => (
-                <div
-                  key={c.id}
-                  onClick={() => setSelectedId(c.id)}
-                  className={`relative p-4 rounded-xl cursor-pointer transition-all border shadow-sm group ${selectedId === c.id ? 'bg-white border-blue-600 ring-1 ring-blue-600 shadow-md scale-[1.01]' : 'bg-white border-transparent hover:border-blue-300 hover:shadow-md'}`}
-                >
-                  {/* Visual Priority Indicator Bar */}
-                  {c.aiAnalysis && (
-                    <div
-                      className={`absolute left-0 top-0 bottom-0 w-1.5 rounded-l-xl ${getPriorityBarColor(c.aiAnalysis.priorityScore)}`}
-                    />
-                  )}
-
-                  {/* Escalation Flag Indicator */}
-                  {c.isEscalated && (
-                    <div className="absolute top-0 right-0 p-1 bg-red-100 rounded-bl-lg rounded-tr-lg z-10">
-                      <Flag className="w-3.5 h-3.5 text-red-600 fill-current" />
-                    </div>
-                  )}
-
-                  <div className="flex justify-between items-start mb-1">
-                    <div className="flex-1 min-w-0 pl-2 pr-6">
-                      <p className={`text-sm font-bold truncate ${selectedId === c.id ? 'text-blue-700' : 'text-gray-900'}`}>{c.title}</p>
-                      <p className="text-xs text-gray-500 mt-0.5">{c.category} • {new Date(c.submittedAt).toLocaleDateString()}</p>
-                    </div>
-                    {c.aiAnalysis ? (
-                      <Tooltip content="AI Priority Score (0-100)" placement="left">
-                        <div className={`text-xs font-bold px-2 py-1 rounded whitespace-nowrap ml-2 ${c.aiAnalysis.priorityScore > 80 ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-600'}`}>
-                          {c.aiAnalysis.priorityScore}
-                        </div>
-                      </Tooltip>
-                    ) : (
-                      <Loader2 className="w-4 h-4 text-gray-400 animate-spin ml-2" />
+              <div className="space-y-3 animate-in fade-in slide-in-from-bottom-2 duration-500">
+                {filteredComplaints.map((c, index) => (
+                  <div
+                    key={c.id}
+                    onClick={() => setSelectedId(c.id)}
+                    className={`relative p-4 rounded-xl cursor-pointer transition-all duration-200 border shadow-sm group ${selectedId === c.id
+                      ? 'bg-blue-50 border-blue-600 ring-1 ring-blue-600 shadow-md scale-[1.01]'
+                      : 'bg-white border-transparent hover:border-blue-300 hover:shadow-md hover:scale-[1.01]'
+                      }`}
+                    style={{ animationDelay: `${index * 50}ms` }}
+                  >
+                    {/* Visual Priority Indicator Bar */}
+                    {c.aiAnalysis && (
+                      <div
+                        className={`absolute left-0 top-0 bottom-0 w-1.5 rounded-l-xl ${getPriorityBarColor(c.aiAnalysis.priorityScore)}`}
+                      />
                     )}
+
+                    {/* Escalation Flag Indicator */}
+                    {c.isEscalated && (
+                      <div className="absolute top-0 right-0 p-1 bg-red-100 rounded-bl-lg rounded-tr-lg z-10">
+                        <Flag className="w-3.5 h-3.5 text-red-600 fill-current" />
+                      </div>
+                    )}
+
+                    <div className="flex justify-between items-start mb-1">
+                      <div className="flex-1 min-w-0 pl-2 pr-6">
+                        <p className={`text-sm font-bold truncate transition-colors ${selectedId === c.id ? 'text-blue-700' : 'text-gray-900 group-hover:text-blue-600'}`}>{c.title}</p>
+                        <p className="text-xs text-gray-500 mt-0.5">{c.category} • {new Date(c.submittedAt).toLocaleDateString()}</p>
+                      </div>
+                      {c.aiAnalysis ? (
+                        <Tooltip content="AI Priority Score (0-100)" placement="left">
+                          <div className={`text-xs font-bold px-2 py-1 rounded whitespace-nowrap ml-2 ${c.aiAnalysis.priorityScore > 80 ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-600'}`}>
+                            {c.aiAnalysis.priorityScore}
+                          </div>
+                        </Tooltip>
+                      ) : (
+                        <Loader2 className="w-4 h-4 text-gray-400 animate-spin ml-2" />
+                      )}
+                    </div>
+                    <div className="flex justify-between items-center mt-3 pl-2">
+                      <StatusBadge status={c.status} />
+                      {c.aiAnalysis && <StatusBadge urgency={c.aiAnalysis.urgencyLevel} />}
+                    </div>
                   </div>
-                  <div className="flex justify-between items-center mt-3 pl-2">
-                    <StatusBadge status={c.status} />
-                    {c.aiAnalysis && <StatusBadge urgency={c.aiAnalysis.urgencyLevel} />}
-                  </div>
-                </div>
-              ))
+                ))}
+              </div>
             )}
           </div>
         </div>
 
         {/* Right Column: Detail & AI Analysis */}
         <div className="lg:col-span-2 space-y-6">
+          {selectedComplaint ? (
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col animate-in fade-in duration-300">
+              {/* Header Section */}
+              <div className="px-5 py-4 border-b border-gray-100 flex justify-between items-start gap-4 bg-white">
+                <div className="flex-1 min-w-0">
+                  <h2 className="text-lg font-bold text-gray-900 leading-tight truncate mb-2">{selectedComplaint.title}</h2>
+
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500">
+                    <span className="font-mono text-gray-400">#{selectedComplaint.id.slice(0, 8)}</span>
+                    <span className="text-gray-300">•</span>
+                    <div className="flex items-center gap-1.5">
+                      <Users className="w-3.5 h-3.5 text-gray-400" />
+                      <span className="font-medium text-gray-700">{selectedComplaint.submittedBy}</span>
+                    </div>
+                    <span className="text-gray-300">•</span>
+                    <div className="flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-gray-400" />
+                      <span>{new Date(selectedComplaint.submittedAt).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div className="flex items-center gap-2">
+                  {role === Role.OFFICIAL && (
+                    <>
+                      <Tooltip content="Flag for higher authority review" placement="top">
+                        <button
+                          onClick={() => toggleEscalation(selectedComplaint.id)}
+                          className={`p-2 rounded-lg border transition-all ${selectedComplaint.isEscalated
+                            ? 'bg-red-50 border-red-200 text-red-600 shadow-inner'
+                            : 'bg-white border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-200 hover:bg-red-50'
+                            }`}
+                        >
+                          <Flag className={`w-4 h-4 ${selectedComplaint.isEscalated ? 'fill-current' : ''}`} />
+                        </button>
+                      </Tooltip>
+
+                      <div className="relative group">
+                        <select
+                          value={selectedComplaint.status}
+                          onChange={(e) => updateStatus(selectedComplaint.id, e.target.value as ComplaintStatus)}
+                          className="appearance-none bg-white border border-gray-200 text-gray-700 text-xs font-bold uppercase tracking-wide rounded-lg pl-3 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent cursor-pointer hover:bg-gray-50 transition-colors shadow-sm"
+                        >
+                          <option value={ComplaintStatus.PENDING}>Pending</option>
+                          <option value={ComplaintStatus.IN_PROGRESS}>In Progress</option>
+                          <option value={ComplaintStatus.RESOLVED}>Resolved</option>
+                          <option value={ComplaintStatus.DISMISSED}>Dismissed</option>
+                        </select>
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none text-gray-400">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              <div className="p-5 space-y-5 bg-white">
+                {/* Description Section */}
+                <div className="space-y-2">
+                  {selectedComplaint.isEscalated && (
+                    <div className="bg-red-50 border border-red-100 rounded-lg p-3 flex gap-3 items-start mb-4 animate-in slide-in-from-top-2 duration-300">
+                      <div className="bg-red-100 p-1.5 rounded-md mt-0.5">
+                        <Flag className="w-4 h-4 text-red-600 fill-current" />
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-bold text-red-900">Escalated Priority</h4>
+                        <p className="text-xs text-red-700 mt-0.5">
+                          This complaint has been flagged for immediate attention by senior officials.
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
+                    <FileText className="w-3.5 h-3.5" /> Description
+                  </h3>
+                  <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 text-sm text-gray-700 leading-relaxed whitespace-pre-wrap shadow-sm">
+                    {selectedComplaint.description}
+                  </div>
+                </div>
+
+                {/* Chips Row */}
+                <div className="flex flex-wrap gap-3">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-gray-200 shadow-sm transition-transform hover:scale-105 cursor-default">
+                    <MapPin className="w-3.5 h-3.5 text-blue-500" />
+                    <div className="flex flex-col">
+                      <span className="text-[9px] font-bold text-gray-400 uppercase leading-none">Location</span>
+                      <span className="text-xs font-semibold text-gray-900 leading-tight">{selectedComplaint.location}</span>
+                    </div>
+                  </div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-gray-200 shadow-sm transition-transform hover:scale-105 cursor-default">
+                    <Info className="w-3.5 h-3.5 text-purple-500" />
+                    <div className="flex flex-col">
+                      <span className="text-[9px] font-bold text-gray-400 uppercase leading-none">Category</span>
+                      <span className="text-xs font-semibold text-gray-900 leading-tight">{selectedComplaint.category}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* AI Analysis Grid */}
+                <div className="pt-6 border-t border-gray-100">
+                  <div className="mb-5">
+                    <h3 className="text-sm font-bold text-gray-900 flex items-center gap-2 mb-1">
+                      <span className="bg-gradient-to-r from-violet-600 to-indigo-600 text-transparent bg-clip-text">✨ AI Intelligence Analysis</span>
+                      <div className="px-2 py-0.5 bg-gradient-to-r from-violet-100 to-indigo-100 text-violet-700 text-[10px] font-bold rounded-full uppercase tracking-wide border border-violet-200">Beta</div>
+                    </h3>
+                    <p className="text-xs text-gray-500">AI-powered insights to help prioritize and understand this complaint</p>
+                  </div>
+
+                  {selectedComplaint.isAnalyzing ? (
+                    <div className="flex items-center justify-center h-32 text-gray-400 bg-gradient-to-br from-violet-50 to-indigo-50 rounded-xl border border-violet-200 border-dashed animate-pulse">
+                      <div className="flex flex-col items-center gap-2">
+                        <Loader2 className="w-5 h-5 animate-spin text-violet-500" />
+                        <span className="text-sm font-medium text-gray-600">Analyzing complaint...</span>
+                      </div>
+                    </div>
+                  ) : selectedComplaint.aiAnalysis ? (
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {/* Priority Card */}
+                      <div className={`rounded-xl p-4 border-2 shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-lg transition-all ${selectedComplaint.aiAnalysis.priorityScore >= 80 ? 'bg-red-50 border-red-200 hover:border-red-300' : selectedComplaint.aiAnalysis.priorityScore >= 50 ? 'bg-amber-50 border-amber-200 hover:border-amber-300' : 'bg-green-50 border-green-200 hover:border-green-300'}`}>
+                        <div className={`absolute top-0 left-0 w-1 h-full ${selectedComplaint.aiAnalysis.priorityScore >= 80 ? 'bg-red-500' : selectedComplaint.aiAnalysis.priorityScore >= 50 ? 'bg-amber-500' : 'bg-green-500'}`}></div>
+                        <div className="pl-1">
+                          <p className="text-[11px] font-bold text-gray-600 uppercase tracking-wider mb-2">Priority Score</p>
+                          <div className="flex items-end gap-1.5 mb-3">
+                            <span className={`text-4xl font-black leading-none ${selectedComplaint.aiAnalysis.priorityScore >= 80 ? 'text-red-600' : selectedComplaint.aiAnalysis.priorityScore >= 50 ? 'text-amber-600' : 'text-green-600'}`}>
+                              {selectedComplaint.aiAnalysis.priorityScore}
+                            </span>
+                            <span className="text-sm font-semibold text-gray-500 mb-1">/ 100</span>
+                          </div>
+                          <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div className={`h-2 rounded-full ${selectedComplaint.aiAnalysis.priorityScore >= 80 ? 'bg-red-500' : selectedComplaint.aiAnalysis.priorityScore >= 50 ? 'bg-amber-500' : 'bg-green-500'}`} style={{ width: `${selectedComplaint.aiAnalysis.priorityScore}%` }}></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Impact Card */}
+                      <div className="bg-gradient-to-br from-violet-50 to-indigo-50 rounded-xl p-4 border-2 border-violet-200 shadow-sm hover:border-violet-300 hover:shadow-lg transition-all">
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="p-2 bg-violet-100 rounded-lg">
+                            <TrendingUp className="w-4 h-4 text-violet-600" />
+                          </div>
+                          <span className="text-[11px] font-bold text-gray-700 uppercase tracking-wider">Impact Assessment</span>
+                        </div>
+                        <p className="text-sm text-gray-700 leading-relaxed font-medium">
+                          {selectedComplaint.aiAnalysis.impactAnalysis}
+                        </p>
+                      </div>
+
+                      {/* Action Card */}
+                      <div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-xl p-4 border-2 border-teal-200 shadow-sm hover:border-teal-300 hover:shadow-lg transition-all">
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="p-2 bg-teal-100 rounded-lg">
+                            <CheckCircle className="w-4 h-4 text-teal-600" />
+                          </div>
+                          <span className="text-[11px] font-bold text-gray-700 uppercase tracking-wider">Suggested Action</span>
+                        </div>
+                        <p className="text-sm text-gray-700 leading-relaxed font-medium">
+                          {selectedComplaint.aiAnalysis.suggestedAction}
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="text-center p-6 text-gray-400 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border-2 border-dashed border-gray-300">
+                      <p className="text-sm font-medium">AI Analysis unavailable for this complaint.</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="h-64 flex items-center justify-center bg-gray-50 rounded-xl border border-dashed border-gray-300">
+              <p className="text-gray-500">Select a complaint from the list to view details.</p>
+            </div>
+          )}
+
           {/* Enhanced Chart Section */}
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
             <div className="flex items-center justify-between mb-4">
@@ -361,203 +490,6 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
               )}
             </div>
           </div>
-
-          {selectedComplaint ? (
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-              <div className="p-6 border-b border-gray-100 flex justify-between items-start flex-wrap gap-4">
-                <div>
-                  <h2 className="text-2xl font-bold text-gray-900">{selectedComplaint.title}</h2>
-                  <p className="text-sm text-gray-500 mt-1">Submitted by {selectedComplaint.submittedBy} on {new Date(selectedComplaint.submittedAt).toLocaleDateString()}</p>
-                </div>
-
-                {/* Status & Action Area */}
-                <div className="flex items-center gap-3">
-                  {role === Role.OFFICIAL ? (
-                    <>
-                      {/* Escalation Button */}
-                      <Tooltip content="Flag this complaint for higher authority review." placement="top">
-                        <button
-                          onClick={() => toggleEscalation(selectedComplaint.id)}
-                          className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-sm font-medium transition-colors ${selectedComplaint.isEscalated
-                            ? 'bg-red-50 border-red-200 text-red-700 hover:bg-red-100 shadow-inner'
-                            : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50 shadow-sm'
-                            }`}
-                        >
-                          <Flag className={`w-4 h-4 ${selectedComplaint.isEscalated ? 'fill-current' : ''}`} />
-                          {selectedComplaint.isEscalated ? 'Escalated' : 'Escalate'}
-                        </button>
-                      </Tooltip>
-
-                      {/* Status Dropdown */}
-                      <div className="flex items-center gap-2 bg-white rounded-lg border border-gray-200 p-1 shadow-sm">
-                        <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide px-2">Update Status</span>
-                        <div className="relative">
-                          <select
-                            value={selectedComplaint.status}
-                            onChange={(e) => updateStatus(selectedComplaint.id, e.target.value as ComplaintStatus)}
-                            className={`appearance-none pl-3 pr-8 py-1.5 rounded-md text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-1 transition-colors cursor-pointer ${selectedComplaint.status === ComplaintStatus.PENDING ? 'bg-gray-100 text-gray-700 hover:bg-gray-200' :
-                              selectedComplaint.status === ComplaintStatus.IN_PROGRESS ? 'bg-blue-100 text-blue-800 hover:bg-blue-200' :
-                                selectedComplaint.status === ComplaintStatus.RESOLVED ? 'bg-green-100 text-green-800 hover:bg-green-200' :
-                                  'bg-red-100 text-red-800 hover:bg-red-200'
-                              }`}
-                          >
-                            <option value={ComplaintStatus.PENDING}>Pending</option>
-                            <option value={ComplaintStatus.IN_PROGRESS}>In Progress</option>
-                            <option value={ComplaintStatus.RESOLVED}>Resolved</option>
-                            <option value={ComplaintStatus.DISMISSED}>Dismissed</option>
-                          </select>
-                          <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                            <svg className="w-3 h-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-                          </div>
-                        </div>
-                      </div>
-                    </>
-                  ) : (
-                    <StatusBadge status={selectedComplaint.status} />
-                  )}
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-                <div className="p-6 border-b md:border-b-0 md:border-r border-gray-100">
-                  {selectedComplaint.isEscalated && (
-                    <div className="mb-4 bg-red-50 border border-red-200 rounded-lg p-3 flex items-start gap-3 animate-in fade-in">
-                      <Flag className="w-5 h-5 text-red-600 mt-0.5 fill-current" />
-                      <div>
-                        <h4 className="text-sm font-bold text-red-800">Escalated to Higher Authority</h4>
-                        <p className="text-xs text-red-700 mt-1">
-                          This complaint has been flagged for immediate review by city hall/senior officials.
-                        </p>
-                      </div>
-                    </div>
-                  )}
-
-                  <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Complaint Details</h3>
-                  <div className="space-y-4">
-                    <div>
-                      <label className="text-xs text-gray-400">Description</label>
-                      <p className="text-gray-800">{selectedComplaint.description}</p>
-                    </div>
-                    <div>
-                      <label className="text-xs text-gray-400">Location</label>
-                      <p className="text-gray-800 flex items-center gap-1">
-                        <MapPin className="w-4 h-4 text-gray-400" /> {selectedComplaint.location}
-                      </p>
-                    </div>
-                    <div>
-                      <label className="text-xs text-gray-400">Category</label>
-                      <p className="text-gray-800">{selectedComplaint.category}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-6 bg-slate-50">
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-sm font-semibold text-purple-700 uppercase tracking-wide flex items-center gap-2">
-                      ✨ AI Analysis
-                      <Tooltip content="Confidence level depends on the detail provided. The system is calibrated for Barangay Maysan's specific context." placement="top">
-                        <Info className="w-4 h-4 text-purple-400 cursor-help" />
-                      </Tooltip>
-                    </h3>
-                    {selectedComplaint.aiAnalysis && selectedComplaint.aiAnalysis.confidenceScore !== undefined && (
-                      <div className="flex items-center gap-2 bg-purple-50 px-2 py-1 rounded-lg border border-purple-100">
-                        <div className="text-right">
-                          <p className="text-[10px] text-purple-500 uppercase font-bold leading-none">Confidence</p>
-                          <p className="text-sm font-bold text-purple-700 leading-none">{selectedComplaint.aiAnalysis.confidenceScore}%</p>
-                        </div>
-                        <div className="relative w-8 h-8 flex-shrink-0">
-                          <svg className="w-full h-full transform -rotate-90" viewBox="0 0 32 32">
-                            <circle cx="16" cy="16" r="12" stroke="currentColor" strokeWidth="3" fill="none" className="text-purple-200" />
-                            <circle cx="16" cy="16" r="12" stroke="currentColor" strokeWidth="3" fill="none" className="text-purple-600"
-                              strokeDasharray={2 * Math.PI * 12}
-                              strokeDashoffset={2 * Math.PI * 12 * (1 - selectedComplaint.aiAnalysis.confidenceScore / 100)}
-                              strokeLinecap="round"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {selectedComplaint.isAnalyzing ? (
-                    <div className="flex flex-col items-center justify-center h-40 text-gray-500">
-                      <Loader2 className="w-8 h-8 animate-spin mb-2" />
-                      <p>Analyzing content...</p>
-                    </div>
-                  ) : selectedComplaint.aiAnalysis ? (
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-1">
-                          <span className="text-sm text-gray-600">Priority Score</span>
-                          <Tooltip content="0-100 score calculated based on urgency keywords, location, and category.">
-                            <Info className="w-3 h-3 text-gray-400 cursor-help" />
-                          </Tooltip>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <div className="w-32 h-2 bg-gray-200 rounded-full overflow-hidden">
-                            <div
-                              className="h-full bg-gradient-to-r from-blue-500 to-red-500"
-                              style={{ width: `${selectedComplaint.aiAnalysis.priorityScore}%` }}
-                            />
-                          </div>
-                          <span className="font-bold text-gray-900">{selectedComplaint.aiAnalysis.priorityScore}/100</span>
-                        </div>
-                      </div>
-
-                      <div className="bg-white p-3 rounded-lg border border-purple-100 shadow-sm">
-                        <div className="flex items-center gap-1 mb-1">
-                          <p className="text-xs text-purple-600 font-semibold">Impact Analysis</p>
-                          <Tooltip content="AI prediction of potential consequences if this issue is not addressed immediately.">
-                            <Info className="w-3 h-3 text-purple-400 cursor-help" />
-                          </Tooltip>
-                        </div>
-                        <p className="text-sm text-gray-700">{selectedComplaint.aiAnalysis.impactAnalysis}</p>
-                      </div>
-
-                      {/* Suggested Action - Highlighted */}
-                      <div className="bg-teal-50 p-3 rounded-lg border border-teal-100 shadow-sm">
-                        <div className="flex items-center gap-1 mb-1">
-                          <Activity className="w-3.5 h-3.5 text-teal-600" />
-                          <p className="text-xs text-teal-700 font-bold uppercase tracking-wide">Suggested Action</p>
-                          <Tooltip content="Recommended first steps for the barangay tanods or officials.">
-                            <Info className="w-3 h-3 text-teal-500 cursor-help" />
-                          </Tooltip>
-                        </div>
-                        <p className="text-sm text-gray-800 font-medium leading-relaxed">{selectedComplaint.aiAnalysis.suggestedAction}</p>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-3">
-                        <div className="bg-white p-2 rounded border border-gray-100">
-                          <span className="text-xs text-gray-400 flex items-center gap-1">
-                            Resource Intensity
-                            <Tooltip content="Estimated manpower or cost required (Low/Medium/High).">
-                              <Info className="w-3 h-3 text-gray-300 cursor-help" />
-                            </Tooltip>
-                          </span>
-                          <span className="text-sm font-medium text-gray-800">{selectedComplaint.aiAnalysis.estimatedResourceIntensity}</span>
-                        </div>
-                        <div className="bg-white p-2 rounded border border-gray-100">
-                          <span className="text-xs text-gray-400 flex items-center gap-1">
-                            AI Category
-                            <Tooltip content="The AI verifies if the resident selected the correct category.">
-                              <Info className="w-3 h-3 text-gray-300 cursor-help" />
-                            </Tooltip>
-                          </span>
-                          <span className="text-sm font-medium text-gray-800">{selectedComplaint.aiAnalysis.categoryCorrection || "Same"}</span>
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <p className="text-sm text-gray-500">Analysis unavailable.</p>
-                  )}
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="h-64 flex items-center justify-center bg-gray-50 rounded-xl border border-dashed border-gray-300">
-              <p className="text-gray-500">Select a complaint from the list to view details.</p>
-            </div>
-          )}
         </div>
       </div>
     </div>

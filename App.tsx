@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Complaint, Role, ComplaintStatus, UrgencyLevel, AIAnalysis } from './types';
 import ResidentView from './components/ResidentView';
 import OfficialDashboard from './components/OfficialDashboard';
 import NotificationToast, { AppNotification } from './components/NotificationToast';
 import HelpGuide from './components/HelpGuide';
-import { HelpCircle } from './components/Icons';
+import { HelpCircle, Users, AlertTriangle, CheckCircle, TrendingUp, FileText } from './components/Icons';
+import Tooltip from './components/Tooltip';
 
 // Dummy Initial Data
 const INITIAL_COMPLAINTS: Complaint[] = [
@@ -69,6 +70,17 @@ const App: React.FC = () => {
   const [complaints, setComplaints] = useState<Complaint[]>(INITIAL_COMPLAINTS);
   const [notifications, setNotifications] = useState<AppNotification[]>([]);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
+
+  // Calculate stats for header (when in Official view)
+  const stats = useMemo(() => {
+    return {
+      total: complaints.length,
+      pending: complaints.filter(c => c.status === ComplaintStatus.PENDING).length,
+      critical: complaints.filter(c => c.aiAnalysis?.urgencyLevel === UrgencyLevel.CRITICAL && c.status !== ComplaintStatus.RESOLVED).length,
+      resolved: complaints.filter(c => c.status === ComplaintStatus.RESOLVED).length,
+      residentSubmissions: complaints.filter(c => c.submittedBy.toLowerCase().includes('resident')).length,
+    };
+  }, [complaints]);
 
   // Request Notification Permissions
   useEffect(() => {
@@ -177,29 +189,94 @@ const App: React.FC = () => {
       </button>
 
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200 z-10 sticky top-0">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="bg-blue-600 text-white p-2 rounded-lg font-bold">BM</div>
-            <div>
-              <h1 className="font-bold text-gray-900 leading-tight">Barangay Maysan</h1>
-              <p className="text-xs text-gray-500">AI-Assisted Governance</p>
+      <header className="bg-white shadow-sm border-b border-gray-200 z-50 sticky top-0">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 z-50">
+          <div className="flex items-center justify-between gap-3">
+            {/* Left: Branding */}
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <div className="bg-blue-600 text-white p-1.5 rounded-lg font-bold text-sm">BM</div>
+              <div>
+                <h1 className="font-bold text-gray-900 leading-tight text-sm">Barangay Maysan</h1>
+                <p className="text-[10px] text-gray-500">AI-Assisted Governance</p>
+              </div>
             </div>
-          </div>
 
-          <div className="flex bg-gray-100 p-1 rounded-lg">
-            <button
-              onClick={() => setRole(Role.RESIDENT)}
-              className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${role === Role.RESIDENT ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-900'}`}
-            >
-              Resident View
-            </button>
-            <button
-              onClick={() => setRole(Role.OFFICIAL)}
-              className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${role === Role.OFFICIAL ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500 hover:text-gray-900'}`}
-            >
-              Official Dashboard
-            </button>
+            {/* Center: Stats Cards - Only show in Official view */}
+            {role === Role.OFFICIAL && (
+              <div className="hidden lg:flex items-center gap-2 flex-1 justify-center overflow-x-auto">
+                <div className="bg-white px-2 py-1.5 rounded-lg shadow-sm border border-gray-200 flex items-center gap-2">
+                  <Tooltip content="Total complaints in system" placement="bottom">
+                    <div className="p-1 bg-blue-100 rounded-full text-blue-600 cursor-help">
+                      <Users className="w-3.5 h-3.5" />
+                    </div>
+                  </Tooltip>
+                  <div>
+                    <p className="text-[10px] text-gray-500 leading-none">Total</p>
+                    <p className="text-sm font-bold text-gray-900 leading-none mt-0.5">{stats.total}</p>
+                  </div>
+                </div>
+                <div className="bg-white px-2 py-1.5 rounded-lg shadow-sm border border-gray-200 flex items-center gap-2">
+                  <Tooltip content="Critical unresolved issues" placement="bottom">
+                    <div className="p-1 bg-red-100 rounded-full text-red-600 animate-pulse cursor-help">
+                      <AlertTriangle className="w-3.5 h-3.5" />
+                    </div>
+                  </Tooltip>
+                  <div>
+                    <p className="text-[10px] text-gray-500 leading-none">Critical</p>
+                    <p className="text-sm font-bold text-gray-900 leading-none mt-0.5">{stats.critical}</p>
+                  </div>
+                </div>
+                <div className="bg-white px-2 py-1.5 rounded-lg shadow-sm border border-gray-200 flex items-center gap-2">
+                  <Tooltip content="Successfully closed complaints" placement="bottom">
+                    <div className="p-1 bg-green-100 rounded-full text-green-600 cursor-help">
+                      <CheckCircle className="w-3.5 h-3.5" />
+                    </div>
+                  </Tooltip>
+                  <div>
+                    <p className="text-[10px] text-gray-500 leading-none">Resolved</p>
+                    <p className="text-sm font-bold text-gray-900 leading-none mt-0.5">{stats.resolved}</p>
+                  </div>
+                </div>
+                <div className="bg-white px-2 py-1.5 rounded-lg shadow-sm border border-gray-200 flex items-center gap-2">
+                  <Tooltip content="Awaiting review or action" placement="bottom">
+                    <div className="p-1 bg-amber-100 rounded-full text-amber-600 cursor-help">
+                      <TrendingUp className="w-3.5 h-3.5" />
+                    </div>
+                  </Tooltip>
+                  <div>
+                    <p className="text-[10px] text-gray-500 leading-none">Pending</p>
+                    <p className="text-sm font-bold text-gray-900 leading-none mt-0.5">{stats.pending}</p>
+                  </div>
+                </div>
+                <div className="bg-white px-2 py-1.5 rounded-lg shadow-sm border border-purple-200 flex items-center gap-2 ring-1 ring-purple-100">
+                  <Tooltip content="Submitted by residents" placement="bottom">
+                    <div className="p-1 bg-purple-100 rounded-full text-purple-600 cursor-help">
+                      <FileText className="w-3.5 h-3.5" />
+                    </div>
+                  </Tooltip>
+                  <div>
+                    <p className="text-[10px] text-gray-500 leading-none">Resident</p>
+                    <p className="text-sm font-bold text-gray-900 leading-none mt-0.5">{stats.residentSubmissions}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Right: Role Switcher */}
+            <div className="flex bg-gray-100 p-1 rounded-lg flex-shrink-0">
+              <button
+                onClick={() => setRole(Role.RESIDENT)}
+                className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all whitespace-nowrap ${role === Role.RESIDENT ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-900'}`}
+              >
+                Resident
+              </button>
+              <button
+                onClick={() => setRole(Role.OFFICIAL)}
+                className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all whitespace-nowrap ${role === Role.OFFICIAL ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500 hover:text-gray-900'}`}
+              >
+                Official
+              </button>
+            </div>
           </div>
         </div>
       </header>
