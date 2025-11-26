@@ -22,7 +22,7 @@ const HelpGuide: React.FC<HelpGuideProps> = ({ isOpen, onClose, role }) => {
             </h2>
             <p className="text-sm text-gray-500">How to use the Maysan AI-Assist System</p>
           </div>
-          <button 
+          <button
             onClick={onClose}
             className="p-2 hover:bg-gray-100 rounded-full transition-colors text-gray-500"
           >
@@ -30,9 +30,9 @@ const HelpGuide: React.FC<HelpGuideProps> = ({ isOpen, onClose, role }) => {
           </button>
         </div>
 
-        {/* Content */}
+        {/* Contents */}
         <div className="p-6 space-y-8">
-          
+
           {role === Role.RESIDENT ? (
             <>
               {/* Resident Guide */}
@@ -78,7 +78,7 @@ const HelpGuide: React.FC<HelpGuideProps> = ({ isOpen, onClose, role }) => {
             <>
               {/* Official Guide */}
               <div className="space-y-6">
-                 <div className="flex gap-4">
+                <div className="flex gap-4">
                   <div className="bg-red-100 p-3 rounded-xl h-fit">
                     <AlertTriangle className="w-6 h-6 text-red-600" />
                   </div>
@@ -126,7 +126,7 @@ const HelpGuide: React.FC<HelpGuideProps> = ({ isOpen, onClose, role }) => {
           )}
 
           <div className="pt-6 border-t border-gray-100 flex justify-end">
-            <button 
+            <button
               onClick={onClose}
               className="px-6 py-2.5 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 transition-colors"
             >

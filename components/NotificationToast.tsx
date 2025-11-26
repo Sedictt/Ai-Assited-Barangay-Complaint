@@ -7,7 +7,7 @@ export interface AppNotification {
   message: string;
   type: 'info' | 'critical';
 }
-
+/*dsa*/
 interface NotificationToastProps {
   notifications: AppNotification[];
   removeNotification: (id: string) => void;
@@ -21,14 +21,12 @@ const NotificationToast: React.FC<NotificationToastProps> = ({ notifications, re
       {notifications.map((notification) => (
         <div
           key={notification.id}
-          className={`pointer-events-auto flex items-start p-4 rounded-xl shadow-lg border animate-in slide-in-from-right fade-in duration-300 bg-white ${
-            notification.type === 'critical' ? 'border-red-200 ring-1 ring-red-100' : 'border-blue-200 ring-1 ring-blue-100'
-          }`}
+          className={`pointer-events-auto flex items-start p-4 rounded-xl shadow-lg border animate-in slide-in-from-right fade-in duration-300 bg-white ${notification.type === 'critical' ? 'border-red-200 ring-1 ring-red-100' : 'border-blue-200 ring-1 ring-blue-100'
+            }`}
         >
-          <div className={`p-2 rounded-full mr-3 shrink-0 ${
-            notification.type === 'critical' ? 'bg-red-100 text-red-600' : 'bg-blue-100 text-blue-600'
-          }`}>
-             {notification.type === 'critical' ? <AlertTriangle className="w-5 h-5" /> : <Bell className="w-5 h-5" />}
+          <div className={`p-2 rounded-full mr-3 shrink-0 ${notification.type === 'critical' ? 'bg-red-100 text-red-600' : 'bg-blue-100 text-blue-600'
+            }`}>
+            {notification.type === 'critical' ? <AlertTriangle className="w-5 h-5" /> : <Bell className="w-5 h-5" />}
           </div>
           <div className="flex-1 min-w-0">
             <h4 className="text-sm font-bold text-gray-900">{notification.title}</h4>
