@@ -72,7 +72,7 @@ const App: React.FC = () => {
 
   // Request Notification Permissions
   useEffect(() => {
-    if ('Notification' in window && Notification.permission !== 'granted') {
+    if ('Not ification' in window && Notification.permission !== 'granted') {
       Notification.requestPermission();
     }
   }, []);
@@ -164,48 +164,56 @@ const App: React.FC = () => {
       <NotificationToast notifications={notifications} removeNotification={removeNotification} />
       <HelpGuide isOpen={isHelpOpen} onClose={() => setIsHelpOpen(false)} role={role} />
 
-      {/* Floating Help Button */}
+      {/* Floating Help Button with Glow */}
       <button
         onClick={() => setIsHelpOpen(true)}
-        className="fixed bottom-6 right-6 z-40 bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg transition-transform hover:scale-110 flex items-center justify-center group"
+        className="fixed bottom-8 right-8 z-50 gradient-purple text-white p-4 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center group hover:scale-110 animate-glow-pulse hover-lift"
         title="Get Help"
       >
         <HelpCircle className="w-6 h-6" />
-        <span className="absolute right-full mr-3 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-          How to use this app?
+        <span className="absolute right-full mr-4 glass-strong text-white text-xs px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap font-medium shadow-lg">
+          💡 How to use this app?
         </span>
       </button>
 
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200 z-10 sticky top-0">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="bg-blue-600 text-white p-2 rounded-lg font-bold">BM</div>
+      {/* Glassmorphic Header */}
+      <header className="glass-strong border-b border-white/10 z-40 sticky top-0 backdrop-blur-xl animate-fade-in-up shadow-2xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
+          <div className="flex items-center gap-4 animate-scale-in">
+            <div className="gradient-purple text-white p-3 rounded-xl font-bold text-lg shadow-lg transform hover:scale-110 transition-transform duration-300">
+              BM
+            </div>
             <div>
-              <h1 className="font-bold text-gray-900 leading-tight">Barangay Maysan</h1>
-              <p className="text-xs text-gray-500">AI-Assisted Governance</p>
+              <h1 className="font-bold text-white leading-tight text-xl tracking-tight">Barangay Maysan</h1>
+              <p className="text-xs text-purple-200 font-medium">✨ AI-Assisted Governance Platform</p>
             </div>
           </div>
 
-          <div className="flex bg-gray-100 p-1 rounded-lg">
+          <div className="flex glass p-1.5 rounded-xl gap-1 shadow-lg">
             <button
               onClick={() => setRole(Role.RESIDENT)}
-              className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${role === Role.RESIDENT ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-900'}`}
+              className={`px-5 py-2.5 text-sm font-semibold rounded-lg transition-all duration-300 transform ${role === Role.RESIDENT
+                  ? 'bg-white text-purple-600 shadow-lg scale-105'
+                  : 'text-white/70 hover:text-white hover:bg-white/5'
+                }`}
             >
-              Resident View
+              👤 Resident View
             </button>
             <button
               onClick={() => setRole(Role.OFFICIAL)}
-              className={`px-4 py-2 text-sm font-medium rounded-md transition-all ${role === Role.OFFICIAL ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500 hover:text-gray-900'}`}
+              className={`px-5 py-2.5 text-sm font-semibold rounded-lg transition-all duration-300 transform ${role === Role.OFFICIAL
+                  ? 'bg-white text-purple-600 shadow-lg scale-105'
+                  : 'text-white/70 hover:text-white hover:bg-white/5'
+                }`}
             >
-              Official Dashboard
+              🏛️ Official Dashboard
             </button>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="flex-1 bg-gray-50 max-w-7xl mx-auto w-full">
+      {/* Main Content with Animated Background */}
+      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
         {role === Role.RESIDENT ? (
           <ResidentView role={role} complaints={complaints} addComplaint={addComplaint} />
         ) : (
@@ -213,11 +221,11 @@ const App: React.FC = () => {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-auto">
-        <div className="max-w-7xl mx-auto px-6 py-4 text-center text-xs text-gray-400">
-          <p>Barangay Maysan AI-Assisted Complaints Prioritization System Prototype.</p>
-          <p>© 2024 Valenzuela City. All Rights Reserved.</p>
+      {/* Modern Footer */}
+      <footer className="glass-strong border-t border-white/10 mt-auto backdrop-blur-xl">
+        <div className="max-w-7xl mx-auto px-6 py-6 text-center">
+          <p className="text-sm font-medium text-white/80 mb-1">Barangay Maysan AI-Assisted Complaints Prioritization System</p>
+          <p className="text-xs text-white/50">© 2024 Valenzuela City. All Rights Reserved. <span className="gradient-text font-semibold">Powered by AI</span></p>
         </div>
       </footer>
     </div>

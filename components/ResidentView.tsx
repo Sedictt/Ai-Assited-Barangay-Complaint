@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Complaint, ComplaintStatus, Role } from '../types';
 import { analyzeComplaint } from '../services/geminiService';
 import StatusBadge from './StatusBadge';
-import { FileText, MapPin, Loader2, Lock, Info, Send, Clock, CheckCircle, Activity, ChevronRight } from './Icons';
+import { FileText, MapPin, Loader2, Lock, Info, Send, Clock, CheckCircle, Activity, ChevronRight, Sparkles } from './Icons';
 import Tooltip from './Tooltip';
 
 interface ResidentViewProps {
@@ -10,7 +10,7 @@ interface ResidentViewProps {
     addComplaint: (c: Complaint) => void;
     role: Role;
 }
-/*dsa*/
+
 const ResidentView: React.FC<ResidentViewProps> = ({ complaints, addComplaint, role }) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -72,36 +72,41 @@ const ResidentView: React.FC<ResidentViewProps> = ({ complaints, addComplaint, r
     }, [myComplaints]);
 
     return (
-        <div className="space-y-6">
-            {/* Hero / Stats Section */}
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl shadow-lg p-6 text-white relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-4 opacity-10">
-                    <Activity className="w-64 h-64 transform translate-x-12 -translate-y-12" />
-                </div>
-                <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-                    <div>
-                        <h1 className="text-2xl md:text-3xl font-bold">Hello, Resident!</h1>
-                        <p className="text-blue-100 mt-1 max-w-lg">
-                            Thank you for helping us keep Barangay Maysan safe and clean. Your reports allow us to take action where it matters most.
+        <div className="space-y-8">
+            {/* Stunning Hero Section with Gradient */}
+            <div className="gradient-purple rounded-3xl shadow-2xl p-8 text-white relative overflow-hidden animate-fade-in-up">
+                {/* Animated Background Elements */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl animate-float"></div>
+                <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl" style={{ animationdelay: '1s' }}></div>
+
+                <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
+                    <div className="max-w-2xl">
+                        <h1 className="text-3xl md:text-4xl font-bold mb-3 flex items-center gap-3">
+                            <Sparkles className="w-8 h-8 animate-pulse" />
+                            Welcome, Resident!
+                        </h1>
+                        <p className="text-purple-100 text-lg leading-relaxed">
+                            Your voice matters. Help us build a better Barangay Maysan by reporting issues in our community. Every report is analyzed by AI and prioritized for action.
                         </p>
                     </div>
-                    <div className="flex gap-4">
-                        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 flex items-center gap-3 border border-white/20 min-w-[140px]">
-                            <div className="bg-white/20 p-2 rounded-lg">
-                                <FileText className="w-6 h-6 text-white" />
+
+                    <div className="flex gap-4 flex-wrap">
+                        <div className="glass-strong backdrop-blur-xl rounded-2xl p-5 flex items-center gap-4 border border-white/30 min-w-[160px] hover-lift">
+                            <div className="bg-white/20 p-3 rounded-xl">
+                                <FileText className="w-7 h-7 text-white" />
                             </div>
                             <div>
-                                <p className="text-2xl font-bold">{stats.total}</p>
-                                <p className="text-xs text-blue-100 uppercase font-medium">Submitted</p>
+                                <p className="text-3xl font-bold">{stats.total}</p>
+                                <p className="text-xs text-purple-200 uppercase font-semibold tracking-wide">Submitted</p>
                             </div>
                         </div>
-                        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 flex items-center gap-3 border border-white/20 min-w-[140px]">
-                            <div className="bg-white/20 p-2 rounded-lg">
-                                <CheckCircle className="w-6 h-6 text-green-300" />
+                        <div className="glass-strong backdrop-blur-xl rounded-2xl p-5 flex items-center gap-4 border border-white/30 min-w-[160px] hover-lift">
+                            <div className="bg-emerald-400/30 p-3 rounded-xl">
+                                <CheckCircle className="w-7 h-7 text-emerald-100" />
                             </div>
                             <div>
-                                <p className="text-2xl font-bold">{stats.resolved}</p>
-                                <p className="text-xs text-blue-100 uppercase font-medium">Resolved</p>
+                                <p className="text-3xl font-bold">{stats.resolved}</p>
+                                <p className="text-xs text-purple-200 uppercase font-semibold tracking-wide">Resolved</p>
                             </div>
                         </div>
                     </div>
@@ -109,40 +114,40 @@ const ResidentView: React.FC<ResidentViewProps> = ({ complaints, addComplaint, r
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* Form Section */}
-                <div className="lg:col-span-1">
-                    <div className="bg-white rounded-xl shadow-sm border border-gray-200 sticky top-20 overflow-hidden">
-                        <div className="bg-gray-50 px-6 py-4 border-b border-gray-100 flex items-center gap-2">
-                            <div className="bg-blue-100 p-1.5 rounded-full">
-                                <Send className="w-4 h-4 text-blue-600" />
+                {/* Glass morphic Form Section */}
+                <div className="lg:col-span-1 animate-scale-in">
+                    <div className="glass-card rounded-2xl shadow-2xl border border-white/30 sticky top-24 overflow-hidden hover-lift">
+                        <div className="gradient-teal px-6 py-5 border-b border-white/20 flex items-center gap-3">
+                            <div className="bg-white/20 p-2 rounded-xl backdrop-blur-sm">
+                                <Send className="w-5 h-5 text-white" />
                             </div>
-                            <h2 className="text-lg font-bold text-gray-900">File a New Report</h2>
+                            <h2 className="text-lg font-bold text-white">📝 File a New Report</h2>
                         </div>
 
                         <div className="p-6">
                             {showSuccess ? (
-                                <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center animate-in fade-in zoom-in duration-300">
-                                    <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                                        <CheckCircle className="w-8 h-8" />
+                                <div className="bg-gradient-to-br from-emerald-50 to-teal-50 border-2 border-emerald-300 rounded-2xl p-10 text-center animate-scale-in">
+                                    <div className="w-20 h-20 gradient-teal text-white rounded-full flex items-center justify-center mx-auto mb-5 shadow-lg">
+                                        <CheckCircle className="w-10 h-10" />
                                     </div>
-                                    <h3 className="text-xl font-bold text-gray-900 mb-2">Report Submitted!</h3>
-                                    <p className="text-gray-600">
-                                        Your complaint has been successfully queued for AI analysis. You can track it in the history panel.
+                                    <h3 className="text-2xl font-bold text-gray-900 mb-3">Success! 🎉</h3>
+                                    <p className="text-gray-700 leading-relaxed mb-6">
+                                        Your complaint has been queued for AI analysis. Track its status in the history panel below.
                                     </p>
                                     <button
                                         onClick={() => setShowSuccess(false)}
-                                        className="mt-6 text-sm font-medium text-green-700 hover:text-green-800 underline"
+                                        className="gradient-purple text-white px-6 py-3 rounded-xl font-semibold hover:scale-105 transition-transform duration-300 shadow-lg btn-shine"
                                     >
-                                        File another report
+                                        File Another Report
                                     </button>
                                 </div>
                             ) : (
-                                <form onSubmit={handleSubmit} className="space-y-5">
-                                    <div className="space-y-1">
+                                <form onSubmit={handleSubmit} className="space-y-6">
+                                    <div className="space-y-2">
                                         <div className="flex items-center justify-between">
-                                            <label className="block text-sm font-semibold text-gray-700">What is the issue?</label>
-                                            <Tooltip content="A short summary like 'No Water', 'Flooding', or 'Loud Noise'.">
-                                                <Info className="w-3.5 h-3.5 text-gray-400 hover:text-blue-500 transition-colors cursor-help" />
+                                            <label className="block text-sm font-bold text-gray-800">📌 What's the issue?</label>
+                                            <Tooltip content="Brief summary: 'Flooded Road', 'Broken Light', etc.">
+                                                <Info className="w-4 h-4 text-gray-400 hover:text-purple-500 transition-colors cursor-help" />
                                             </Tooltip>
                                         </div>
                                         <input
@@ -150,20 +155,18 @@ const ResidentView: React.FC<ResidentViewProps> = ({ complaints, addComplaint, r
                                             type="text"
                                             value={title}
                                             onChange={(e) => setTitle(e.target.value)}
-                                            placeholder="e.g. Uncollected Garbage Pile"
-                                            className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-sm"
+                                            placeholder="e.g., Uncollected Garbage Pile"
+                                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus-glow focus:border-purple-500 outline-none transition-all text-sm font-medium hover:border-gray-300"
                                         />
                                     </div>
 
-                                    <div className="space-y-1">
-                                        <div className="flex items-center justify-between">
-                                            <label className="block text-sm font-semibold text-gray-700">Category</label>
-                                        </div>
+                                    <div className="space-y-2">
+                                        <label className="block text-sm font-bold text-gray-800">🏷️ Category</label>
                                         <div className="relative">
                                             <select
                                                 value={category}
                                                 onChange={(e) => setCategory(e.target.value)}
-                                                className="w-full pl-4 pr-10 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all appearance-none text-sm bg-white"
+                                                className="w-full pl-4 pr-10 py-3 border-2 border-gray-200 rounded-xl focus-glow focus:border-purple-500 outline-none transition-all appearance-none text-sm font-medium bg-white hover:border-gray-300"
                                             >
                                                 <option>Sanitation</option>
                                                 <option>Infrastructure/Roads</option>
@@ -171,45 +174,43 @@ const ResidentView: React.FC<ResidentViewProps> = ({ complaints, addComplaint, r
                                                 <option>Health</option>
                                                 <option>Others</option>
                                             </select>
-                                            <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
-                                                <ChevronRight className="w-4 h-4 rotate-90" />
+                                            <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-500">
+                                                <ChevronRight className="w-5 h-5 rotate-90" />
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div className="space-y-1">
+                                    <div className="space-y-2">
                                         <div className="flex items-center justify-between">
-                                            <label className="block text-sm font-semibold text-gray-700">Exact Location</label>
-                                            <Tooltip content="Include street names or landmarks to help us find it.">
-                                                <Info className="w-3.5 h-3.5 text-gray-400 hover:text-blue-500 transition-colors cursor-help" />
+                                            <label className="block text-sm font-bold text-gray-800">📍 Location</label>
+                                            <Tooltip content="Include street names or landmarks.">
+                                                <Info className="w-4 h-4 text-gray-400 hover:text-purple-500 transition-colors cursor-help" />
                                             </Tooltip>
                                         </div>
                                         <div className="relative group">
-                                            <div className="absolute left-3 top-2.5 text-gray-400 group-focus-within:text-blue-500 transition-colors">
-                                                <MapPin className="w-4 h-4" />
+                                            <div className="absolute left-3 top-3 text-gray-400 group-focus-within:text-purple-500 transition-colors">
+                                                <MapPin className="w-5 h-5" />
                                             </div>
                                             <input
                                                 required
                                                 type="text"
                                                 value={location}
                                                 onChange={(e) => setLocation(e.target.value)}
-                                                placeholder="e.g. Purok 3, Near the Basketball Court"
-                                                className="w-full pl-9 pr-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-sm"
+                                                placeholder="e.g., Purok 3, Near Basketball Court"
+                                                className="w-full pl-11 pr-4 py-3 border-2 border-gray-200 rounded-xl focus-glow focus:border-purple-500 outline-none transition-all text-sm font-medium hover:border-gray-300"
                                             />
                                         </div>
                                     </div>
 
-                                    <div className="space-y-1">
-                                        <div className="flex items-center justify-between">
-                                            <label className="block text-sm font-semibold text-gray-700">Description</label>
-                                        </div>
+                                    <div className="space-y-2">
+                                        <label className="block text-sm font-bold text-gray-800">📄 Description</label>
                                         <textarea
                                             required
                                             rows={4}
                                             value={description}
                                             onChange={(e) => setDescription(e.target.value)}
                                             placeholder="Describe what happened, when it started, and how urgent it feels..."
-                                            className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-sm resize-none"
+                                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus-glow focus:border-purple-500 outline-none transition-all text-sm resize-none hover:border-gray-300"
                                         />
                                     </div>
 
@@ -217,7 +218,7 @@ const ResidentView: React.FC<ResidentViewProps> = ({ complaints, addComplaint, r
                                         <button
                                             type="submit"
                                             disabled={isSubmitting}
-                                            className="w-full bg-gray-900 hover:bg-gray-800 text-white font-bold py-3 rounded-lg transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed transform active:scale-[0.98]"
+                                            className="w-full gradient-purple text-white font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-2xl disabled:opacity-70 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98] btn-shine"
                                         >
                                             {isSubmitting ? (
                                                 <>
@@ -227,12 +228,12 @@ const ResidentView: React.FC<ResidentViewProps> = ({ complaints, addComplaint, r
                                             ) : (
                                                 <>
                                                     <span>Submit Report</span>
-                                                    <Send className="w-4 h-4" />
+                                                    <Send className="w-5 h-5" />
                                                 </>
                                             )}
                                         </button>
-                                        <p className="text-center text-xs text-gray-400 mt-3">
-                                            By submitting, you agree to our data privacy policy.
+                                        <p className="text-center text-xs text-gray-400 mt-4">
+                                            🔒 By submitting, you agree to our data privacy policy
                                         </p>
                                     </div>
                                 </form>
@@ -241,81 +242,83 @@ const ResidentView: React.FC<ResidentViewProps> = ({ complaints, addComplaint, r
                     </div>
                 </div>
 
-                {/* History Section */}
-                <div className="lg:col-span-2 space-y-4">
-                    <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-                        <Activity className="w-5 h-5 text-gray-500" />
+                {/* History Section with Enhanced Cards */}
+                <div className="lg:col-span-2 space-y-5 animate-fade-in-up">
+                    <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+                        <Activity className="w-6 h-6 text-purple-300" />
                         Your Activity History
                     </h2>
 
                     <div className="space-y-4">
                         {myComplaints.length === 0 ? (
-                            <div className="flex flex-col items-center justify-center py-16 bg-white rounded-xl border border-dashed border-gray-300">
-                                <div className="bg-gray-50 p-4 rounded-full mb-4">
-                                    <FileText className="w-8 h-8 text-gray-400" />
+                            <div className="glass-card rounded-2xl border-2 border-dashed border-white/20 p-16 text-center">
+                                <div className="glass p-5 rounded-full mb-6 w-20 h-20 flex items-center justify-center mx-auto">
+                                    <FileText className="w-10 h-10 text-white/60" />
                                 </div>
-                                <p className="text-gray-500 font-medium text-lg">No complaints submitted yet.</p>
-                                <p className="text-sm text-gray-400 mt-1 max-w-xs text-center">
-                                    Use the form on the left to file your first report and help improve our community.
+                                <p className="text-white/80 font-semibold text-xl mb-2">No reports yet</p>
+                                <p className="text-sm text-white/50 max-w-md mx-auto leading-relaxed">
+                                    Use the form on the left to submit your first report and help improve our community
                                 </p>
                             </div>
                         ) : (
                             myComplaints.map((c) => (
-                                <div key={c.id} className="group bg-white rounded-xl shadow-sm border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all duration-200 overflow-hidden">
-                                    <div className="p-5 flex flex-col sm:flex-row gap-4">
+                                <div key={c.id} className="group glass-card rounded-2xl shadow-lg border border-white/20 hover:border-purple-300/50 hover:shadow-2xl transition-all duration-300 overflow-hidden hover-lift">
+                                    <div className="p-6 flex flex-col sm:flex-row gap-5">
                                         {/* Status Column */}
-                                        <div className="flex flex-row sm:flex-col items-center sm:items-start gap-2 sm:w-24 shrink-0 border-b sm:border-b-0 sm:border-r border-gray-100 pb-3 sm:pb-0 sm:pr-4">
+                                        <div className="flex flex-row sm:flex-col items-center sm:items-start gap-3 sm:w-28 shrink-0 border-b sm:border-b-0 sm:border-r border-white/10 pb-4 sm:pb-0 sm:pr-5">
                                             <div className="text-center sm:text-left">
-                                                <span className="block text-xs text-gray-400 font-medium uppercase mb-1">Status</span>
+                                                <span className="block text-xs text-gray-500 font-semibold uppercase mb-2">Status</span>
                                                 <StatusBadge status={c.status} />
                                             </div>
                                             {c.isAnalyzing ? (
-                                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-blue-50 text-blue-600 mt-1">
-                                                    <Loader2 className="w-3 h-3 animate-spin" /> Analyzing
-                                                </span>
+                                                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-blue-50 border border-blue-200 mt-2">
+                                                    <Loader2 className="w-3.5 h-3.5 animate-spin text-blue-600" />
+                                                    <span className="text-[11px] font-bold text-blue-600">AI Analyzing</span>
+                                                </div>
                                             ) : (
-                                                <span className="hidden sm:inline-flex items-center gap-1 text-[10px] text-gray-400 mt-2">
-                                                    <Clock className="w-3 h-3" /> Updated
+                                                <span className="hidden sm:flex items-center gap-1.5 text-[11px] text-gray-400 mt-3">
+                                                    <Clock className="w-3.5 h-3.5" /> Updated
                                                 </span>
                                             )}
                                         </div>
 
                                         {/* Content Column */}
                                         <div className="flex-1 min-w-0">
-                                            <div className="flex justify-between items-start mb-2">
-                                                <h3 className="font-bold text-gray-900 text-lg leading-tight group-hover:text-blue-600 transition-colors">
+                                            <div className="flex justify-between items-start mb-3">
+                                                <h3 className="font-bold text-gray-900 text-lg leading-tight group-hover:text-purple-600 transition-colors">
                                                     {c.title}
                                                 </h3>
-                                                <Tooltip content="Residents cannot change the status. Only officials can resolve issues." placement="bottom">
+                                                <Tooltip content="Only officials can update status" placement="bottom">
                                                     <Lock className="w-4 h-4 text-gray-300 group-hover:text-gray-400 transition-colors cursor-help" />
                                                 </Tooltip>
                                             </div>
 
-                                            <p className="text-gray-600 text-sm mb-4 line-clamp-2">{c.description}</p>
+                                            <p className="text-gray-600 text-sm mb-5 line-clamp-2 leading-relaxed">{c.description}</p>
 
                                             <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500">
-                                                <div className="flex items-center gap-1.5 bg-gray-50 px-2 py-1 rounded border border-gray-100">
-                                                    <MapPin className="w-3.5 h-3.5 text-gray-400" />
-                                                    {c.location}
+                                                <div className="flex items-center gap-2 bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-200">
+                                                    <MapPin className="w-4 h-4 text-gray-400" />
+                                                    <span className="font-medium">{c.location}</span>
                                                 </div>
-                                                <div className="flex items-center gap-1.5 bg-gray-50 px-2 py-1 rounded border border-gray-100">
-                                                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
-                                                    {c.category}
+                                                <div className="flex items-center gap-2 bg-purple-50 px-3 py-1.5 rounded-lg border border-purple-200">
+                                                    <span className="w-2 h-2 rounded-full bg-purple-400"></span>
+                                                    <span className="font-medium text-purple-700">{c.category}</span>
                                                 </div>
-                                                <span className="text-gray-400 ml-auto">{new Date(c.submittedAt).toLocaleDateString()}</span>
+                                                <span className="text-gray-400 ml-auto font-medium">{new Date(c.submittedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                                             </div>
                                         </div>
                                     </div>
 
-                                    {/* AI Footer / Feedback */}
+                                    {/* AI Analysis Footer */}
                                     {!c.isAnalyzing && c.aiAnalysis && (
-                                        <div className="bg-gray-50 px-5 py-3 border-t border-gray-100 flex items-center gap-2 text-xs">
-                                            <div className="flex items-center gap-1.5 font-medium text-gray-600">
-                                                <div className={`w-2 h-2 rounded-full ${c.aiAnalysis.urgencyLevel === 'CRITICAL' ? 'bg-red-500' : c.aiAnalysis.urgencyLevel === 'HIGH' ? 'bg-orange-500' : 'bg-green-500'}`}></div>
-                                                AI Priority Assessment: {c.aiAnalysis.urgencyLevel}
+                                        <div className="bg-gradient-to-r from-purple-50 to-blue-50 px-6 py-4 border-t border-purple-100/50 flex flex-wrap items-center gap-4 text-xs">
+                                            <div className="flex items-center gap-2 font-semibold text-gray-700">
+                                                <div className={`w-2.5 h-2.5 rounded-full ${c.aiAnalysis.urgencyLevel === 'CRITICAL' ? 'bg-red-500 animate-pulse' : c.aiAnalysis.urgencyLevel === 'HIGH' ? 'bg-orange-500' : c.aiAnalysis.urgencyLevel === 'MEDIUM' ? 'bg-yellow-500' : 'bg-green-500'}`}></div>
+                                                <Sparkles className="w-4 h-4 text-purple-500" />
+                                                AI Priority: <span className="text-purple-700 font-bold">{c.aiAnalysis.urgencyLevel}</span>
                                             </div>
-                                            <span className="text-gray-400 mx-2">•</span>
-                                            <span className="text-gray-500 truncate max-w-md">
+                                            <span className="text-gray-300">•</span>
+                                            <span className="text-gray-600 truncate max-w-md flex-1">
                                                 {c.aiAnalysis.impactAnalysis}
                                             </span>
                                         </div>

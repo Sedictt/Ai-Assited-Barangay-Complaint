@@ -1,0 +1,1413 @@
+complaint_text,category,severity,recommended_priority
+"Walang tubig sa amin simula kahapon pa",Water,High,1
+"May butas na malaki sa kalsada malapit sa tindahan",Road,Medium,2
+"Sobrang ingay ng karaoke ng kapitbahay every night",Noise,Low,3
+"May sunog sa kanto! Mabilis!",Fire,Critical,1
+"Nawalan ng kuryente buong street namin",Electricity,High,1
+"Hindi kinukuha yung basura namin for 2 weeks na",Garbage,Medium,2
+"May baha sa street namin tuwing umuulan",Flood,High,1
+"Nakawan nanaman sa may eskinita kagabi",Crime,High,1
+"Sira yung ilaw sa kanto madilim na",Street Light,Medium,2
+"May nagsusugal sa likod ng basketball court",Illegal Activity,Medium,2
+"Ang baho ng kanal dito sa tabi namin",Drainage,Medium,2
+"Brownout na naman walang abiso",Electricity,High,1
+"May nag-away dito may dalang itak",Crime,Critical,1
+"Yung puno sa kanto parang babagsak na",Tree/Environment,Medium,2
+"Walang tubig for 3 days na kami",Water,Critical,1
+"Sobrang traffic sa kalye namin dahil sa nag-park",Traffic,Low,3
+"May nakita akong suspicious na tao sa paligid",Crime,Medium,2
+"Hindi ko alam kung saan mag-report ng stray dogs",Animals,Low,3
+"May basag na bote sa playground ng mga bata",Safety,Medium,2
+"Tumatagos yung tubig sa bubong namin pag umuulan",Housing,Low,3
+"May nag-vandal sa pader ng barangay hall",Vandalism,Low,3
+"Yung ilaw sa kalye laging nakapatay",Street Light,Medium,2
+"May sunog na basura sa likod bahay ng kapitbahay",Fire,High,1
+"Sobrang ingay ng construction site 24/7",Noise,Medium,2
+"May taong naglalasing sa kanto palagi",Public Disturbance,Low,3
+"Walang kuryente mga 6 hours na",Electricity,High,1
+"May nakita akong bata na nag-iisa sa kalsada",Child Welfare,High,1
+"Sira yung bakal sa tulay delikado",Infrastructure,High,1
+"May nag-iitsa ng droga dito sa tabi namin",Illegal Activity,Critical,1
+"Hindi dumadaan yung garbage truck sa lugar namin",Garbage,Medium,2
+"May putok ng tubig sa kanto sayang",Water,Medium,2
+"Sobrang daming lamok dahil sa stagnant water",Health,Medium,2
+"May nanloloko ng senior citizen dito",Crime,High,1
+"Yung poste parang babagsak na",Infrastructure,High,1
+"May nag-aaway na mag-asawa palagi ingay",Domestic,Medium,2
+"Walang signal ng internet sa area namin",Utilities,Low,3
+"May namatay na hayop sa kanal ang baho",Health,High,1
+"Sobrang dilim dito sa eskinita takot mga tao",Street Light,High,1
+"May nag-hold up sa sakayan kanina",Crime,Critical,1
+"Yung drainage namin puno ng basura",Drainage,Medium,2
+"May nakita akong bata na hindi pumasok school",Child Welfare,Medium,2
+"Sobrang init walang puno sa lugar namin",Environment,Low,3
+"May nagyoyosi sa loob ng covered court bawal yun",Public Disturbance,Low,3
+"Nag-leak yung tubig sa kalye araw-araw",Water,Medium,2
+"May nagtatapon ng basura sa bakanteng lote",Garbage,Medium,2
+"Sobrang liit ng daanan para sa ambulansya",Infrastructure,Medium,2
+"May nakita kong bata na minamaltrato",Child Welfare,Critical,1
+"Yung barangay tanod hindi dumadating pag may tawag",Service,Medium,2
+"May nag-convert ng bahay into boarding house walang permit",Zoning,Low,3
+"Sobrang bilis ng mga sasakyan sa village namin",Traffic,Medium,2
+"May nasiraan ng motor sa gitna ng kalsada",Traffic,Low,3
+"Walang mainom na tubig para sa mga bata",Water,Critical,1
+"May nag-organize ng illegal cockfight sa likod",Illegal Activity,High,1
+"Yung street sign namin nawala hindi alam ng riders",Infrastructure,Low,3
+"May nag-iwan ng lasing na tao sa kanto",Public Disturbance,Medium,2
+"Sobrang daming aso na walang amo nakakalat",Animals,Medium,2
+"May tumatagas na sewage sa tapat ng bahay namin",Health,High,1
+"Yung basketball court walang net at ring na",Recreation,Low,3
+"May nag-aalok ng loan na parang scam",Crime,Medium,2
+"Walang health center sa area namin",Service,Medium,2
+"May nag-suicide daw sa kapitbahay",Emergency,Critical,1
+"Sobrang pangit na ng kalsada puro butas",Road,High,1
+"May naglalaro ng bata sa kalsada delikado",Safety,Medium,2
+"Yung simbahan namin walang ramp para sa wheelchair",Accessibility,Low,3
+"May nag-alok ng investment na ponzi scheme",Crime,Medium,2
+"Walang streetlight buong kalye namin",Street Light,High,1
+"May nakita kong babae na tinutulungan pauwi lasing",Public Disturbance,Medium,2
+"Sobrang tagal ng pila sa barangay ID",Service,Low,3
+"May nag-conduct ng campaign sa barangay walang permit",Zoning,Low,3
+"Yung covered court ginagawang tambayan ng adik",Illegal Activity,High,1
+"May nakita akong elderly na need ng tulong",Senior Welfare,Medium,2
+"Walang working fire extinguisher sa barangay hall",Safety,Medium,2
+"May nag-organize ng videoke contest sobrang ingay",Noise,Medium,2
+"Yung tindahan sa kanto nag-bebenta ng alak sa minor",Illegal Activity,High,1
+"May basura na nakaharang sa daanan ng sasakyan",Garbage,Medium,2
+"Sobrang baho ng CR sa barangay hall",Sanitation,Medium,2
+"May nag-cutting ng puno without permit",Environment,Medium,2
+"Walang zebra crossing sa busy road",Safety,Medium,2
+"May nag-rent ng bahay para sa illegal activities",Crime,High,1
+"Yung playground equipment sira na lahat",Recreation,Medium,2
+"May nakita kong minor na nag-aalok ng cigarettes",Illegal Activity,High,1
+"Sobrang haba ng damo sa vacant lot naging tambayan ng ahas",Health,Medium,2
+"Walang evacuation center pag may bagyo",Disaster Preparedness,High,1
+"May nag-expand ng bahay nila sumasakop sa kalye",Zoning,Medium,2
+"Yung tricycle terminal naging parking lot na",Traffic,Medium,2
+"May nakita akong tao na nag-ddispose ng chemical sa kanal",Environment,High,1
+"Walang public wifi sa barangay hall",Service,Low,3
+"May nag-alaga ng baboy sa residential area",Zoning,Medium,2
+"Sobrang daming ipis sa public market",Sanitation,Medium,2
+"May nag-organize ng rally walang permit",Public Order,Medium,2
+"Yung waiting shed walang bubong naaarawan mga tao",Infrastructure,Low,3
+"May nakita kong bata na gumagala ng madaling araw",Child Welfare,Medium,2
+"Walang designated area for PWD parking",Accessibility,Low,3
+"May nag-construction ng illegal structure sa creek",Environment,High,1
+"Sobrang daming tao sa basketball court hindi maka-laro",Recreation,Low,3
+"May nag-spray ng pesticide walang warning",Health,Medium,2
+"Yung CCTV sa kanto sira na matagal na",Security,Medium,2
+"Walang proper lighting sa market area",Safety,Medium,2
+"May nag-conduct ng medical mission na fake",Crime,High,1
+"Sobrang liit ng budget para sa sports program",Service,Low,3
+"May nakita kong PWD na walang tumutulong",PWD Welfare,Medium,2
+"Yung barangay mikrofon laging napapasigaw",Public Disturbance,Low,3
+"Walang segregation ng basura sa collection point",Waste Management,Medium,2
+"May nag-block ng daanan gamit yung sasakyan nila",Traffic,Medium,2
+"Sobrang tagal ng response time ng barangay tanod",Service,Medium,2
+"May nag-alaga ng fighting cocks sa residential",Zoning,Medium,2
+"Yung water refilling station hindi daw maayos yung tubig",Health,Medium,2
+"Walang proper drainage kaya laging baha dito",Flood,High,1
+"May nag-install ng illegal electric connection",Utilities,High,1
+"Sobrang dirty ng public comfort room",Sanitation,Medium,2
+"May nakita kong illegal quarry operation",Environment,Critical,1
+"Yung barangay website outdated yung info",Service,Low,3
+"Walang designated smoking area lahat nag-yoyosi kahit saan",Public Health,Medium,2
+"May nag-conduct ng birthday party sa kalsada nakaharang",Traffic,Low,3
+"Sobrang gulo ng sidewalk vendors",Public Order,Medium,2
+"May nakita kong child labor sa construction site",Child Welfare,Critical,1
+"Yung emergency hotline hindi sumasagot",Emergency,High,1
+"Walang rabies vaccination program",Health,Medium,2
+"May nag-block ng fire exit ng building",Safety,High,1
+"Sobrang baho ng paligid ng wet market",Sanitation,Medium,2
+"May nakita kong nag-ddrive ng motor walang helmet",Traffic,Medium,2
+"Yung barangay clearance sobrang tagal makuha",Service,Medium,2
+"Walang proper signage para sa COVID protocols",Health,Medium,2
+"May nag-aalaga ng exotic pets na illegal",Environment,Medium,2
+"Sobrang sikip na ng cemetery need na mag-expand",Infrastructure,Low,3
+"May nakita kong nag-iiwan ng medical waste sa basurahan",Health,High,1
+"Yung barangay gym walang maintenance",Recreation,Low,3
+"Walang proper ventilation sa barangay hall",Infrastructure,Low,3
+"May nag-conduct ng illegal logging sa bundok",Environment,Critical,1
+"Sobrang init sa covered court walang electric fan",Recreation,Low,3
+"May nakita kong nag-ppractice ng veterinary walang license",Crime,High,1
+"Yung flood control project half-done lang abandoned na",Infrastructure,High,1
+"Walang functioning street sweeper sa lugar namin",Sanitation,Medium,2
+"May nag-iinstall ng barrier sa kalye walang consultation",Public Order,Medium,2
+"Sobrang daming complaints sa barangay pero walang action",Service,Medium,2
+"May nakita kong nag-ddispose ng used oil sa kanal",Environment,High,1
+"Yung multipurpose hall ginagawang bodega",Service,Low,3
+"Walang disaster supplies sa barangay",Disaster Preparedness,Medium,2
+"May nag-conduct ng medical procedure sa bahay walang permit",Health,High,1
+"Sobrang daming fake news na kumakalat sa barangay group chat",Information,Low,3
+"May nakita kong nag-aabuse ng PWD parking",Public Order,Medium,2
+"Yung barangay scholarship program walang transparency",Service,Medium,2
+"Walang proper waste segregation bins",Waste Management,Medium,2
+"May nag-install ng antenna sa bubong namin walang paalam",Property,Medium,2
+"Sobrang daming abandoned vehicles sa kalye",Traffic,Medium,2
+"May nakita kong illegal mining operation",Environment,Critical,1
+"Yung public plaza ginagawang tambayan ng kabataan mag-inuman",Public Order,Medium,2
+"Walang livelihood program para sa residents",Service,Low,3
+"May nag-conduct ng construction kahit weekend walang permit",Noise,Medium,2
+"Sobrang pangit ng tanawin dahil sa mga nakabitang wire",Infrastructure,Low,3
+"May nakita kong nag-bbenta ng counterfeit products",Crime,Medium,2
+"Yung barangay nutrition program discontinued na",Service,Medium,2
+"Walang proper facilities para sa breastfeeding mothers",Service,Low,3
+"May nag-release ng fireworks kahit hindi special occasion",Public Order,Low,3
+"Sobrang daming political ads nakadikit sa poste",Public Order,Low,3
+"May nakita kong nag-aaresto ng hayop walang authority",Crime,Medium,2
+"Yung daycare center understaffed at kulang sa supplies",Service,Medium,2
+"Walang backup generator sa barangay hall",Infrastructure,Low,3
+"May nag-conduct ng welding sa residential area delikado",Safety,Medium,2
+"Sobrang daming fake vaccination cards na binebenta",Crime,High,1
+"May nakita kong nag-ppractice ng fake engineering",Crime,High,1
+"Yung barangay blotter system manual pa",Service,Low,3
+"Walang accessible information para sa non-Tagalog speakers",Service,Low,3
+"May nag-threaten sa akin dahil sa complaint na finile ko",Crime,Critical,1
+"Sobrang daming illegal settlers sa creek area",Zoning,High,1
+"May nakita kong nag-ddump ng construction debris sa public land",Environment,High,1
+"Yung barangay budget walang posting transparency",Service,Medium,2
+"Walang functioning CCTV cameras sa mga kanto",Security,High,1
+"May nag-conduct ng animal fights sa likod ng warehouse",Illegal Activity,Critical,1
+"Sobrang daming unregistered business sa area",Zoning,Medium,2
+"May nakita kong minor na nag-ddrive ng motor",Traffic,High,1
+"Yung senior citizen benefits delayed lagi",Service,Medium,2
+"Walang proper training ng barangay health workers",Service,Medium,2
+"May nag-operate ng pirated cable connection",Crime,Medium,2
+"Sobrang daming pekeng barangay official IDs na lumalabas",Crime,High,1
+"May nakita kong nag-ppractice ng fake medicine",Crime,Critical,1
+"Yung complaint hotline laging busy",Service,Medium,2
+"Walang emergency response team sa barangay",Emergency,High,1
+"May nag-forge ng barangay documents",Crime,Critical,1
+"Sobrang daming illegal taps sa water line",Utilities,High,1
+"May nakita kong child trafficking sa area namin",Crime,Critical,1
+"Yung barangay health center walang gamot",Service,High,1
+"May lumalabas na daga sa bahay dahil sa basura ng kapitbahay",Health,Medium,2
+"Sobrang init sa barangay hall walang aircon",Infrastructure,Low,3
+"May nag-aaway na teenagers sa tapat ng school",Public Order,Medium,2
+"Yung semento sa sidewalk basag basag na madulas",Safety,Medium,2
+"Walang parking space para sa visitors sa barangay hall",Infrastructure,Low,3
+"May nag-tape ng political poster sa gate namin",Public Order,Low,3
+"Sobrang daming langaw sa fish market",Sanitation,Medium,2
+"May nakita kong nag-bbenta ng fake documents",Crime,High,1
+"Yung barangay newsletter hindi nag-uupdate",Service,Low,3
+"Walang materials sa library ng barangay",Service,Low,3
+"May nag-conduct ng registration scam sa seniors",Crime,High,1
+"Sobrang mahal ng bayad sa basketball court rental",Service,Low,3
+"May nakita kong nag-ppwesto ng illegal vendors",Public Order,Medium,2
+"Yung barangay captain hindi nakikita ng mga tao",Service,Medium,2
+"Walang designated area para sa pet walking",Service,Low,3
+"May nag-steal ng taniman sa community garden",Crime,Medium,2
+"Sobrang daming graffiti sa pader ng elementary school",Vandalism,Medium,2
+"May nakita kong nag-iiwan ng sharp objects sa playground",Safety,High,1
+"Yung barangay alarm system sira matagal na",Emergency,High,1
+"Walang hygiene supplies sa public CR",Sanitation,Medium,2
+"May nag-conduct ng pyramid scheme presentation",Crime,Medium,2
+"Sobrang pangit ng layout ng barangay website",Service,Low,3
+"May nakita kong nag-aabuse sa aspin",Animal Welfare,Medium,2
+"Yung basketball court floor madulas dahil sa algae",Safety,Medium,2
+"Walang proper fencing sa construction site",Safety,High,1
+"May nag-organize ng unauthorized zumba session sa plaza",Public Order,Low,3
+"Sobrang daming tao sa barangay clearance line",Service,Medium,2
+"May nakita kong nag-ddump ng chemical waste",Environment,Critical,1
+"Yung solar panel sa street light nasira walang repair",Infrastructure,Medium,2
+"Walang speed limit signs sa village roads",Traffic,Medium,2
+"May nag-install ng illegal cell tower",Utilities,High,1
+"Sobrang daming unregistered sari-sari stores",Zoning,Low,3
+"May nakita kong nag-ssell ng endangered species",Crime,Critical,1
+"Yung barangay meeting laging cancelled",Service,Low,3
+"Walang functioning water fountain sa plaza",Infrastructure,Low,3
+"May nag-conduct ng karaoke contest hanggang madaling araw",Noise,Medium,2
+"Sobrang dilim sa pathway papunta sa chapel",Street Light,Medium,2
+"May nakita kong nag-ttransport ng illegal logs",Environment,Critical,1
+"Yung covered court leaking pag umuulan",Infrastructure,Medium,2
+"Walang proper disposal para sa batteries",Waste Management,Low,3
+"May nag-operate ng chop shop sa area namin",Crime,Critical,1
+"Sobrang daming pusa na walang bakuna",Animal Welfare,Medium,2
+"May nakita kong nag-bbenta ng stolen goods",Crime,High,1
+"Yung barangay tanod walang proper uniform",Service,Low,3
+"Walang handrails sa hagdan ng overpass",Safety,Medium,2
+"May nag-conduct ng unauthorized census",Crime,Medium,2
+"Sobrang baho ng public market dahil sa bulok na gulay",Sanitation,High,1
+"May nakita kong nag-aabduct ng aso",Crime,High,1
+"Yung barangay ordinance hindi posted anywhere",Service,Low,3
+"Walang proper ventilation sa wet market",Health,Medium,2
+"May nag-organize ng illegal drag race",Crime,High,1
+"Sobrang ingay ng church bell maaga pa lang",Noise,Low,3
+"May nakita kong nag-sstalk ng babae sa village",Crime,High,1
+"Yung fire exit sa mall walang emergency light",Safety,High,1
+"Walang sanitary bins sa ladies CR",Sanitation,Low,3
+"May nag-conduct ng fake raffle promo",Crime,Medium,2
+"Sobrang daming batang naglalaro sa gitna ng highway",Safety,Critical,1
+"May nakita kong nag-bbenta ng fake designer bags",Crime,Medium,2
+"Yung drainage cover nawala may nahulog na bata",Safety,Critical,1
+"Walang first aid kit sa barangay outpost",Safety,High,1
+"May nag-operate ng underground casino",Illegal Activity,Critical,1
+"Sobrang daming tambay sa covered court hindi maka-practice",Recreation,Medium,2
+"May nakita kong nag-aabuse ng child sa kapitbahay",Child Welfare,Critical,1
+"Yung footbridge may butas delikado",Infrastructure,High,1
+"Walang rain shelter sa waiting area ng tricycle",Infrastructure,Low,3
+"May nag-conduct ng faith healing scam",Crime,High,1
+"Sobrang liit ng budget para sa youth program",Service,Low,3
+"May nakita kong nag-ppull out ng manhole cover",Vandalism,High,1
+"Yung barangay mobile app hindi gumagana",Service,Low,3
+"Walang proper labeling ng barangay streets",Infrastructure,Low,3
+"May nag-operate ng illegal pawnshop",Crime,High,1
+"Sobrang tagal ng permit processing sa barangay",Service,Medium,2
+"May nakita kong nag-ddrive ng e-bike sa sidewalk",Traffic,Medium,2
+"Yung community pantry walang organization",Service,Medium,2
+"Walang PPE para sa barangay health workers",Health,High,1
+"May nag-conduct ng fake job hiring",Crime,High,1
+"Sobrang daming fake profile sa barangay FB page",Information,Low,3
+"May nakita kong nag-ssteal ng plants sa public garden",Crime,Low,3
+"Yung barangay bulletin board outdated yung info",Service,Low,3
+"Walang proper guidelines para sa home quarantine",Health,Medium,2
+"May nag-install ng spikes sa public road",Safety,High,1
+"Sobrang daming pedicab na overloading",Traffic,Medium,2
+"May nakita kong nag-bbully ng students outside school",Child Welfare,High,1
+"Yung public address system laging may static",Infrastructure,Low,3
+"Walang benches sa waiting area ng barangay hall",Infrastructure,Low,3
+"May nag-operate ng illegal slaughterhouse",Health,Critical,1
+"Sobrang bilis ng fire truck hindi makadaan sa streets",Infrastructure,High,1
+"May nakita kong nag-ssell ng bootleg movies",Crime,Medium,2
+"Yung basketball ring crooked na hindi tama ang laro",Recreation,Low,3
+"Walang complaint box sa barangay hall",Service,Low,3
+"May nag-conduct ng unauthorized demolition",Zoning,High,1
+"Sobrang daming mosquito breeding sites",Health,High,1
+"May nakita kong nag-ppractice ng illegal dentistry",Crime,High,1
+"Yung barangay charter outdated na",Service,Low,3
+"Walang designated bike lane sa main road",Traffic,Medium,2
+"May nag-operate ng massage parlor na front lang",Crime,Critical,1
+"Sobrang daming paputok na nag-eexplode randomly",Safety,High,1
+"May nakita kong nag-ddump ng e-waste sa canal",Environment,High,1
+"Yung volleyball net sa court punit na",Recreation,Low,3
+"Walang proper identification ng barangay officials",Service,Low,3
+"May nag-conduct ng fake medical mission",Crime,Critical,1
+"Sobrang daming unauthorized construction ng illegal structures",Zoning,High,1
+"May nakita kong nag-ssiphon ng gas sa parking",Crime,High,1
+"Yung public clock sa plaza sira na matagal",Infrastructure,Low,3
+"Walang hotline para sa mental health emergencies",Health,Medium,2
+"May nag-organize ng street party walang permit",Public Order,Medium,2
+"Sobrang init walang shade sa waiting area",Infrastructure,Low,3
+"May nakita kong nag-ttrap ng birds sa park",Environment,Medium,2
+"Yung barangay feeding program irregular",Service,Medium,2
+"Walang proper storage ng confidential documents",Service,Medium,2
+"May nag-conduct ng illegal survey",Crime,Medium,2
+"Sobrang daming fake barangay announcements",Information,Medium,2
+"May nakita kong nag-ppractice ng quack medicine",Crime,Critical,1
+"Yung footpath sa park puno ng weeds",Infrastructure,Low,3
+"Walang accessible ramp sa health center",Accessibility,Medium,2
+"May nag-operate ng illegal gambling den",Illegal Activity,Critical,1
+"Sobrang pangit ng paint job sa barangay hall",Infrastructure,Low,3
+"May nakita kong nag-sskip ng electric meter reading",Utilities,High,1
+"Yung barangay assembly laging walang quorum",Service,Low,3
+"Walang proper training para sa disaster response",Disaster Preparedness,Medium,2
+"May nag-conduct ng unauthorized tree cutting",Environment,High,1
+"Sobrang daming illegal extension wires",Safety,High,1
+"May nakita kong nag-bbenta ng adulterated food",Health,Critical,1
+"Yung multipurpose hall walang air circulation",Infrastructure,Low,3
+"Walang designated lactation room",Service,Low,3
+"May nag-install ng CCTV aimed sa bedroom ng kapitbahay",Privacy,High,1
+"Sobrang daming tambay sa barangay outpost",Public Order,Low,3
+"May nakita kong nag-ddeface ng public property",Vandalism,Medium,2
+"Yung barangay seal sa documents blurry na",Service,Low,3
+"Walang proper coordination sa other barangays",Service,Low,3
+"May nag-operate ng illegal crematorium",Health,Critical,1
+"Sobrang daming stray cats na may sakit",Animal Welfare,Medium,2
+"May nakita kong nag-ssteal ng copper wire",Crime,High,1
+"Yung covered court floor uneven delikado",Safety,Medium,2
+"Walang sand bags for flood preparation",Disaster Preparedness,Medium,2
+"May nag-conduct ng unauthorized blood letting",Health,High,1
+"Sobrang tagal ng internet connection sa barangay wifi",Service,Low,3
+"May nakita kong nag-ppractice ng illegal pharmacy",Crime,Critical,1
+"Yung street name plate faded na hindi mabasa",Infrastructure,Low,3
+"Walang proper queue system sa barangay",Service,Medium,2
+"May nag-operate ng black market sa likod ng palengke",Crime,High,1
+"Sobrang daming illegal settler sa government property",Zoning,High,1
+"May nakita kong nag-aabduct ng sanggol",Crime,Critical,1
+"Yung basketball backboard basag na",Recreation,Low,3
+"Walang functioning weighing scale sa health center",Health,Medium,2
+"May nag-conduct ng unauthorized excavation",Environment,High,1
+"Sobrang daming fake charity collectors",Crime,High,1
+"May nakita kong nag-ssell ng fake medicine",Crime,Critical,1
+"Yung barangay records hindi organized",Service,Medium,2
+"Walang emergency stretcher sa barangay",Emergency,High,1
+"May nag-operate ng illegal firing range",Safety,Critical,1
+"Sobrang daming unauthorized food stalls",Zoning,Medium,2
+"May nakita kong nag-ppractice ng fake law",Crime,High,1
+"Yung pedestrian lane faded na hindi makita",Safety,Medium,2
+"Walang proper sanitation sa food carts",Health,Medium,2
+"May nag-conduct ng unauthorized exhumation",Crime,Critical,1
+"Sobrang daming tambay na nag-ddrugs sa eskinita",Illegal Activity,Critical,1
+"May nakita kong nag-aabuse ng elderly",Senior Welfare,Critical,1
+"Yung barangay database walang backup",Service,Medium,2
+"Walang functioning thermometer sa health center",Health,Medium,2
+"May nag-operate ng illegal gas station",Safety,Critical,1
+"Sobrang liit ng waiting area sa barangay hall",Infrastructure,Low,3
+"May nakita kong nag-ssell ng unregistered supplements",Health,High,1
+"Yung flag pole sa barangay rusted na babagsak",Safety,Medium,2
+"Walang proper documentation ng barangay assets",Service,Low,3
+"May nag-conduct ng illegal circumcision",Health,Critical,1
+"Sobrang daming fake barangay IDs circulating",Crime,High,1
+"May nakita kong nag-ppractice ng fake nursing",Crime,Critical,1
+"Yung entrance gate sa village walang guard",Security,Medium,2
+"Walang emergency contact list posted",Emergency,Medium,2
+"May nag-operate ng illegal animal breeding",Zoning,Medium,2
+"Sobrang daming abandoned refrigerator sa kalsada",Environment,Medium,2
+"May nakita kong nag-ttransport ng hazardous materials",Safety,Critical,1
+"Yung barangay logo sa tarpaulin mali mali",Service,Low,3
+"Walang proper ventilation sa barangay kitchen",Health,Low,3
+"May nag-conduct ng unauthorized autopsy",Crime,Critical,1
+"Sobrang daming plastic sa creek",Environment,High,1
+"May nakita kong nag-ssiphon ng water sa fire hydrant",Utilities,High,1
+"Yung sound system sa barangay laging may feedback",Infrastructure,Low,3
+"Walang designated smoking cessation program",Health,Low,3
+"May nag-operate ng illegal money changer",Crime,High,1
+"Sobrang dilim sa loob ng barangay hall",Infrastructure,Low,3
+"May nakita kong nag-bbenta ng fake vitamins",Crime,High,1
+"Yung stage sa covered court may loose boards",Safety,Medium,2
+"Walang proper inventory ng barangay supplies",Service,Low,3
+"May nag-conduct ng unauthorized vaccination",Health,Critical,1
+"Sobrang daming illegal electric meter jumper",Utilities,Critical,1
+"May nakita kong nag-ppractice ng fake psychology",Crime,High,1
+"Yung barangay hotline number hindi updated",Service,Medium,2
+"Walang functioning blood pressure monitor",Health,Medium,2
+"May nag-operate ng illegal massage spa",Crime,Critical,1
+"Sobrang daming manok na naglalakad sa kalsada",Public Order,Low,3
+"May nakita kong nag-ssteal ng water meter",Crime,High,1
+"Yung volleyball court walang boundary lines",Recreation,Low,3
+"Walang proper filing system sa barangay",Service,Low,3
+"May nag-conduct ng fake fertility treatment",Crime,Critical,1
+"Sobrang bilis ng service sa barangay pag may kakilala",Service,Medium,2
+"May nakita kong nag-bbenta ng fake pregnancy test",Crime,High,1
+"Yung chess board sa plaza incomplete yung pieces",Recreation,Low,3
+"Walang functioning xerox machine sa barangay",Service,Medium,2
+"May nag-operate ng illegal alcohol distillery",Crime,Critical,1
+"Sobrang daming nag-iisda sa polluted creek",Health,High,1
+"May nakita kong nag-ppractice ng fake accounting",Crime,High,1
+"Yung barangay anthem mali mali yung lyrics",Service,Low,3
+"Walang proper signage para sa disabled persons",Accessibility,Medium,2
+"May nag-conduct ng unauthorized land survey",Crime,High,1
+"Sobrang daming fake doctor's certificate",Crime,High,1
+"May nakita kong nag-ssell ng fake COVID test kits",Crime,Critical,1
+"Yung public toilet walang water supply",Sanitation,High,1
+"Walang functioning weighing scale para sa garbage",Waste Management,Low,3
+"May nag-operate ng illegal junk shop",Zoning,Medium,2
+"Sobrang pangit ng penmanship sa barangay clearance",Service,Low,3
+"May nakita kong nag-bbenta ng fake ID sa students",Crime,High,1
+"Yung badminton court walang net",Recreation,Low,3
+"Walang emergency whistle sa barangay tanod",Emergency,Medium,2
+"May nag-conduct ng unauthorized plastic surgery",Crime,Critical,1
+"Sobrang daming basurang nakakalat after fiesta",Sanitation,Medium,2
+"May nakita kong nag-ppractice ng fake teaching",Crime,High,1
+"Yung barangay map outdated na",Service,Low,3
+"Walang proper maintenance ng barangay vehicle",Infrastructure,Medium,2
+"May nag-operate ng illegal tattoo parlor",Health,High,1
+"Sobrang daming fake health certificate",Crime,High,1
+"May nakita kong nag-ssteal ng barangay property",Crime,High,1
+"Yung information board sa entrance walang laman",Service,Low,3
+"Walang functioning printer sa barangay",Service,Medium,2
+"May nag-conduct ng fake dialysis",Crime,Critical,1
+"Sobrang daming loose wire sa may poste",Safety,Critical,1
+"May nakita kong nag-bbenta ng fake police clearance",Crime,Critical,1
+"Yung flagpole walang pulley hindi makabit ang flag",Infrastructure,Low,3
+"Walang designated area para sa composting",Waste Management,Low,3
+"May nag-operate ng illegal cockfighting arena",Illegal Activity,Critical,1
+"Sobrang daming illegal quarrying operation",Environment,Critical,1
+"May nakita kong nag-ppractice ng fake engineering",Crime,Critical,1
+"Yung barangay transparency board walang info",Service,Medium,2
+"Walang proper disinfection ng barangay facilities",Health,Medium,2
+"May nag-conduct ng unauthorized organ harvesting rumor",Crime,Critical,1
+"Sobrang daming nag-aalaga ng fighting spider",Illegal Activity,Low,3
+"May nakita kong nag-ssell ng fake birth certificate",Crime,Critical,1
+"Yung tennis court may butas sa net",Recreation,Low,3
+"Walang functioning laminator sa barangay",Service,Low,3
+"May nag-operate ng illegal fireworks factory",Safety,Critical,1
+"Sobrang pangit ng quality ng barangay ID",Service,Low,3
+"May nakita kong nag-bbenta ng fake NBI clearance",Crime,Critical,1
+"Yung jogging path sa park puno ng butas",Safety,Medium,2
+"Walang proper storage ng medical waste",Health,Critical,1
+"May nag-conduct ng fake chemotherapy",Crime,Critical,1
+"Sobrang daming illegal water connection sa area",Utilities,High,1
+"May nakita kong nag-ppractice ng fake architecture",Crime,High,1
+"Yung barangay uniform ng officials magkakaiba",Service,Low,3
+"Walang emergency boat para sa baha",Disaster Preparedness,Medium,2
+"May nag-operate ng illegal electroshock therapy",Crime,Critical,1
+"Sobrang daming fake barangay certificate circulating",Crime,Critical,1
+"May nakita kong nag-ssteal ng manhole cover",Crime,High,1
+"Yung monkey bars sa playground rusted na",Safety,Medium,2
+"Walang functioning fax machine sa barangay",Service,Low,3
+"May nag-conduct ng unauthorized bone setting",Health,High,1
+"Sobrang daming illegal operator ng towing service",Crime,Medium,2
+"May nakita kong nag-bbenta ng fake passport",Crime,Critical,1
+"Yung see-saw sa playground unbalanced",Safety,Medium,2
+"Walang proper protocol para sa bomb threat",Emergency,High,1
+"May nag-operate ng illegal abortion clinic",Crime,Critical,1
+"Sobrang pangit ng logo sa barangay uniform",Service,Low,3
+"May nakita kong nag-ppractice ng fake midwifery",Crime,Critical,1
+"Yung barangay hall may water stain sa ceiling",Infrastructure,Low,3
+"Walang designated isolation facility",Health,High,1
+"May nag-conduct ng fake kidney operation scam",Crime,Critical,1
+"Sobrang daming illegal poaching sa forest area",Environment,Critical,1
+"May nakita kong nag-ssell ng fake marriage contract",Crime,Critical,1
+"Yung swing sa playground may broken chain",Safety,High,1
+"Walang functioning scanner sa barangay",Service,Low,3
+"May nag-operate ng illegal blood bank",Health,Critical,1
+"Sobrang daming fake diploma mill sa area",Crime,High,1
+"May nakita kong nag-bbenta ng fake land title",Crime,Critical,1
+"Yung slide sa playground may sharp edges",Safety,High,1
+"Walang proper protocol para sa hostage situation",Emergency,High,1
+"May nag-conduct ng unauthorized embalming",Crime,Critical,1
+"Sobrang daming illegal seller ng endangered species",Crime,Critical,1
+"May nakita kong nag-ppractice ng fake optometry",Crime,High,1
+"Yung barangay seal sa stamp blurred na",Service,Low,3
+"Walang functioning defibrillator sa barangay",Emergency,Critical,1
+"May nag-operate ng illegal stem cell clinic",Crime,Critical,1
+"Sobrang pangit ng condition ng barangay ambulance",Emergency,High,1
+"May nakita kong nag-ssell ng fake driver's license",Crime,Critical,1
+"Yung table tennis table sa covered court warped",Recreation,Low,3
+"Walang designated chemical spill response team",Emergency,High,1
+"May nag-conduct ng fake heart surgery scam",Crime,Critical,1
+"Sobrang daming illegal dynamite fishing",Environment,Critical,1
+"May nakita kong nag-bbenta ng fake visa",Crime,Critical,1
+"Yung barangay clock sa wall hindi gumagana",Infrastructure,Low,3
+"Walang proper protocol para sa chemical attack",Emergency,High,1
+"May nag-operate ng illegal cosmetic surgery clinic",Crime,Critical,1
+"Sobrang daming fake insurance agent",Crime,High,1
+"May nakita kong nag-ppractice ng fake radiology",Crime,Critical,1
+"Yung water dispenser sa barangay sira na",Infrastructure,Low,3
+"Walang functioning oxygen tank sa health center",Health,Critical,1
+"May nag-conduct ng unauthorized brain surgery claim",Crime,Critical,1
+"Sobrang daming illegal seller ng fake antiques",Crime,Medium,2
+"May nakita kong nag-ssell ng fake OFW papers",Crime,Critical,1
+"Yung picnic table sa park may termite damage",Safety,Medium,2
+"Walang designated biohazard disposal area",Health,Critical,1
+"May nag-operate ng illegal organ transplant rumor mill",Crime,Critical,1
+"Sobrang pangit ng framing ng barangay officials picture",Service,Low,3
+"May nakita kong nag-bbenta ng fake college diploma",Crime,High,1
+"Yung drinking fountain sa park walang tubig lagi",Infrastructure,Low,3
+"Walang proper protocol para sa pandemic response",Health,Critical,1
+"May nag-conduct ng fake cancer treatment scam",Crime,Critical,1
+"Sobrang daming illegal operator ng ambulance",Crime,Critical,1
+"May nakita kong nag-ppractice ng fake surgery",Crime,Critical,1
+"Yung barangay tarpaulin sa entrance luma na punit",Infrastructure,Low,3
+"Walang functioning nebulizer sa health center",Health,High,1
+"May nag-operate ng illegal dialysis center",Crime,Critical,1
+"Sobrang daming fake job recruiter sa barangay",Crime,High,1
+"May nakita kong nag-ssell ng fake government ID",Crime,Critical,1
+"Yung barbecue grill sa covered court rusted",Recreation,Low,3
+"Walang designated hazmat team sa barangay",Emergency,High,1
+"May nag-conduct ng unauthorized organ donation scam",Crime,Critical,1
+"Sobrang daming illegal cyanide fishing",Environment,Critical,1
+"May nakita kong nag-bbenta ng fake gun license",Crime,Critical,1
+"Yung trash can sa plaza walang cover",Sanitation,Low,3
+"Walang proper protocol para sa terrorism threat",Emergency,Critical,1
+"May nag-operate ng illegal fertility clinic",Crime,Critical,1
+"Sobrang pangit ng condition ng barangay fire truck",Emergency,High,1
+"May nakita kong nag-ppractice ng fake anesthesiology",Crime,Critical,1
+"Yung barangay banner sa kalsada nakaharang sa view",Safety,Medium,2
+"Walang functioning ECG machine sa health center",Health,High,1
+"May nag-conduct ng fake HIV treatment scam",Crime,Critical,1
+"Sobrang daming illegal coral harvesting",Environment,Critical,1
+"May nakita kong nag-ssell ng fake senior citizen ID",Crime,High,1
+"Yung bike rack sa barangay kulang ng slots",Infrastructure,Low,3
+"Walang designated nuclear emergency protocol",Emergency,Critical,1
+"May nag-operate ng illegal plastic surgery clinic",Crime,Critical,1
+"Sobrang daming fake lawyer na nag-ooffer ng services",Crime,Critical,1
+"May nakita kong nag-bbenta ng fake TIN ID",Crime,Critical,1
+"Yung book shelf sa barangay library empty",Service,Low,3
+"Walang functioning ultrasound machine sa health center",Health,High,1
+"May nag-conduct ng unauthorized transplant surgery rumor",Crime,Critical,1
+"Sobrang daming illegal mangrove cutting",Environment,Critical,1
+"May nakita kong nag-ppractice ng fake cardiology",Crime,Critical,1
+"Yung bulletin board sa barangay walang pushpins",Infrastructure,Low,3
+"Walang proper protocol para sa biological threat",Emergency,Critical,1
+"May nag-operate ng illegal IVF clinic",Crime,Critical,1
+"Sobrang pangit ng maintenance ng barangay generator",Infrastructure,Medium,2
+"May nakita kong nag-ssell ng fake PWD ID",Crime,High,1
+"Yung water hose sa barangay may butas lahat",Infrastructure,Low,3
+"Walang designated mass casualty protocol",Emergency,Critical,1
+"May nag-conduct ng fake HIV cure scam",Crime,Critical,1
+"Sobrang daming illegal turtle egg harvesting",Environment,Critical,1
+"May nakita kong nag-bbenta ng fake SSS ID",Crime,Critical,1
+"Yung whiteboard sa barangay office walang marker",Infrastructure,Low,3
+"Walang functioning X-ray machine sa health center",Health,High,1
+"May nag-operate ng illegal gene therapy clinic",Crime,Critical,1
+"Sobrang daming fake real estate agent sa area",Crime,High,1
+"May nakita kong nag-ppractice ng fake neurosurgery",Crime,Critical,1
+"Yung message board sa barangay entrance walang updates",Service,Low,3
+"Walang proper protocol para sa radiological emergency",Emergency,Critical,1
+"May nag-conduct ng unauthorized cloning claim",Crime,Critical,1
+"Sobrang daming illegal wildlife trading",Environment,Critical,1
+"May nakita kong nag-ssell ng fake PhilHealth ID",Crime,Critical,1
+"Yung filing cabinet sa barangay walang lock",Security,Medium,2
+"Walang functioning CT scan machine access",Health,High,1
+"May nag-operate ng illegal surrogacy operation",Crime,Critical,1
+"Sobrang pangit ng signage sa barangay evacuation center",Emergency,Medium,2
+"May nakita kong nag-bbenta ng fake UMID",Crime,Critical,1
+"Yung projector sa barangay hall luma na",Infrastructure,Low,3
+"Walang designated EMP protection protocol",Emergency,High,1
+"May nag-conduct ng fake stem cell miracle cure",Crime,Critical,1
+"Sobrang daming illegal exotic pet breeding",Crime,High,1
+"May nakita kong nag-ppractice ng fake oncology",Crime,Critical,1
+"Yung public piano sa plaza may broken keys",Recreation,Low,3
+"Walang proper protocol para sa active shooter",Emergency,Critical,1
+"May nag-operate ng illegal cryonics facility claim",Crime,Critical,1
+"Sobrang daming fake immigration consultant",Crime,High,1
+"May nakita kong nag-ssell ng fake postal ID",Crime,High,1
+"Yung PA system sa barangay intermittent",Infrastructure,Low,3
+"Walang functioning MRI access sa area",Health,High,1
+"May nag-conduct ng unauthorized genetic testing",Crime,High,1
+"Sobrang daming illegal pearl diving operation",Environment,High,1
+"May nakita kong nag-bbenta ng fake barangay clearance",Crime,Critical,1
+"Yung computer sa barangay sobrang bagal",Infrastructure,Low,3
+"Walang designated active threat response team",Emergency,Critical,1
+"May nag-operate ng illegal DNA testing facility",Crime,High,1
+"Sobrang pangit ng acoustics sa covered court",Infrastructure,Low,3
+"May nakita kong nag-ppractice ng fake pathology",Crime,Critical,1
+"Yung telescope sa barangay observatory sira",Recreation,Low,3
+"Walang proper protocol para sa cyber attack",Emergency,High,1
+"May nag-conduct ng fake regenerative medicine scam",Crime,Critical,1
+"Sobrang daming illegal seahorse harvesting",Environment,Critical,1
+"May nakita kong nag-ssell ng fake voter's ID",Crime,Critical,1
+"Yung trophy case sa barangay walang display",Service,Low,3
+"Walang functioning dialysis access sa community",Health,Critical,1
+"May nag-operate ng illegal chromosome therapy scam",Crime,Critical,1
+"Sobrang daming fake travel agency sa area",Crime,High,1
+"May nakita kong nag-bbenta ng fake cedula",Crime,High,1
+"Yung microphone sa barangay may feedback lagi",Infrastructure,Low,3
+"Walang designated WMD response protocol",Emergency,Critical,1
+"May nag-conduct ng unauthorized nano-surgery claim",Crime,Critical,1
+"Sobrang daming illegal butterfly catching",Environment,Medium,2
+"May nakita kong nag-ppractice ng fake dermatology",Crime,High,1
+"Yung display case sa barangay may cracked glass",Infrastructure,Low,3
+"Walang proper protocol para sa electromagnetic pulse",Emergency,Critical,1
+"May nag-operate ng illegal anti-aging clinic scam",Crime,High,1
+"Sobrang pangit ng color scheme sa barangay hall",Infrastructure,Low,3
+"May nakita kong nag-ssell ng fake business permit",Crime,Critical,1
+"Yung timer sa basketball court hindi accurate",Recreation,Low,3
+"Walang functioning telemedicine facility",Health,Medium,2
+"May nag-conduct ng fake immortality treatment scam",Crime,Critical,1
+"Sobrang daming illegal bird nest harvesting",Environment,High,1
+"May nakita kong nag-bbenta ng fake professional ID",Crime,Critical,1
+"Yung air quality monitor sa barangay sira",Environment,Medium,2
+"Walang WiFi signal sa emergency operations center",Emergency,Medium,2
+"May nag-conduct ng fake quantum healing sessions",Crime,High,1
+"Sobrang daming plastic sa drainage after ulan",Environment,High,1
+"May nakita kong nag-ppractice ng fake psychiatry",Crime,Critical,1
+"Yung scoreboard sa basketball court sira",Recreation,Low,3
+"Walang designated cyber security officer",Service,Medium,2
+"May nag-operate ng illegal cryptocurrency mining",Crime,High,1
+"Sobrang init sa health center walang bentilasyon",Health,Medium,2
+"May nakita kong nag-bbenta ng fake land survey",Crime,Critical,1
+"Yung emergency exit sign hindi nag-iilaw",Safety,High,1
+"Walang proper storage ng flammable materials",Safety,High,1
+"May nag-conduct ng unauthorized hypnosis therapy",Crime,Medium,2
+"Sobrang daming motor na naka-park sa sidewalk",Traffic,Medium,2
+"May nakita kong nag-ssteal ng electric cable",Crime,High,1
+"Yung water meter sa barangay hindi accurate",Utilities,Medium,2
+"Walang functioning smoke detector sa facilities",Safety,High,1
+"May nag-operate ng illegal online gambling",Crime,Critical,1
+"Sobrang liit ng font sa barangay notices",Service,Low,3
+"May nakita kong nag-ppractice ng fake speech therapy",Crime,High,1
+"Yung comfort room door hindi nag-lolock",Sanitation,Medium,2
+"Walang designated pandemic officer",Health,High,1
+"May nag-conduct ng fake crystal healing scam",Crime,Medium,2
+"Sobrang daming tao sa computer shop minors pa",Public Order,Medium,2
+"May nakita kong nag-bbenta ng fake SEC registration",Crime,Critical,1
+"Yung gate sa barangay walang guard post",Security,Medium,2
+"Walang proper protocol para sa earthquake",Disaster Preparedness,High,1
+"May nag-operate ng illegal vaping shop",Crime,High,1
+"Sobrang tagal ng barangay assembly laging antok lahat",Service,Low,3
+"May nakita kong nag-ssteal ng community plants",Crime,Low,3
+"Yung flagpole rope punit na hindi ma-raise flag",Infrastructure,Low,3
+"Walang functioning panic button sa barangay",Emergency,High,1
+"May nag-conduct ng unauthorized aromatherapy sessions",Crime,Low,3
+"Sobrang daming batang nag-ccutting classes",Child Welfare,Medium,2
+"May nakita kong nag-ppractice ng fake occupational therapy",Crime,High,1
+"Yung generator sa barangay walang fuel",Emergency,High,1
+"Walang designated IT support sa barangay",Service,Low,3
+"May nag-operate ng illegal binary options trading",Crime,Critical,1
+"Sobrang daming electrical hazard sa public market",Safety,Critical,1
+"May nakita kong nag-bbenta ng fake organic certification",Crime,High,1
+"Yung bulletin board naka-padlock walang access",Service,Low,3
+"Walang proper ventilation sa barangay vault",Infrastructure,Low,3
+"May nag-conduct ng fake acupuncture sessions",Crime,Medium,2
+"Sobrang tagal mag-load ng barangay portal",Service,Low,3
+"May nakita kong nag-ssteal ng water pipes",Crime,High,1
+"Yung barangay anthem recording may background noise",Service,Low,3
+"Walang functioning intercom system",Infrastructure,Low,3
+"May nag-operate ng illegal forex scam",Crime,Critical,1
+"Sobrang daming fake news sa community chat",Information,Medium,2
+"May nakita kong nag-ppractice ng fake nutrition counseling",Crime,Medium,2
+"Yung playground sand box puno ng langaw",Sanitation,Medium,2
+"Walang designated social media manager",Service,Low,3
+"May nag-conduct ng unauthorized reiki healing",Crime,Low,3
+"Sobrang daming batang nag-vvape sa likod ng school",Child Welfare,High,1
+"May nakita kong nag-bbenta ng fake organic products",Crime,High,1
+"Yung barangay logo sa seal mali ang design",Service,Low,3
+"Walang proper documentation ng complaints",Service,Medium,2
+"May nag-operate ng illegal ponzi scheme",Crime,Critical,1
+"Sobrang daming nakaharang na private vehicle sa road",Traffic,Medium,2
+"May nakita kong nag-ssteal ng street signs",Crime,Medium,2
+"Yung LED screen sa barangay hall bulag na",Infrastructure,Low,3
+"Walang functioning GPS sa barangay vehicle",Infrastructure,Low,3
+"May nag-conduct ng fake colon cleansing sessions",Crime,Medium,2
+"Sobrang tagal ng response sa barangay hotline",Service,High,1
+"May nakita kong nag-ppractice ng fake physical therapy",Crime,High,1
+"Yung hand sanitizer dispenser sa entrance empty",Health,Medium,2
+"Walang designated records officer",Service,Low,3
+"May nag-operate ng illegal pyramid marketing",Crime,Critical,1
+"Sobrang daming private vehicle na naka-illegal parking",Traffic,Medium,2
+"May nakita kong nag-bbenta ng fake halal certification",Crime,High,1
+"Yung barangay minutes hindi naka-post",Service,Medium,2
+"Walang proper protocol para sa viral outbreak",Health,Critical,1
+"May nag-conduct ng unauthorized reflexology",Crime,Low,3
+"Sobrang daming bata na nag-oonline games buong gabi",Child Welfare,Medium,2
+"May nakita kong nag-ssteal ng construction materials",Crime,High,1
+"Yung aircon sa barangay hall tumatagas",Infrastructure,Low,3
+"Walang functioning barcode scanner",Service,Low,3
+"May nag-operate ng illegal multi-level marketing",Crime,High,1
+"Sobrang liit ng letters sa barangay clearance",Service,Low,3
+"May nakita kong nag-ppractice ng fake massage therapy",Crime,Medium,2
+"Yung comfort room exhaust fan sira",Sanitation,Low,3
+"Walang designated complaint officer",Service,Medium,2
+"May nag-conduct ng fake detox program scam",Crime,High,1
+"Sobrang daming batang nag-aalaga ng online sabong",Child Welfare,High,1
+"May nakita kong nag-bbenta ng fake kosher products",Crime,Medium,2
+"Yung barangay resolution hindi numbered properly",Service,Low,3
+"Walang proper protocol para sa heat wave",Health,Medium,2
+"May nag-operate ng illegal investment club",Crime,Critical,1
+"Sobrang tagal ng verification process sa barangay",Service,Medium,2
+"May nakita kong nag-ssteal ng solar panel",Crime,Critical,1
+"Yung ceiling sa barangay office may leak",Infrastructure,Low,3
+"Walang functioning metal detector",Security,Medium,2
+"May nag-conduct ng unauthorized cupping therapy",Crime,Low,3
+"Sobrang daming bata na adik sa mobile legends",Child Welfare,Medium,2
+"May nakita kong nag-ppractice ng fake chiropractor",Crime,High,1
+"Yung photocopier sa barangay laging nag-jajam",Infrastructure,Low,3
+"Walang designated legal officer",Service,Low,3
+"May nag-operate ng illegal betting operation",Crime,Critical,1
+"Sobrang pangit ng lighting sa barangay stage",Infrastructure,Low,3
+"May nakita kong nag-bbenta ng fake vegan certification",Crime,Medium,2
+"Yung barangay ordinance compilation outdated",Service,Low,3
+"Walang proper protocol para sa tornado",Disaster Preparedness,High,1
+"May nag-conduct ng fake past life regression",Crime,Medium,2
+"Sobrang daming batang nag-aadik sa TikTok",Child Welfare,Low,3
+"May nakita kong nag-ssteal ng CCTV camera",Crime,High,1
+"Yung floor tiles sa barangay hall madulas",Safety,Medium,2
+"Walang functioning laminating machine",Service,Low,3
+"May nag-operate ng illegal raffle scam",Crime,High,1
+"Sobrang daming fake influencer na nag-sscam",Crime,High,1
+"May nakita kong nag-ppractice ng fake herbalist",Crime,Medium,2
+"Yung barangay anthem version outdated na",Service,Low,3
+"Walang designated webmaster",Service,Low,3
+"May nag-conduct ng unauthorized ear candling",Crime,Low,3
+"Sobrang daming bata na nag-ssugal ng coins",Child Welfare,Medium,2
+"May nakita kong nag-bbenta ng fake fair trade products",Crime,Medium,2
+"Yung barangay transparency seal mali ang year",Service,Low,3
+"Walang proper protocol para sa landslide",Disaster Preparedness,High,1
+"May nag-operate ng illegal payday loan",Crime,High,1
+"Sobrang tagal ng appointment system sa barangay",Service,Medium,2
+"May nakita kong nag-ssteal ng roof materials",Crime,High,1
+"Yung water fountain sa plaza walang maintenance",Infrastructure,Low,3
+"Walang functioning document shredder",Service,Low,3
+"May nag-conduct ng fake aura reading sessions",Crime,Low,3
+"Sobrang daming bata na nag-llive stream ng kabastusan",Child Welfare,High,1
+"May nakita kong nag-ppractice ng fake homeopath",Crime,High,1
+"Yung spotlight sa stage sira lahat",Infrastructure,Low,3
+"Walang designated procurement officer",Service,Low,3
+"May nag-operate ng illegal loan shark operation",Crime,Critical,1
+"Sobrang pangit ng audio quality sa barangay announcements",Infrastructure,Low,3
+"May nakita kong nag-bbenta ng fake ancestry DNA tests",Crime,High,1
+"Yung barangay budget presentation confusing",Service,Low,3
+"Walang proper protocol para sa tsunami",Disaster Preparedness,Critical,1
+"May nag-conduct ng unauthorized chakra balancing",Crime,Low,3
+"Sobrang daming bata na nanonood ng mature content",Child Welfare,High,1
+"May nakita kong nag-ssteal ng aluminum wiring",Crime,High,1
+"Yung carpet sa barangay hall madumi na",Sanitation,Low,3
+"Walang functioning credit card terminal",Service,Low,3
+"May nag-operate ng illegal text scam",Crime,Critical,1
+"Sobrang daming fake health supplement seller",Crime,High,1
+"May nakita kong nag-ppractice ng fake naturopath",Crime,High,1
+"Yung microphone stand sa stage laging bumabagsak",Infrastructure,Low,3
+"Walang designated data privacy officer",Service,Medium,2
+"May nag-conduct ng fake tarot card reading for money",Crime,Low,3
+"Sobrang daming bata na nag-ccyberbully",Child Welfare,High,1
+"May nakita kong nag-bbenta ng fake carbon credits",Crime,High,1
+"Yung barangay flag faded na ang kulay",Infrastructure,Low,3
+"Walang proper protocol para sa volcanic eruption",Disaster Preparedness,Critical,1
+"May nag-operate ng illegal remittance center",Crime,Critical,1
+"Sobrang tagal ng barangay online services",Service,Medium,2
+"May nakita kong nag-ssteal ng bronze fixtures",Crime,Medium,2
+"Yung projector screen sa hall may butas",Infrastructure,Low,3
+"Walang functioning cash counting machine",Service,Low,3
+"May nag-conduct ng unauthorized energy healing",Crime,Low,3
+"Sobrang daming bata na nag-ssextortion",Child Welfare,Critical,1
+"May nakita kong nag-ppractice ng fake ayurveda",Crime,Medium,2
+"Yung podium sa barangay lopsided",Infrastructure,Low,3
+"Walang designated communications officer",Service,Low,3
+"May nag-operate ng illegal pera padala scam",Crime,Critical,1
+"Sobrang pangit ng website design ng barangay",Service,Low,3
+"May nakita kong nag-bbenta ng fake sustainability certification",Crime,Medium,2
+"Yung barangay calendar mali ang holiday dates",Service,Low,3
+"Walang proper protocol para sa solar flare",Emergency,Medium,2
+"May nag-conduct ng fake medium sessions",Crime,Medium,2
+"Sobrang daming bata na victim ng catfishing",Child Welfare,High,1
+"May nakita kong nag-ssteal ng brass doorknobs",Crime,Medium,2
+"Yung thermostat sa barangay hall hindi gumagana",Infrastructure,Low,3
+"Walang functioning QR code scanner",Service,Low,3
+"May nag-operate ng illegal pautang with threats",Crime,Critical,1
+"Sobrang daming fake online seller sa barangay",Crime,High,1
+"May nakita kong nag-ppractice ng fake traditional healer",Crime,Medium,2
+"Yung barangay letterhead mali ang format",Service,Low,3
+"Walang designated youth development officer",Service,Low,3
+"May nag-conduct ng unauthorized fortune telling for cash",Crime,Low,3
+"Sobrang daming bata na nag-oonline gambling",Child Welfare,Critical,1
+"May nakita kong nag-bbenta ng fake emission certificates",Crime,High,1
+"Yung barangay ID template outdated",Service,Low,3
+"Walang proper protocol para sa meteor strike",Emergency,Low,3
+"May nag-operate ng illegal door-to-door scam",Crime,High,1
+"Sobrang tagal ng queuing system sa barangay",Service,Medium,2
+"May nakita kong nag-ssteal ng copper fixtures",Crime,High,1
+"Yung window blinds sa barangay sira lahat",Infrastructure,Low,3
+"Walang functioning receipt printer",Service,Low,3
+"May nag-conduct ng fake palm reading business",Crime,Low,3
+"Sobrang daming bata na nag-sshare ng nude photos",Child Welfare,Critical,1
+"May nakita kong nag-ppractice ng fake folk healer",Crime,Medium,2
+"Yung name plate ng officials mali ang spelling",Service,Low,3
+"Walang designated gender and development officer",Service,Low,3
+"May nag-operate ng illegal tong-its den",Illegal Activity,High,1
+"Sobrang pangit ng color ng barangay paint",Infrastructure,Low,3
+"May nakita kong nag-bbenta ng fake eco-label",Crime,Medium,2
+"Yung barangay brochure full of typos",Service,Low,3
+"Walang proper protocol para sa alien invasion joke",Emergency,Low,3
+"May nag-conduct ng unauthorized spiritual healing",Crime,Low,3
+"Sobrang daming bata na victim ng grooming online",Child Welfare,Critical,1
+"May nakita kong nag-ssteal ng pewter items",Crime,Low,3
+"Yung door mat sa barangay entrance torn",Infrastructure,Low,3
+"Walang functioning ID printer",Service,Low,3
+"May nag-operate ng illegal pusoy dos gambling",Illegal Activity,Medium,2
+"Sobrang daming fake crypto investment sa area",Crime,Critical,1
+"May nakita kong nag-ppractice ng fake hilot",Crime,Medium,2
+"Yung barangay jingle corny yung lyrics",Service,Low,3
+"Walang designated senior citizens affairs officer",Service,Low,3
+"May nag-conduct ng fake numerology consultation",Crime,Low,3
+"Sobrang daming bata na nag-sscam sa online games",Child Welfare,High,1
+"May nakita kong nag-bbenta ng fake recycling credits",Crime,Medium,2
+"Yung barangay memo pad design pangit",Service,Low,3
+"Walang proper protocol para sa robot uprising joke",Emergency,Low,3
+"May nag-operate ng illegal ending gambling",Illegal Activity,High,1
+"Sobrang tagal ng encoding ng data sa barangay",Service,Low,3
+"May nakita kong nag-ssteal ng zinc materials",Crime,Medium,2
+"Yung clock sa barangay wall wrong time zone",Infrastructure,Low,3
+"Walang functioning badge maker",Service,Low,3
+"May nag-conduct ng unauthorized dowsing sessions",Crime,Low,3
+"Sobrang daming bata na nag-aadik sa crypto trading",Child Welfare,High,1
+"May nakita kong nag-ppractice ng fake albularyo",Crime,Medium,2
+"Yung barangay mascot costume kulang ng parts",Service,Low,3
+"Walang designated persons with disability officer",Service,Low,3
+"May nag-operate ng illegal sakla gambling",Illegal Activity,High,1
+"Sobrang pangit ng layout ng barangay forms",Service,Low,3
+"May nakita kong nag-bbenta ng fake green certification",Crime,Medium,2
+"Yung barangay vision-mission statement generic",Service,Low,3
+"Walang proper protocol para sa zombie apocalypse joke",Emergency,Low,3
+"May nag-conduct ng fake astrology business",Crime,Low,3
+"Sobrang daming bata na nag-cclick ng phishing links",Child Welfare,Medium,2
+"May nakita kong nag-ssteal ng nickel items",Crime,Low,3
+"Yung welcome sign sa barangay faded na",Infrastructure,Low,3
+"Walang functioning hole puncher sa barangay",Service,Low,3
+"May nag-operate ng illegal mahjong den",Illegal Activity,High,1
+"Sobrang daming fake NFT project sa barangay group",Crime,High,1
+"May nakita kong nag-ppractice ng fake manghihilot",Crime,Medium,2
+"Yung barangay slogan parang copied lang",Service,Low,3
+"Walang designated indigenous peoples officer",Service,Low,3
+"May nag-conduct ng unauthorized crystal ball reading",Crime,Low,3
+"Sobrang daming bata na nag-cchat sa stranger",Child Welfare,High,1
+"May nakita kong nag-bbenta ng fake biodegradable label",Crime,Medium,2
+"Yung barangay hymn mali ang melody",Service,Low,3
+"Walang proper protocol para sa time travel paradox joke",Emergency,Low,3
+"May nag-operate ng illegal bingo operation",Illegal Activity,Medium,2
+"Sobrang tagal ng update ng barangay database",Service,Low,3
+"May nakita kong nag-ssteal ng tin roofing",Crime,High,1
+"Yung wastebasket sa barangay puno lagi",Sanitation,Low,3
+"Walang functioning stapler sa barangay",Service,Low,3
+"May nag-conduct ng fake face reading sessions",Crime,Low,3
+"Sobrang daming bata na nag-lleak ng private info",Child Welfare,High,1
+"May nakita kong nag-ppractice ng fake traditional midwife",Crime,High,1
+"Yung barangay core values poster outdated",Service,Low,3
+"Walang designated anti-drug abuse officer",Service,Medium,2
+"May nag-operate ng illegal hantak gambling",Illegal Activity,Medium,2
+"Sobrang pangit ng font choice sa barangay docs",Service,Low,3
+"May nakita kong nag-bbenta ng fake compostable packaging",Crime,Medium,2
+"Yung barangay code of conduct walang kopya",Service,Low,3
+"Walang proper protocol para sa sentient AI uprising joke",Emergency,Low,3
+"May nag-conduct ng unauthorized tea leaf reading",Crime,Low,3
+"Sobrang daming bata na nag-ddox ng iba online",Child Welfare,Critical,1
+"May nakita kong nag-ssteal ng lead materials",Crime,Medium,2
+"Yung suggestion box sa barangay walang laman",Service,Low,3
+"Walang functioning paper cutter",Service,Low,3
+"May nag-operate ng illegal color game",Illegal Activity,Medium,2
+"Sobrang daming fake Web3 project sa community",Crime,High,1
+"May nakita kong nag-ppractice ng fake herbolario",Crime,Medium,2
+"Yung barangay oath taking script messed up",Service,Low,3
+"Walang designated environmental officer",Service,Low,3
+"May nag-conduct ng fake rune casting business",Crime,Low,3
+"Sobrang daming bata na victim ng online pyramid",Child Welfare,High,1
+"May nakita kong nag-bbenta ng fake carbon neutral claim",Crime,Medium,2
+"Yung barangay mission statement too long",Service,Low,3
+"Walang proper protocol para sa dimensional rift joke",Emergency,Low,3
+"May nag-operate ng illegal pares-pares gambling",Illegal Activity,Medium,2
+"Sobrang tagal ng archiving system sa barangay",Service,Low,3
+"May nakita kong nag-ssteal ng titanium parts",Crime,High,1
+"Yung tissue dispenser sa CR empty lagi",Sanitation,Low,3
+"Walang functioning calculator sa barangay",Service,Low,3
+"May nag-conduct ng unauthorized pendulum divination",Crime,Low,3
+"Sobrang daming bata na nag-sswatting online",Child Welfare,Critical,1
+"May nakita kong nag-ppractice ng fake faith healer",Crime,Medium,2
+"Yung barangay vision board poorly designed",Service,Low,3
+"Walang designated nutrition officer",Service,Low,3
+"May nag-operate ng illegal tupada operation",Illegal Activity,Critical,1
+"Sobrang pangit ng kerning sa barangay signage",Infrastructure,Low,3
+"May nakita kong nag-bbenta ng fake net-zero certification",Crime,Medium,2
+"Yung barangay strategic plan unrealistic",Service,Low,3
+"Walang proper protocol para sa reality collapse joke",Emergency,Low,3
+"May nag-conduct ng fake horoscope business",Crime,Low,3
+"Sobrang daming bata na nag-hhack ng accounts",Child Welfare,Critical,1
+"May nakita kong nag-ssteal ng platinum items",Crime,High,1
+"Yung hand towel sa CR walang palitan",Sanitation,Low,3
+"Walang functioning ruler sa barangay office",Service,Low,3
+"May nag-operate ng illegal last two gambling",Illegal Activity,Medium,2
+"Sobrang daming fake DeFi project sa barangay",Crime,Critical,1
+"May nakita kong nag-ppractice ng fake tawas reader",Crime,Low,3
+"Yung barangay performance dashboard outdated",Service,Low,3
+"Walang designated disaster risk reduction officer",Service,Medium,2
+"May nag-conduct ng unauthorized bone throwing divination",Crime,Low,3
+"Sobrang daming bata na nag-ddistribute ng malware",Child Welfare,Critical,1
+"May nakita kong nag-bbenta ng fake climate neutral label",Crime,Medium,2
+"Yung barangay annual report late lagi",Service,Low,3
+"Walang proper protocol para sa simulation hypothesis confirmation joke",Emergency,Low,3
+"May nag-operate ng illegal jueteng operation",Illegal Activity,Critical,1
+"Sobrang tagal ng digitization ng barangay records",Service,Low,3
+"May nakita kong nag-ssteal ng silver cutlery",Crime,High,1
+"Yung soap dispenser sa CR empty most of the time",Sanitation,Low,3
+"Walang functioning scissors sa barangay",Service,Low,3
+"May nag-conduct ng fake dream interpretation business",Crime,Low,3
+"Sobrang daming bata na nag-rransomware attack",Child Welfare,Critical,1
+"May nakita kong nag-ppractice ng fake usog remover",Crime,Low,3
+"Yung barangay audit report delayed",Service,Medium,2
+"Walang designated peace and order officer",Service,Low,3
+"May nag-operate ng illegal sisi-rami gambling",Illegal Activity,Medium,2
+"Sobrang pangit ng color palette ng barangay logo",Infrastructure,Low,3
+"May nakita kong nag-bbenta ng fake renewable energy certificate",Crime,Medium,2
+"Yung barangay quarterly report incomplete",Service,Low,3
+"Walang proper protocol para sa Lovecraftian entity emergence joke",Emergency,Low,3
+"May nag-conduct ng unauthorized oracle card reading",Crime,Low,3
+"Sobrang daming bata na nag-ccryptojacking",Child Welfare,High,1
+"May nakita kong nag-ssteal ng gold jewelry sa bahay",Crime,Critical,1
+"Yung mirror sa CR ng barangay may crack",Infrastructure,Low,3
+"Walang functioning tape dispenser",Service,Low,3
+"May nag-operate ng illegal panalo-talo gambling",Illegal Activity,Medium,2
+"Sobrang daming fake metaverse land sa barangay promo",Crime,High,1
+"May nakita kong nag-ppractice ng fake kulam remover",Crime,Low,3
+"Yung barangay quarterly assessment incomplete lagi",Service,Low,3
+"Walang designated livelihood officer",Service,Low,3
+"May nag-conduct ng fake birth chart reading business",Crime,Low,3
+"Sobrang daming bata na nag-ssocial engineering scam",Child Welfare,Critical,1
+"May nakita kong nag-bbenta ng fake ESG rating",Crime,Medium,2
+"Yung barangay governance structure chart outdated",Service,Low,3
+"Walang proper protocol para sa kaiju attack joke",Emergency,Low,3
+"May nag-operate ng illegal monte gambling",Illegal Activity,Medium,2
+"Sobrang tagal ng customer service response ng barangay",Service,Medium,2
+"May nakita kong nag-ssteal ng diamond ring",Crime,Critical,1
+"Yung paper towel dispenser sa CR walang laman",Sanitation,Low,3
+"Walang functioning glue stick sa office",Service,Low,3
+"May nag-conduct ng unauthorized shell divination",Crime,Low,3
+"Sobrang daming bata na nag-ccreate ng deepfake",Child Welfare,Critical,1
+"May nakita kong nag-ppractice ng fake gayuma maker",Crime,Low,3
+"Yung barangay satisfaction survey biased ang questions",Service,Low,3
+"Walang designated human rights officer",Service,Low,3
+"May nag-operate ng illegal lucky nine gambling",Illegal Activity,Medium,2
+"Sobrang pangit ng typography sa barangay materials",Infrastructure,Low,3
+"May nakita kong nag-bbenta ng fake green bond",Crime,High,1
+"Yung barangay transparency report delayed na naman",Service,Medium,2
+"Walang proper protocol para sa Godzilla sighting joke",Emergency,Low,3
+"May nag-conduct ng fake moon phase reading",Crime,Low,3
+"Sobrang daming bata na victim ng romance scam online",Child Welfare,High,1
+"May nakita kong nag-ssteal ng emerald earrings",Crime,Critical,1
+"Yung hand dryer sa CR maingay pero di nag-ddry",Sanitation,Low,3
+"Walang functioning highlighter sa barangay",Service,Low,3
+"May nag-operate ng illegal tongits plus operation",Illegal Activity,Medium,2
+"Sobrang daming fake DAO investment sa community",Crime,High,1
+"May nakita kong nag-ppractice ng fake tawas manghihilot",Crime,Low,3
+"Yung barangay performance review process unclear",Service,Low,3
+"Walang designated barangay historian",Service,Low,3
+"May nag-conduct ng unauthorized spirit channeling",Crime,Low,3
+"Sobrang daming bata na nag-cclone ng credit cards",Child Welfare,Critical,1
+"May nakita kong nag-bbenta ng fake impact investing",Crime,High,1
+"Yung barangay monitoring report full of errors",Service,Low,3
+"Walang proper protocol para sa sharknado joke",Emergency,Low,3
+"May nag-operate ng illegal poker den sa bahay",Illegal Activity,High,1
+"Sobrang tagal ng complaint resolution ng barangay",Service,Medium,2
+"May nakita kong nag-ssteal ng ruby necklace",Crime,Critical,1
+"Yung toilet paper sa CR laging ubos",Sanitation,Medium,2
+"Walang functioning eraser sa office",Service,Low,3
+"May nag-conduct ng fake angel card reading",Crime,Low,3
+"Sobrang daming bata na nag-sskimming ng ATM",Child Welfare,Critical,1
+"May nakita kong nag-ppractice ng fake bolo-bolo reader",Crime,Low,3
+"Yung barangay grievance mechanism ineffective",Service,Medium,2
+"Walang designated cultural affairs officer",Service,Low,3
+"May nag-operate ng illegal blackjack table",Illegal Activity,High,1
+"Sobrang pangit ng spacing sa barangay documents",Service,Low,3
+"May nakita kong nag-bbenta ng fake social bond",Crime,High,1
+"Yung barangay accountability report vague",Service,Low,3
+"Walang proper protocol para sa giant spider invasion joke",Emergency,Low,3
+"May nag-conduct ng unauthorized animal communication sessions",Crime,Low,3
+"Sobrang daming bata na nag-pproduce ng fake IDs",Child Welfare,Critical,1
+"May nakita kong nag-ssteal ng sapphire bracelet",Crime,Critical,1
+"Yung flush ng toilet sa CR mahina",Sanitation,Medium,2
+"Walang functioning correction tape",Service,Low,3
+"May nag-operate ng illegal baccarat operation",Illegal Activity,Critical,1
+"Sobrang daming fake yield farming sa barangay group",Crime,High,1
+"May nakita kong nag-ppractice ng fake bulong healer",Crime,Low,3
+"Yung barangay evaluation system outdated",Service,Low,3
+"Walang designated sports development officer",Service,Low,3
+"May nag-conduct ng fake color therapy business",Crime,Low,3
+"Sobrang daming bata na nag-mmoney laundering online",Child Welfare,Critical,1
+"May nakita kong nag-bbenta ng fake sustainability bond",Crime,High,1
+"Yung barangay feedback system walang action items",Service,Medium,2
+"Walang proper protocol para sa werewolf outbreak joke",Emergency,Low,3
+"May nag-operate ng illegal dice gambling",Illegal Activity,Medium,2
+"Sobrang tagal ng escalation process sa barangay",Service,Medium,2
+"May nakita kong nag-ssteal ng pearl necklace",Crime,High,1
+"Yung faucet sa CR tumatagos",Sanitation,Medium,2
+"Walang functioning pencil sharpener",Service,Low,3
+"May nag-conduct ng unauthorized sand reading",Crime,Low,3
+"Sobrang daming bata na nag-ccarding scheme",Child Welfare,Critical,1
+"May nakita kong nag-ppractice ng fake orasyon specialist",Crime,Low,3
+"Yung barangay consultation process hindi inclusive",Service,Medium,2
+"Walang designated disaster preparedness coordinator",Service,Medium,2
+"May nag-operate ng illegal slot machine",Illegal Activity,Critical,1
+"Sobrang pangit ng margin sa barangay forms",Service,Low,3
+"May nakita kong nag-bbenta ng fake thematic bond",Crime,High,1
+"Yung barangay participation mechanism limited",Service,Low,3
+"Walang proper protocol para sa vampire invasion joke",Emergency,Low,3
+"May nag-conduct ng fake flower essence therapy",Crime,Low,3
+"Sobrang daming bata na nag-iidentity theft",Child Welfare,Critical,1
+"May nakita kong nag-ssteal ng jade pendant",Crime,High,1
+"Yung sink sa CR clogged",Sanitation,Medium,2
+"Walang functioning paper clips sa office",Service,Low,3
+"May nag-operate ng illegal roulette wheel",Illegal Activity,Critical,1
+"Sobrang daming fake liquidity mining sa area",Crime,High,1
+"May nakita kong nag-ppractice ng fake anting-anting maker",Crime,Low,3
+"Yung barangay deliberation process biased",Service,Medium,2
+"Walang designated tourism officer",Service,Low,3
+"May nag-conduct ng unauthorized meridian therapy",Crime,Low,3
+"Sobrang daming bata na nag-ssim swap fraud",Child Welfare,Critical,1
+"May nakita kong nag-bbenta ng fake resilience bond",Crime,High,1
+"Yung barangay decision-making process opaque",Service,Medium,2
+"Walang proper protocol para sa alien probe sighting joke",Emergency,Low,3
+"May nag-operate ng illegal pusoy gambling",Illegal Activity,Medium,2
+"Sobrang tagal ng approval process sa barangay",Service,Medium,2
+"May nakita kong nag-ssteal ng opal ring",Crime,High,1
+"Yung urinal sa CR walang deodorizer",Sanitation,Low,3
+"Walang functioning binder clips",Service,Low,3
+"May nag-conduct ng fake goddess energy reading",Crime,Low,3
+"Sobrang daming bata na nag-bbusiness email compromise",Child Welfare,Critical,1
+"May nakita kong nag-ppractice ng fake oracion specialist",Crime,Low,3
+"Yung barangay priority setting process unclear",Service,Low,3
+"Walang designated barangay archivist",Service,Low,3
+"May nag-operate ng illegal cara y cruz operation",Illegal Activity,Medium,2
+"Sobrang pangit ng alignment sa barangay printouts",Service,Low,3
+"May nakita kong nag-bbenta ng fake catastrophe bond",Crime,High,1
+"Yung barangay stakeholder engagement weak",Service,Low,3
+"Walang proper protocol para sa mummy awakening joke",Emergency,Low,3
+"May nag-conduct ng unauthorized sound healing",Crime,Low,3
+"Sobrang daming bata na nag-ccryptocurrency scam",Child Welfare,Critical,1
+"May nakita kong nag-ssteal ng topaz earrings",Crime,High,1
+"Yung bathroom stall door sa CR sira ang lock",Sanitation,Medium,2
+"Walang functioning rubber bands sa office",Service,Low,3
+"May nag-operate ng illegal three card monte",Illegal Activity,High,1
+"Sobrang daming fake staking platform sa barangay",Crime,Critical,1
+"May nakita kong nag-ppractice ng fake agimat seller",Crime,Low,3
+"Yung barangay resource allocation questionable",Service,Medium,2
+"Walang designated barangay statistician",Service,Low,3
+"May nag-conduct ng fake frequency healing sessions",Crime,Low,3
+"Sobrang daming bata na nag-uubos ng e-wallet ng magulang",Child Welfare,High,1
+"May nakita kong nag-bbenta ng fake pandemic bond",Crime,High,1
+"Yung barangay implementation plan unrealistic",Service,Low,3
+"Walang proper protocol para sa kraken sighting joke",Emergency,Low,3
+"May nag-operate ng illegal pula-puti gambling",Illegal Activity,Medium,2
+"Sobrang tagal ng barangay permit renewal",Service,Medium,2
+"May nakita kong nag-ssteal ng amethyst ring",Crime,High,1
+"Yung toilet seat sa CR loose",Sanitation,Medium,2
+"Walang functioning push pins",Service,Low,3
+"May nag-conduct ng unauthorized biofield tuning",Crime,Low,3
+"Sobrang daming bata na nag-aaccount takeover",Child Welfare,Critical,1
+"May nakita kong nag-ppractice ng fake mutya seller",Crime,Low,3
+"Yung barangay monitoring system inadequate",Service,Medium,2
+"Walang designated barangay planning officer",Service,Low,3
+"May nag-operate ng illegal bingo sa bahay",Illegal Activity,Medium,2
+"Sobrang pangit ng formatting ng barangay reports",Service,Low,3
+"May nakita kong nag-bbenta ng fake vaccine bond",Crime,High,1
+"Yung barangay compliance mechanism weak",Service,Medium,2
+"Walang proper protocol para sa griffin attack joke",Emergency,Low,3
+"May nag-conduct ng fake color breathing therapy",Crime,Low,3
+"Sobrang daming bata na nag-ssynthetic identity fraud",Child Welfare,Critical,1
+"May nakita kong nag-ssteal ng turquoise bracelet",Crime,High,1
+"Yung hand wash dispenser sa CR defective",Sanitation,Low,3
+"Walang functioning folder sa office",Service,Low,3
+"May nag-operate ng illegal coin toss gambling",Illegal Activity,Low,3
+"Sobrang daming fake NFT marketplace sa barangay ads",Crime,High,1
+"May nakita kong nag-ppractice ng fake habak specialist",Crime,Low,3
+"Yung barangay reporting system inefficient",Service,Medium,2
+"Walang designated barangay economist",Service,Low,3
+"May nag-conduct ng unauthorized light therapy business",Crime,Low,3
+"Sobrang daming bata na nag-pparcel forwarding scam",Child Welfare,High,1
+"May nakita kong nag-bbenta ng fake transition bond",Crime,High,1
+"Yung barangay coordination mechanism poor",Service,Medium,2
+"Walang proper protocol para sa hydra emergence joke",Emergency,Low,3
+"May nag-operate ng illegal jackpot machine sa tindahan",Illegal Activity,Critical,1
+"Sobrang tagal ng barangay document processing",Service,Medium,2
+"May nakita kong nag-ssteal ng garnet necklace",Crime,High,1
+"Yung graffiti sa CR wall walang action",Vandalism,Low,3
+"Walang functioning envelope sa office",Service,Low,3
+"May nag-conduct ng fake vibrational medicine",Crime,Low,3
+"Sobrang daming bata na nag-ppayment diversion fraud",Child Welfare,Critical,1
+"May nakita kong nag-ppractice ng fake anting-anting consultant",Crime,Low,3
+"Yung barangay collaboration effort minimal",Service,Low,3
+"Walang designated barangay researcher",Service,Low,3
+"May nag-operate ng illegal russian roulette game",Illegal Activity,Critical,1
+"Sobrang pangit ng pagination sa barangay docs",Service,Low,3
+"May nakita kong nag-bbenta ng fake blue bond",Crime,High,1
+"Yung barangay partnership strategy absent",Service,Low,3
+"Walang proper protocol para sa chimera sighting joke",Emergency,Low,3
+"May nag-conduct ng unauthorized toning therapy",Crime,Low,3
+"Sobrang daming bata na nag-ccheck kiting",Child Welfare,Critical,1
+"May nakita kong nag-ssteal ng aquamarine earrings",Crime,High,1
+"Yung exhaust fan sa CR hindi umaandar",Sanitation,Low,3
+"Walang functioning index cards",Service,Low,3
+"May nag-operate ng illegal numbers game",Illegal Activity,High,1
+"Sobrang daming fake play-to-earn games sa community",Crime,High,1
+"May nakita kong nag-ppractice ng fake aswang detector",Crime,Low,3
+"Yung barangay integration efforts lacking",Service,Low,3
+"Walang designated barangay treasurer assistant",Service,Low,3
+"May nag-conduct ng fake gemstone healing business",Crime,Low,3
+"Sobrang daming bata na nag-wwire transfer fraud",Child Welfare,Critical,1
+"May nakita kong nag-bbenta ng fake orange bond",Crime,Medium,2
+"Yung barangay networking inadequate",Service,Low,3
+"Walang proper protocol para sa basilisk encounter joke",Emergency,Low,3
+"May nag-operate ng illegal gin rummy gambling",Illegal Activity,Medium,2
+"Sobrang tagal ng barangay information request",Service,Medium,2
+"May nakita kong nag-ssteal ng citrine pendant",Crime,Medium,2
+"Yung bidet sa CR walang pressure",Sanitation,Low,3
+"Walang functioning Manila envelopes",Service,Low,3
+"May nag-conduct ng unauthorized magnet therapy",Crime,Low,3
+"Sobrang daming bata na nag-iinvoice manipulation",Child Welfare,High,1
+"May nakita kong nag-ppractice ng fake barang remover",Crime,Low,3
+"Yung barangay coalition building weak",Service,Low,3
+"Walang designated barangay legal aide",Service,Low,3
+"May nag-operate ng illegal keno operation",Illegal Activity,High,1
+"Sobrang pangit ng justification sa barangay text",Service,Low,3
+"May nakita kong nag-bbenta ng fake gender bond",Crime,Medium,2
+"Yung barangay alliance formation poor",Service,Low,3
+"Walang proper protocol para sa dragon sighting joke",Emergency,Low,3
+"May nag-conduct ng fake ionic detox sessions",Crime,Low,3
+"Sobrang daming bata na nag-ppurchase order fraud",Child Welfare,High,1
+"May nakita kong nag-ssteal ng moonstone ring",Crime,Medium,2
+"Yung floor drain sa CR clogged",Sanitation,Medium,2
+"Walang functioning sticky notes sa office",Service,Low,3
+"May nag-operate ng illegal fan-tan gambling",Illegal Activity,Medium,2
+"Sobrang daming fake GameFi project sa barangay",Crime,High,1
+"May nakita kong nag-ppractice ng fake kulam detector",Crime,Low,3
+"Yung barangay benchmarking process absent",Service,Low,3
+"Walang designated barangay auditor",Service,Low,3
+"May nag-conduct ng unauthorized polarity therapy",Crime,Low,3
+"Sobrang daming bata na nag-ppayroll diversion",Child Welfare,Critical,1
+"May nakita kong nag-bbenta ng fake humanitarian bond",Crime,Medium,2
+"Yung barangay best practices documentation poor",Service,Low,3
+"Walang proper protocol para sa phoenix rising joke",Emergency,Low,3
+"May nag-operate ng illegal craps table",Illegal Activity,High,1
+"Sobrang tagal ng barangay certification issuance",Service,Medium,2
+"May nakita kong nag-ssteal ng peridot earrings",Crime,Medium,2
+"Yung ventilation sa CR insufficient",Sanitation,Medium,2
+"Walang functioning bulletin board pins",Service,Low,3
+"May nag-conduct ng fake aura cleansing business",Crime,Low,3
+"Sobrang daming bata na nag-pprocurement fraud",Child Welfare,High,1
+"May nakita kong nag-ppractice ng fake sumpa remover",Crime,Low,3
+"Yung barangay knowledge management weak",Service,Low,3
+"Walang designated barangay internal auditor",Service,Low,3
+"May nag-operate ng illegal high-low gambling",Illegal Activity,Medium,2
+"Sobrang pangit ng indentation sa barangay memos",Service,Low,3
+"May nakita kong nag-bbenta ng fake education bond",Crime,Medium,2
+"Yung barangay innovation process stagnant",Service,Low,3
+"Walang proper protocol para sa leviathan sighting joke",Emergency,Low,3
+"May nag-conduct ng unauthorized craniosacral therapy",Crime,Low,3
+"Sobrang daming bata na nag-ccommission fraud",Child Welfare,High,1
+"May nakita kong nag-ssteal ng zircon necklace",Crime,Medium,2
+"Yung soap holder sa CR rusted",Sanitation,Low,3
+"Walang functioning document clips",Service,Low,3
+"May nag-operate ng illegal pai gow gambling",Illegal Activity,Medium,2
+"Sobrang daming fake SocialFi platform sa area",Crime,High,1
+"May nakita kong nag-ppractice ng fake gaway-gaway seller",Crime,Low,3
+"Yung barangay learning culture absent",Service,Low,3
+"Walang designated barangay compliance officer",Service,Low,3
+"May nag-conduct ng fake breathwork healing business",Crime,Low,3
+"Sobrang daming bata na nag-eexpense reimbursement fraud",Child Welfare,High,1
+"May nakita kong nag-bbenta ng fake infrastructure bond",Crime,Medium,2
+"Yung barangay continuous improvement minimal",Service,Low,3
+"Walang proper protocol para sa cerberus encounter joke",Emergency,Low,3
+"May nag-operate ng illegal texas holdem table",Illegal Activity,High,1
+"Sobrang tagal ng barangay request processing",Service,Medium,2
+"May nakita kong nag-ssteal ng tourmaline bracelet",Crime,Medium,2
+"Yung toilet brush holder sa CR rusty",Sanitation,Low,3
+"Walang functioning tacks para sa board",Service,Low,3
+"May nag-conduct ng unauthorized pranic healing",Crime,Low,3
+"Sobrang daming bata na nag-ttax refund fraud",Child Welfare,Critical,1
+"May nakita kong nag-ppractice ng fake kaloob specialist",Crime,Low,3
+"Yung barangay adaptation capability low",Service,Low,3
+"Walang designated barangay strategic planner",Service,Low,3
+"May nag-operate ng illegal sic bo gambling",Illegal Activity,Medium,2
+"Sobrang pangit ng line spacing sa barangay forms",Service,Low,3
+"May nakita kong nag-bbenta ng fake housing bond",Crime,Medium,2
+"Yung barangay change management process absent",Service,Low,3
+"Walang proper protocol para sa minotaur attack joke",Emergency,Low,3
+"May nag-conduct ng fake qigong healing business",Crime,Low,3
+"Sobrang daming bata na nag-ggift card fraud",Child Welfare,Critical,1
+"May nakita kong nag-ssteal ng tanzanite ring",Crime,Medium,2
+"Yung towel rack sa CR loose",Sanitation,Low,3
+"Walang functioning thumbtacks",Service,Low,3
+"May nag-operate ng illegal chuck-a-luck gambling",Illegal Activity,Medium,2
+"Sobrang daming fake launchpad sa barangay ads",Crime,High,1
+"May nakita kong nag-ppractice ng fake gayuma consultant",Crime,Low,3
+"Yung barangay risk assessment inadequate",Service,Medium,2
+"Walang designated barangay quality assurance officer",Service,Low,3
+"May nag-conduct ng unauthorized bodywork therapy",Crime,Low,3
+"Sobrang daming bata na nag-rreverse mortgage scam",Child Welfare,High,1
+"May nakita kong nag-bbenta ng fake transportation bond",Crime,Medium,2
+"Yung barangay contingency planning weak",Service,Medium,2
+"Walang proper protocol para sa cyclops encounter joke",Emergency,Low,3
+"May nag-operate ng illegal poker night sa subdivision",Illegal Activity,High,1
+"Sobrang tagal ng barangay inquiry response",Service,Medium,2
+"May nakita kong nag-ssteal ng malachite pendant",Crime,Medium,2
+"Yung shower curtain sa CR may amag",Sanitation,Medium,2
+"Walang functioning binding clips",Service,Low,3
+"May nag-conduct ng fake past life healing",Crime,Low,3
+"Sobrang daming bata na nag-ccryptocurrency theft",Child Welfare,Critical,1
+"May nakita kong nag-ppractice ng fake barang detector",Crime,Low,3
+"Yung barangay scenario planning absent",Service,Low,3
+"Walang designated barangay policy analyst",Service,Low,3
+"May nag-operate ng illegal lottery sa tindahan",Illegal Activity,High,1
+"Sobrang pangit ng header sa barangay documents",Service,Low,3
+"May nakita kong nag-bbenta ng fake agricultural bond",Crime,Medium,2
+"Yung barangay agility in response slow",Service,Medium,2
+"Walang proper protocol para sa gargoyle attack joke",Emergency,Low,3
+"May nag-conduct ng unauthorized myofascial release",Crime,Low,3
+"Sobrang daming bata na nag-mmortgage fraud",Child Welfare,Critical,1
+"May nakita kong nag-ssteal ng carnelian earrings",Crime,Medium,2
+"Yung ceiling sa CR may water damage",Sanitation,Medium,2
+"Walang functioning clips para sa papel",Service,Low,3
+"May nag-operate ng illegal omaha poker",Illegal Activity,High,1
+"Sobrang daming fake airdrop scam sa barangay",Crime,High,1
+"May nakita kong nag-ppractice ng fake sumpa specialist",Crime,Low,3
+"Yung barangay flexibility to adapt limited",Service,Low,3
+"Walang designated barangay M&E officer",Service,Low,3
+"May nag-conduct ng fake somatic therapy sessions",Crime,Low,3
+"Sobrang daming bata na nag-aannuity fraud",Child Welfare,High,1
+"May nakita kong nag-bbenta ng fake energy bond",Crime,Medium,2
+"Yung barangay responsiveness to feedback poor",Service,Medium,2
+"Walang proper protocol para sa sphinx riddle joke",Emergency,Low,3
+"May nag-operate ng illegal seven card stud",Illegal Activity,High,1
+"Sobrang tagal ng barangay transaction completion",Service,Medium,2
+"May nakita kong nag-ssteal ng lapis lazuli bracelet",Crime,Medium,2
+"Yung grout sa tiles ng CR madumi",Sanitation,Low,3
+"Walang functioning paper fasteners",Service,Low,3
+"May nag-conduct ng unauthorized feldenkrais method",Crime,Low,3
+"Sobrang daming bata na nag-iinsurance fraud",Child Welfare,Critical,1
+"May nakita kong nag-ppractice ng fake kulam consultant",Crime,Low,3
+"Yung barangay crisis management capability weak",Service,High,1
+"Walang designated barangay transformation officer",Service,Low,3
+"May nag-operate ng illegal let it ride poker",Illegal Activity,Medium,2
+"Sobrang pangit ng footer design sa barangay forms",Service,Low,3
+"May nakita kong nag-bbenta ng fake municipal bond",Crime,High,1
+"Yung barangay problem-solving approach reactive lang",Service,Medium,2
+"Walang proper protocol para sa gorgon sighting joke",Emergency,Low,3
+"May nag-conduct ng fake therapeutic touch business",Crime,Low,3
+"Sobrang daming bata na nag-ssecurities fraud",Child Welfare,Critical,1
+"May nakita kong nag-ssteal ng hematite ring",Crime,Low,3
+"Yung toilet tank sa CR tumatagulo",Sanitation,Medium,2
+"Walang functioning bulldog clips",Service,Low,3
+"May nag-operate ng illegal pai gow poker",Illegal Activity,Medium,2
+"Sobrang daming fake ICO sa barangay promotions",Crime,Critical,1
+"May nakita kong nag-ppractice ng fake gaway specialist",Crime,Low,3
+"Yung barangay decision quality inconsistent",Service,Medium,2
+"Walang designated barangay innovation officer",Service,Low,3
+"May nag-conduct ng unauthorized rolfing sessions",Crime,Low,3
+"Sobrang daming bata na nag-ccommodity fraud",Child Welfare,High,1
+"May nakita kong nag-bbenta ng fake corporate bond",Crime,High,1
+"Yung barangay issue escalation slow",Service,Medium,2
+"Walang proper protocol para sa troll encounter joke",Emergency,Low,3
+"May nag-operate ng illegal caribbean stud poker",Illegal Activity,Medium,2
+"Sobrang tagal ng barangay follow-up actions",Service,Medium,2
+"May nakita kong nag-ssteal ng bloodstone pendant",Crime,Low,3
+"Yung showerhead sa CR clogged",Sanitation,Medium,2
+"Walang functioning binder rings",Service,Low,3
+"May nag-conduct ng fake zero balancing therapy",Crime,Low,3
+"Sobrang daming bata na nag-ffutures fraud",Child Welfare,High,1
+"May nakita kong nag-ppractice ng fake habak detector",Crime,Low,3
+"Yung barangay stakeholder trust eroding",Service,Medium,2
+"Walang designated barangay change agent",Service,Low,3
+"May nag-operate ng illegal three card poker",Illegal Activity,Medium,2
+"Sobrang pangit ng border design sa barangay ID",Service,Low,3
+"May nakita kong nag-bbenta ng fake treasury bond",Crime,High,1
+"Yung barangay transparency efforts minimal",Service,Medium,2
+"Walang proper protocol para sa banshee wailing joke",Emergency,Low,3
+"May nag-conduct ng unauthorized alexander technique",Crime,Low,3
+"Sobrang daming bata na nag-ooptions fraud",Child Welfare,High,1
+"May nakita kong nag-ssteal ng jasper earrings",Crime,Low,3
+"Yung washbasin sa CR may crack",Sanitation,Medium,2
+"Walang functioning magazine files",Service,Low,3
+"May nag-operate ng illegal red dog poker",Illegal Activity,Low,3
+"Sobrang daming fake token sale sa community",Crime,Critical,1
+"May nakita kong nag-ppractice ng fake mutya consultant",Crime,Low,3
+"Yung barangay integrity questioned by residents",Service,High,1
+"Walang designated barangay ethics officer",Service,Medium,2
+"May nag-conduct ng fake bio-energy healing",Crime,Low,3
+"Sobrang daming bata na nag-fforex fraud",Child Welfare,Critical,1
+"May nakita kong nag-bbenta ng fake sovereign bond",Crime,High,1
+"Yung barangay credibility declining",Service,Medium,2
+"Walang proper protocol para sa goblin raid joke",Emergency,Low,3
+"May nag-operate ng illegal video poker machines",Illegal Activity,Critical,1
+"Sobrang tagal ng barangay problem resolution",Service,Medium,2
+"May nakita kong nag-ssteal ng agate bracelet",Crime,Low,3
+"Yung bathroom tiles sa CR may loose parts",Sanitation,Medium,2
+"Walang functioning document trays",Service,Low,3
+"May nag-conduct ng unauthorized trager approach",Crime,Low,3
+"Sobrang daming bata na nag-ppenny stock fraud",Child Welfare,High,1
+"May nakita kong nag-ppractice ng fake anting specialist",Crime,Low,3
+"Yung barangay legitimacy issues emerging",Service,High,1
+"Walang designated barangay ombudsman",Service,Medium,2
+"May nag-operate ng illegal push gambling",Illegal Activity,Medium,2
+"Sobrang pangit ng watermark sa barangay docs",Service,Low,3
+"May nakita kong nag-bbenta ng fake savings bond",Crime,Medium,2
+"Yung barangay accountability weak",Service,Medium,2
+"Walang proper protocol para sa demon summoning joke",Emergency,Low,3
+"May nag-conduct ng fake visceral manipulation",Crime,Low,3
+"Sobrang daming bata na nag-ccommodities trading scam",Child Welfare,High,1
+"May nakita kong nag-ssteal ng obsidian ring",Crime,Low,3
+"Yung mirror cabinet sa CR hindi nag-cclose",Sanitation,Low,3
+"Walang functioning pen holders",Service,Low,3
+"May nag-operate ng illegal banker player gambling",Illegal Activity,Medium,2
+"Sobrang daming fake presale sa barangay groups",Crime,High,1
+"May nakita kong nag-ppractice ng fake kaloob detector",Crime,Low,3
+"Yung barangay public trust low",Service,High,1
+"Walang designated barangay integrity officer",Service,Medium,2
+"May nag-conduct ng unauthorized cranial osteopathy",Crime,Low,3
+"Sobrang daming bata na nag-bbinary options scam",Child Welfare,Critical,1
+"May nakita kong nag-bbenta ng fake inflation-linked bond",Crime,Medium,2
+"Yung barangay service quality declining",Service,Medium,2
+"Walang proper protocol para sa lich awakening joke",Emergency,Low,3
+"May nag-operate ng illegal punto banco",Illegal Activity,Medium,2
+"Sobrang tagal ng barangay service delivery",Service,Medium,2
+"May nakita kong nag-ssteal ng aventurine pendant",Crime,Low,3
+"Yung tile grout sa CR may mold",Sanitation,Medium,2
+"Walang functioning desk organizers",Service,Low,3
+"May nag-conduct ng fake bowen therapy sessions",Crime,Low,3
+"Sobrang daming bata na nag-ccurrency trading fraud",Child Welfare,High,1
+"May nakita kong nag-ppractice ng fake barang specialist",Crime,Low,3
+"Yung barangay reputation suffering",Service,Medium,2
+"Walang designated barangay reputation manager",Service,Low,3
+"May nag-operate ng illegal wheel of fortune gambling",Illegal Activity,Medium,2
+"Sobrang pangit ng logo placement sa barangay materials",Service,Low,3
+"May nakita kong nag-bbenta ng fake convertible bond",Crime,High,1
+"Yung barangay citizen satisfaction dropping",Service,Medium,2
+"Walang proper protocol para sa necromancer ritual joke",Emergency,Low,3
+"May nag-conduct ng unauthorized hellerwork sessions",Crime,Low,3
+"Sobrang daming bata na nag-mmutual fund fraud",Child Welfare,High,1
+"May nakita kong nag-ssteal ng rhodonite earrings",Crime,Low,3
+"Yung soap dish sa CR may crack",Sanitation,Low,3
+"Walang functioning file folders",Service,Low,3
+"May nag-operate ng illegal money wheel",Illegal Activity,Medium,2
+"Sobrang daming fake whitelist scam sa area",Crime,High,1
+"May nakita kong nag-ppractice ng fake sumpa detector",Crime,Low,3
+"Yung barangay image management poor",Service,Low,3
+"Walang designated barangay brand manager",Service,Low,3
+"May nag-conduct ng fake reiki attunement business",Crime,Low,3
+"Sobrang daming bata na nag-pprecious metals fraud",Child Welfare,High,1
+"May nakita kong nag-bbenta ng fake perpetual bond",Crime,Medium,2
+"Yung barangay public perception negative",Service,Medium,2
+"Walang proper protocol para sa wraith manifestation joke",Emergency,Low,3
+"May nag-operate ng illegal odds and evens gambling",Illegal Activity,Low,3
+"Sobrang tagal ng barangay response time",Service,High,1
+"May nakita kong nag-ssteal ng onyx bracelet",Crime,Low,3
+"Yung bathroom door sa CR hindi nag-aalign",Sanitation,Low,3
+"Walang functioning filing boxes",Service,Low,3
+"May nag-conduct ng unauthorized biodynamic therapy",Crime,Low,3
+"Sobrang daming bata na nag-rreal estate investment scam",Child Welfare,Critical,1
+"May nakita kong nag-ppractice ng fake kulam specialist",Crime,Low,3
+"Yung barangay community relations strained",Service,Medium,2
+"Walang designated barangay communications director",Service,Low,3
+"May nag-operate ng illegal liars poker",Illegal Activity,Low,3
+"Sobrang pangit ng signature block sa barangay forms",Service,Low,3
+"May nakita kong nag-bbenta ng fake zero coupon bond",Crime,Medium,2
+"Yung barangay engagement with citizens minimal",Service,Medium,2
+"Walang proper protocol para sa golem activation joke",Emergency,Low,3
+"May nag-conduct ng fake emotional freedom technique",Crime,Low,3
+"Sobrang daming bata na nag-aadvance fee fraud",Child Welfare,Critical,1
+"May nakita kong nag-ssteal ng sunstone ring",Crime,Low,3
+"Yung towel bar sa CR rusted na",Sanitation,Low,3
+"Walang functioning desk accessories",Service,Low,3
+"May nag-operate ng illegal shell game",Illegal Activity,High,1
+"Sobrang daming fake seed round sa barangay",Crime,High,1
+"May nakita kong nag-ppractice ng fake gayuma detector",Crime,Low,3
+"Yung barangay dialogue with community absent",Service,Medium,2
+"Walang designated barangay public affairs officer",Service,Low,3
+"May nag-conduct ng unauthorized tui na massage",Crime,Low,3
+"Sobrang daming bata na nag-pphantom debt collection",Child Welfare,High,1
+"May nakita kong nag-bbenta ng fake callable bond",Crime,Medium,2
+"Yung barangay outreach efforts insufficient",Service,Low,3
+"Walang proper protocol para sa poltergeist activity joke",Emergency,Low,3
+"May nag-operate ng illegal bunco game",Illegal Activity,Medium,2
+"Sobrang tagal ng barangay turnaround time",Service,Medium,2
+"May nakita kong nag-ssteal ng labradorite pendant",Crime,Low,3
+"Yung shower drain sa CR clogged",Sanitation,Medium,2
+"Walang functioning pen cups",Service,Low,3
+"May nag-conduct ng fake jin shin jyutsu sessions",Crime,Low,3
+"Sobrang daming bata na nag-llottery scam",Child Welfare,High,1
+"May nakita kong nag-ppractice ng fake habak specialist",Crime,Low,3
+"Yung barangay information dissemination poor",Service,Medium,2
+"Walang designated barangay media relations officer",Service,Low,3
+"May nag-operate ng illegal skin game",Illegal Activity,Low,3
+"Sobrang pangit ng seal placement sa barangay docs",Service,Low,3
+"May nakita kong nag-bbenta ng fake puttable bond",Crime,Medium,2
+"Yung barangay communication channels inadequate",Service,Medium,2
+"Walang proper protocol para sa ghost ship sighting joke",Emergency,Low,3
+"May nag-conduct ng unauthorized watsu therapy",Crime,Low,3
+"Sobrang daming bata na nag-ccharity scam",Child Welfare,High,1
+"May nakita kong nag-ssteal ng sodalite earrings",Crime,Low,3
+"Yung bathroom fan sa CR maingay",Sanitation,Low,3
+"Walang functioning paperweights",Service,Low,3
+"May nag-operate ng illegal acey deucey gambling",Illegal Activity,Low,3
+"Sobrang daming fake private sale sa community",Crime,High,1
+"May nakita kong nag-ppractice ng fake gaway detector",Crime,Low,3
+"Yung barangay consultation with stakeholders tokenistic",Service,Medium,2
+"Walang designated barangay community liaison",Service,Low,3
+"May nag-conduct ng fake yamuna body rolling",Crime,Low,3
+"Sobrang daming bata na nag-ppyramid scheme sa classmates",Child Welfare,Critical,1
+"May nakita kong nag-bbenta ng fake senior bond",Crime,Medium,2
+"Yung barangay inclusiveness in decision-making low",Service,Medium,2
+"Walang proper protocol para sa haunted doll joke",Emergency,Low,3
+"May nag-operate ng illegal liar's dice",Illegal Activity,Low,3
+"Sobrang tagal ng barangay customer service",Service,Medium,2
+"May nakita kong nag-ssteal ng fluorite bracelet",Crime,Low,3
+"Yung light switch sa CR loose",Sanitation,Low,3
+"Walang functioning tape dispensers",Service,Low,3
+"May nag-conduct ng unauthorized structural integration",Crime,Low,3
+"Sobrang daming bata na nag-ggreenwashing scam",Child Welfare,High,1
+"May nakita kong nag-ppractice ng fake mutya detector",Crime,Low,3
+"Yung barangay participation mechanisms underutilized",Service,Low,3
+"Walang designated barangay engagement coordinator",Service,Low,3
+"May nag-operate ng illegal banco gambling",Illegal Activity,Medium,2
+"Sobrang pangit ng date format sa barangay documents",Service,Low,3
+"May nakita kong nag-bbenta ng fake eurobond",Crime,High,1
+"Yung barangay responsiveness to complaints slow",Service,High,1
+"Walang proper protocol para sa cursed artifact joke",Emergency,Low,3
