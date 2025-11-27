@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Complaint, ComplaintStatus, Role } from '../types';
 import { analyzeComplaint } from '../services/geminiService';
 import StatusBadge from './StatusBadge';
-import { FileText, MapPin, Loader2, Lock, Info, Send, Clock, CheckCircle, Activity, ChevronRight } from './Icons';
+import { FileText, MapPin, Loader2, Lock, Info, Send, Clock, CheckCircle, Activity, ChevronRight, Upload, X, Image } from './Icons';
 import Tooltip from './Tooltip';
 
 interface ResidentViewProps {
@@ -18,6 +18,31 @@ const ResidentView: React.FC<ResidentViewProps> = ({ complaints, addComplaint, r
     const [category, setCategory] = useState('Sanitation');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
+    const [photos, setPhotos] = useState<string[]>([]);
+
+    const handlePhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files;
+        if (!files) return;
+
+        const newPhotos: string[] = [];
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                if (event.target?.result) {
+                    newPhotos.push(event.target.result as string);
+                    if (newPhotos.length === files.length) {
+                        setPhotos([...photos, ...newPhotos]);
+                    }
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const removePhoto = (index: number) => {
+        setPhotos(photos.filter((_, i) => i !== index));
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -33,6 +58,7 @@ const ResidentView: React.FC<ResidentViewProps> = ({ complaints, addComplaint, r
             submittedAt: new Date().toISOString(),
             status: ComplaintStatus.PENDING,
             isAnalyzing: true,
+            photos: photos.length > 0 ? photos : undefined,
         };
 
         // Optimistic UI Update
@@ -46,6 +72,7 @@ const ResidentView: React.FC<ResidentViewProps> = ({ complaints, addComplaint, r
             setTitle('');
             setDescription('');
             setLocation('');
+            setPhotos([]);
 
             // Hide success message after 3s
             setTimeout(() => setShowSuccess(false), 3000);
@@ -213,6 +240,67 @@ const ResidentView: React.FC<ResidentViewProps> = ({ complaints, addComplaint, r
                                         />
                                     </div>
 
+                                    {/* Photo Upload Section */}
+                                    <div className="space-y-2">
+                                        <div className="flex items-center justify-between">
+                                            <label className="block text-sm font-semibold text-gray-700">Photo Evidence (Optional)</label>
+                                            <Tooltip content="Upload up to 5 photos to support your complaint.">
+                                                <Info className="w-3.5 h-3.5 text-gray-400 hover:text-blue-500 transition-colors cursor-help" />
+                                            </Tooltip>
+                                        </div>
+
+                                        {/* Upload Button */}
+                                        <div className="relative">
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                multiple
+                                                onChange={handlePhotoChange}
+                                                disabled={photos.length >= 5}
+                                                className="hidden"
+                                                id="photo-upload"
+                                            />
+                                            <label
+                                                htmlFor="photo-upload"
+                                                className={`flex items-center justify-center gap-2 w-full px-4 py-3 border-2 border-dashed rounded-lg transition-all cursor-pointer ${photos.length >= 5
+                                                        ? 'border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed'
+                                                        : 'border-gray-300 hover:border-blue-400 hover:bg-blue-50 text-gray-600 hover:text-blue-600'
+                                                    }`}
+                                            >
+                                                <Upload className="w-5 h-5" />
+                                                <span className="text-sm font-medium">
+                                                    {photos.length >= 5 ? 'Maximum 5 photos' : 'Upload Photos'}
+                                                </span>
+                                                {photos.length > 0 && (
+                                                    <span className="text-xs text-gray-500">({photos.length}/5)</span>
+                                                )}
+                                            </label>
+                                        </div>
+
+                                        {/* Photo Previews */}
+                                        {photos.length > 0 && (
+                                            <div className="grid grid-cols-3 gap-2 mt-3">
+                                                {photos.map((photo, index) => (
+                                                    <div key={index} className="relative group aspect-square">
+                                                        <img
+                                                            src={photo}
+                                                            alt={`Preview ${index + 1}`}
+                                                            className="w-full h-full object-cover rounded-lg border-2 border-gray-200 group-hover:border-blue-400 transition-all"
+                                                        />
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => removePhoto(index)}
+                                                            className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 shadow-lg opacity-0 group-hover:opacity-100 transition-all transform hover:scale-110"
+                                                        >
+                                                            <X className="w-3 h-3" />
+                                                        </button>
+                                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 rounded-lg transition-all" />
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+
                                     <div className="pt-2">
                                         <button
                                             type="submit"
@@ -331,3 +419,7 @@ const ResidentView: React.FC<ResidentViewProps> = ({ complaints, addComplaint, r
 };
 
 export default ResidentView;
+
+
+
+

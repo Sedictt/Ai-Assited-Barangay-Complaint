@@ -1,9 +1,10 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Complaint, ComplaintStatus, UrgencyLevel, Role } from '../types';
 import StatusBadge from './StatusBadge';
-import { AlertTriangle, TrendingUp, CheckCircle, Users, Loader2, MapPin, Filter, Calendar, Lock, FileText, Info, Flag, Activity, Search } from './Icons';
+import { AlertTriangle, TrendingUp, CheckCircle, Users, Loader2, MapPin, Filter, Calendar, Lock, FileText, Info, Flag, Activity, Search, Image } from './Icons';
 import { PieChart, Pie, Cell, Tooltip as RechartsTooltip, ResponsiveContainer, Legend } from 'recharts';
 import Tooltip from './Tooltip';
+import PhotoModal from './PhotoModal';
 
 interface OfficialDashboardProps {
   complaints: Complaint[];
@@ -14,6 +15,7 @@ interface OfficialDashboardProps {
 
 const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updateStatus, toggleEscalation, role }) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
 
   // Filter & Sort State
   const [statusFilter, setStatusFilter] = useState<string>('ALL');
@@ -294,6 +296,20 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
                 <div className="flex items-center gap-2">
                   {role === Role.OFFICIAL && (
                     <>
+                      <Tooltip content="View photo evidence" placement="top">
+                        <button
+                          onClick={() => setIsPhotoModalOpen(true)}
+                          className="p-2 rounded-lg border bg-white border-gray-200 text-gray-600 hover:text-blue-600 hover:border-blue-200 hover:bg-blue-50 transition-all relative"
+                        >
+                          <Image className="w-4 h-4" />
+                          {selectedComplaint.photos && selectedComplaint.photos.length > 0 && (
+                            <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                              {selectedComplaint.photos.length}
+                            </span>
+                          )}
+                        </button>
+                      </Tooltip>
+
                       <Tooltip content="Flag for higher authority review" placement="top">
                         <button
                           onClick={() => toggleEscalation(selectedComplaint.id)}
@@ -492,6 +508,16 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
           </div>
         </div>
       </div>
+
+      {/* Photo Modal */}
+      {selectedComplaint && (
+        <PhotoModal
+          isOpen={isPhotoModalOpen}
+          onClose={() => setIsPhotoModalOpen(false)}
+          photos={selectedComplaint.photos || []}
+          complaintTitle={selectedComplaint.title}
+        />
+      )}
     </div>
   );
 };

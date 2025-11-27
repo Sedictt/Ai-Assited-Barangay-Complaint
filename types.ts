@@ -39,6 +39,7 @@ export interface Complaint {
   aiAnalysis?: AIAnalysis;
   isAnalyzing?: boolean;
   isEscalated?: boolean;
+  photos?: string[]; // Array of photo file paths/URLs as evidence
 }
 
 export interface Stats {
