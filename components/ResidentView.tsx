@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Complaint, ComplaintStatus, Role } from '../types';
 import { analyzeComplaint } from '../services/geminiService';
 import { uploadPhotos } from '../services/cloudinaryService';
-import { MapPin, Loader2, Info, Send, Upload, X, ChevronRight, CheckCircle } from './Icons';
+import { MapPin, Loader2, Info, Send, Upload, X, CheckCircle, ChevronRight, Filter, Zap } from './Icons';
 import Tooltip from './Tooltip';
 
 interface ResidentViewProps {
@@ -19,6 +19,14 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const [photos, setPhotos] = useState<string[]>([]);
     const [photoFiles, setPhotoFiles] = useState<File[]>([]);
+
+    const categories = [
+        'Sanitation',
+        'Infrastructure/Roads',
+        'Peace and Order',
+        'Health',
+        'Others'
+    ];
 
     const handlePhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
@@ -57,7 +65,6 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
             const complaintId = Math.random().toString(36).substr(2, 9);
             let photoUrls: string[] = [];
 
-            // Upload photos if any
             if (photoFiles.length > 0) {
                 photoUrls = await uploadPhotos(photoFiles);
             }
@@ -75,29 +82,23 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
                 photos: photoUrls,
             };
 
-            // Optimistic UI Update (or wait for real update via subscription)
-            // We'll call addComplaint which now calls Firestore
             addComplaint(newComplaint);
 
-            // Simulate submission delay for UX
             setTimeout(() => {
                 setIsSubmitting(false);
                 setShowSuccess(true);
-                // Clear form
                 setTitle('');
                 setDescription('');
                 setLocation('');
                 setPhotos([]);
                 setPhotoFiles([]);
+                setCategory('Sanitation');
 
-                // Hide success message after 3s
                 setTimeout(() => setShowSuccess(false), 3000);
             }, 1000);
 
-            // Perform AI Analysis in background
             try {
                 const analysis = await analyzeComplaint(title, description, location, category);
-                // This will update the existing complaint in Firestore
                 addComplaint({ ...newComplaint, aiAnalysis: analysis, isAnalyzing: false });
             } catch (err) {
                 console.error(err);
@@ -106,71 +107,57 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
         } catch (error) {
             console.error("Error submitting complaint:", error);
             setIsSubmitting(false);
-            // Handle error (show toast maybe?)
         }
     };
 
     return (
-        <div className="min-h-[calc(100vh-140px)] flex flex-col items-center justify-center p-4">
-            <div className="w-full max-w-md bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
-                <div className="bg-gray-50 px-6 py-4 border-b border-gray-100 flex items-center gap-2">
-                    <div className="bg-blue-100 p-1.5 rounded-full">
-                        <Send className="w-4 h-4 text-blue-600" />
+        <div className="min-h-[calc(100vh-140px)] flex flex-col items-center justify-center p-4 md:p-6 bg-gradient-to-b from-gray-50 to-gray-100">
+            <div className="w-full max-w-lg bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden transition-all hover:shadow-2xl">
+                {/* Header */}
+                <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-5 flex items-center gap-3">
+                    <div className="bg-white/20 p-2 rounded-xl backdrop-blur-sm">
+                        <Send className="w-5 h-5 text-white" />
                     </div>
-                    <h2 className="text-lg font-bold text-gray-900">File a New Report</h2>
+                    <div>
+                        <h2 className="text-xl font-bold text-white tracking-tight">File a Report</h2>
+                        <p className="text-blue-100 text-xs font-medium">Help us improve Barangay Maysan</p>
+                    </div>
                 </div>
 
-                <div className="p-6">
+                <div className="p-6 md:p-8">
                     {showSuccess ? (
-                        <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center animate-in fade-in zoom-in duration-300">
-                            <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <CheckCircle className="w-8 h-8" />
+                        <div className="flex flex-col items-center justify-center py-10 animate-in fade-in zoom-in duration-500">
+                            <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-6 shadow-sm">
+                                <CheckCircle className="w-10 h-10" />
                             </div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-2">Report Submitted!</h3>
-                            <p className="text-gray-600">
-                                Your complaint has been successfully queued for AI analysis.
+                            <h3 className="text-2xl font-bold text-gray-900 mb-2">Report Submitted!</h3>
+                            <p className="text-gray-500 text-center max-w-xs mb-8 leading-relaxed">
+                                Thank you for your contribution. Your report has been queued for AI analysis.
                             </p>
                             <button
                                 onClick={() => setShowSuccess(false)}
-                                className="mt-6 text-sm font-medium text-green-700 hover:text-green-800 underline"
+                                className="px-6 py-2.5 bg-gray-900 text-white text-sm font-bold rounded-xl hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                             >
                                 File another report
                             </button>
                         </div>
                     ) : (
-                        <form onSubmit={handleSubmit} className="space-y-5">
-                            <div className="space-y-1">
-                                <div className="flex items-center justify-between">
-                                    <label className="block text-sm font-semibold text-gray-700">What is the issue?</label>
-                                    <Tooltip content="A short summary like 'No Water', 'Flooding', or 'Loud Noise'.">
-                                        <Info className="w-3.5 h-3.5 text-gray-400 hover:text-blue-500 transition-colors cursor-help" />
-                                    </Tooltip>
-                                </div>
-                                <input
-                                    required
-                                    type="text"
-                                    value={title}
-                                    onChange={(e) => setTitle(e.target.value)}
-                                    placeholder="e.g. Uncollected Garbage Pile"
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-sm"
-                                />
-                            </div>
-
-                            <div className="space-y-1">
-                                <div className="flex items-center justify-between">
-                                    <label className="block text-sm font-semibold text-gray-700">Category</label>
-                                </div>
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            {/* Category Selection */}
+                            <div className="space-y-1.5">
+                                <label className="block text-sm font-bold text-gray-700">Category</label>
                                 <div className="relative">
+                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <Filter className="h-4 w-4 text-gray-400" />
+                                    </div>
                                     <select
                                         value={category}
                                         onChange={(e) => setCategory(e.target.value)}
-                                        className="w-full pl-4 pr-10 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all appearance-none text-sm bg-white"
+                                        className="block w-full pl-10 pr-10 py-3 border border-gray-200 rounded-xl leading-5 bg-gray-50 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all sm:text-sm font-medium appearance-none"
                                     >
-                                        <option>Sanitation</option>
-                                        <option>Infrastructure/Roads</option>
-                                        <option>Peace and Order</option>
-                                        <option>Health</option>
-                                        <option>Others</option>
+                                        {categories.map((cat) => (
+                                            <option key={cat} value={cat}>{cat}</option>
+                                        ))}
                                     </select>
                                     <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
                                         <ChevronRight className="w-4 h-4 rotate-90" />
@@ -178,123 +165,122 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
                                 </div>
                             </div>
 
-                            <div className="space-y-1">
-                                <div className="flex items-center justify-between">
-                                    <label className="block text-sm font-semibold text-gray-700">Exact Location</label>
-                                    <Tooltip content="Include street names or landmarks to help us find it.">
-                                        <Info className="w-3.5 h-3.5 text-gray-400 hover:text-blue-500 transition-colors cursor-help" />
-                                    </Tooltip>
-                                </div>
+                            {/* Issue Title */}
+                            <div className="space-y-1.5">
+                                <label className="block text-sm font-bold text-gray-700">What is the issue?</label>
                                 <div className="relative group">
-                                    <div className="absolute left-3 top-2.5 text-gray-400 group-focus-within:text-blue-500 transition-colors">
-                                        <MapPin className="w-4 h-4" />
+                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <Zap className="h-4 w-4 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
+                                    </div>
+                                    <input
+                                        required
+                                        type="text"
+                                        value={title}
+                                        onChange={(e) => setTitle(e.target.value)}
+                                        placeholder="e.g. Uncollected Garbage"
+                                        className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl leading-5 bg-gray-50 placeholder-gray-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all sm:text-sm font-medium"
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Location */}
+                            <div className="space-y-1.5">
+                                <label className="block text-sm font-bold text-gray-700">Exact Location</label>
+                                <div className="relative group">
+                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <MapPin className="h-4 w-4 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
                                     </div>
                                     <input
                                         required
                                         type="text"
                                         value={location}
                                         onChange={(e) => setLocation(e.target.value)}
-                                        placeholder="e.g. Purok 3, Near the Basketball Court"
-                                        className="w-full pl-9 pr-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-sm"
+                                        placeholder="e.g. Near the Basketball Court"
+                                        className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl leading-5 bg-gray-50 placeholder-gray-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all sm:text-sm font-medium"
                                     />
                                 </div>
                             </div>
 
-                            <div className="space-y-1">
-                                <div className="flex items-center justify-between">
-                                    <label className="block text-sm font-semibold text-gray-700">Description</label>
-                                </div>
+                            {/* Description */}
+                            <div className="space-y-1.5">
+                                <label className="block text-sm font-bold text-gray-700">Description</label>
                                 <textarea
                                     required
-                                    rows={4}
+                                    rows={3}
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
-                                    placeholder="Describe what happened, when it started, and how urgent it feels..."
-                                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-sm resize-none"
+                                    placeholder="Describe the details..."
+                                    className="block w-full px-4 py-3 border border-gray-200 rounded-xl leading-5 bg-gray-50 placeholder-gray-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all sm:text-sm font-medium resize-none"
                                 />
                             </div>
 
-                            {/* Photo Upload Section */}
-                            <div className="space-y-2">
-                                <div className="flex items-center justify-between">
-                                    <label className="block text-sm font-semibold text-gray-700">Photo Evidence (Optional)</label>
-                                    <Tooltip content="Upload up to 5 photos to support your complaint.">
-                                        <Info className="w-3.5 h-3.5 text-gray-400 hover:text-blue-500 transition-colors cursor-help" />
-                                    </Tooltip>
-                                </div>
+                            {/* Photo Upload */}
+                            <div className="space-y-3">
+                                <label className="block text-sm font-bold text-gray-700 flex justify-between">
+                                    <span>Photo Evidence</span>
+                                    <span className="text-xs font-normal text-gray-400">Optional (Max 5)</span>
+                                </label>
 
-                                {/* Upload Button */}
-                                <div className="relative">
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        multiple
-                                        onChange={handlePhotoChange}
-                                        disabled={photos.length >= 5}
-                                        className="hidden"
-                                        id="photo-upload"
-                                    />
-                                    <label
-                                        htmlFor="photo-upload"
-                                        className={`flex items-center justify-center gap-2 w-full px-4 py-3 border-2 border-dashed rounded-lg transition-all cursor-pointer ${photos.length >= 5
-                                            ? 'border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed'
-                                            : 'border-gray-300 hover:border-blue-400 hover:bg-blue-50 text-gray-600 hover:text-blue-600'
-                                            }`}
-                                    >
-                                        <Upload className="w-5 h-5" />
-                                        <span className="text-sm font-medium">
-                                            {photos.length >= 5 ? 'Maximum 5 photos' : 'Upload Photos'}
-                                        </span>
-                                        {photos.length > 0 && (
-                                            <span className="text-xs text-gray-500">({photos.length}/5)</span>
-                                        )}
-                                    </label>
-                                </div>
+                                <div className="grid grid-cols-4 gap-2">
+                                    {photos.map((photo, index) => (
+                                        <div key={index} className="relative aspect-square group">
+                                            <img
+                                                src={photo}
+                                                alt={`Preview ${index + 1}`}
+                                                className="w-full h-full object-cover rounded-lg border border-gray-200 shadow-sm"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => removePhoto(index)}
+                                                className="absolute -top-1.5 -right-1.5 bg-red-500 text-white rounded-full p-0.5 shadow-md hover:bg-red-600 transition-colors"
+                                            >
+                                                <X className="w-3 h-3" />
+                                            </button>
+                                        </div>
+                                    ))}
 
-                                {/* Photo Previews */}
-                                {photos.length > 0 && (
-                                    <div className="grid grid-cols-3 gap-2 mt-3">
-                                        {photos.map((photo, index) => (
-                                            <div key={index} className="relative group aspect-square">
-                                                <img
-                                                    src={photo}
-                                                    alt={`Preview ${index + 1}`}
-                                                    className="w-full h-full object-cover rounded-lg border-2 border-gray-200 group-hover:border-blue-400 transition-all"
-                                                />
-                                                <button
-                                                    type="button"
-                                                    onClick={() => removePhoto(index)}
-                                                    className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 shadow-lg opacity-0 group-hover:opacity-100 transition-all transform hover:scale-110"
-                                                >
-                                                    <X className="w-3 h-3" />
-                                                </button>
-                                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 rounded-lg transition-all" />
-                                            </div>
-                                        ))}
-                                    </div>
-                                )}
+                                    {photos.length < 5 && (
+                                        <div className="relative aspect-square">
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                multiple
+                                                onChange={handlePhotoChange}
+                                                className="hidden"
+                                                id="photo-upload"
+                                            />
+                                            <label
+                                                htmlFor="photo-upload"
+                                                className="flex flex-col items-center justify-center w-full h-full border-2 border-dashed border-gray-300 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all cursor-pointer group"
+                                            >
+                                                <Upload className="w-5 h-5 text-gray-400 group-hover:text-blue-500 mb-1" />
+                                                <span className="text-[9px] font-bold text-gray-400 group-hover:text-blue-500 uppercase">Add</span>
+                                            </label>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
 
-                            <div className="pt-2">
+                            <div className="pt-4">
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="w-full bg-gray-900 hover:bg-gray-800 text-white font-bold py-3 rounded-lg transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed transform active:scale-[0.98]"
+                                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed transform active:scale-[0.98]"
                                 >
                                     {isSubmitting ? (
                                         <>
                                             <Loader2 className="w-5 h-5 animate-spin" />
-                                            <span>Processing...</span>
+                                            <span>Processing Report...</span>
                                         </>
                                     ) : (
                                         <>
-                                            <span>Submit Report</span>
+                                            <span>Submit Complaint</span>
                                             <Send className="w-4 h-4" />
                                         </>
                                     )}
                                 </button>
-                                <p className="text-center text-xs text-gray-400 mt-3">
-                                    By submitting, you agree to our data privacy policy.
+                                <p className="text-center text-[10px] text-gray-400 mt-4">
+                                    By submitting, you confirm that the information is accurate.
                                 </p>
                             </div>
                         </form>
