@@ -279,7 +279,7 @@ const App: React.FC = () => {
       {/* Main Content */}
       <main className="flex-1 bg-gray-50 max-w-7xl mx-auto w-full">
         {role === Role.RESIDENT ? (
-          <ResidentView role={role} complaints={complaints} addComplaint={addComplaint} />
+          <ResidentView role={role} addComplaint={addComplaint} />
         ) : (
           <OfficialDashboard
             role={role}
