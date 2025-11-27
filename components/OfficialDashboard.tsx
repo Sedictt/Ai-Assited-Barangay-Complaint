@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Complaint, ComplaintStatus, UrgencyLevel, Role } from '../types';
 import StatusBadge from './StatusBadge';
-import { AlertTriangle, TrendingUp, CheckCircle, Users, Loader2, MapPin, Filter, Calendar, Lock, FileText, Info, Flag, Activity, Search, Image } from './Icons';
+import { AlertTriangle, TrendingUp, CheckCircle, Users, Loader2, MapPin, Filter, Calendar, Lock, FileText, Info, Flag, Activity, Search, Image, Ban, Edit, Save, X } from './Icons';
 import { PieChart, Pie, Cell, Tooltip as RechartsTooltip, ResponsiveContainer, Legend } from 'recharts';
 import Tooltip from './Tooltip';
 import PhotoModal from './PhotoModal';
@@ -10,12 +10,15 @@ interface OfficialDashboardProps {
   complaints: Complaint[];
   updateStatus: (id: string, status: ComplaintStatus) => void;
   toggleEscalation: (id: string) => void;
+  updateComplaint: (id: string, updates: Partial<Complaint>) => void;
   role: Role;
 }
 
-const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updateStatus, toggleEscalation, role }) => {
+const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updateStatus, toggleEscalation, updateComplaint, role }) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editForm, setEditForm] = useState<{ title: string; category: string; location: string }>({ title: '', category: '', location: '' });
 
   // Filter & Sort State
   const [statusFilter, setStatusFilter] = useState<string>('ALL');
@@ -35,7 +38,11 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
     // 1. Filter
     if (statusFilter !== 'ALL') {
       result = result.filter(c => c.status === statusFilter);
+    } else {
+      // Exclude SPAM from 'ALL' view by default
+      result = result.filter(c => c.status !== ComplaintStatus.SPAM);
     }
+
     if (urgencyFilter !== 'ALL') {
       result = result.filter(c => c.aiAnalysis?.urgencyLevel === urgencyFilter);
     }
@@ -82,12 +89,32 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
 
   const selectedComplaint = complaints.find(c => c.id === selectedId);
 
+  // Reset edit form when selection changes
+  useEffect(() => {
+    if (selectedComplaint) {
+      setEditForm({
+        title: selectedComplaint.title,
+        category: selectedComplaint.category,
+        location: selectedComplaint.location
+      });
+      setIsEditing(false);
+    }
+  }, [selectedComplaint]);
+
+  const handleSaveEdit = () => {
+    if (selectedId && updateComplaint) {
+      updateComplaint(selectedId, editForm);
+      setIsEditing(false);
+    }
+  };
+
   // Chart Data: Full Status Breakdown
   const chartData = useMemo(() => [
     { name: 'Pending', value: complaints.filter(c => c.status === ComplaintStatus.PENDING).length, color: '#f59e0b' }, // Amber
     { name: 'In Progress', value: complaints.filter(c => c.status === ComplaintStatus.IN_PROGRESS).length, color: '#3b82f6' }, // Blue
     { name: 'Resolved', value: complaints.filter(c => c.status === ComplaintStatus.RESOLVED).length, color: '#22c55e' }, // Green
     { name: 'Dismissed', value: complaints.filter(c => c.status === ComplaintStatus.DISMISSED).length, color: '#94a3b8' }, // Gray
+    { name: 'On Hold', value: complaints.filter(c => c.status === ComplaintStatus.ON_HOLD).length, color: '#8b5cf6' }, // Violet
   ].filter(item => item.value > 0), [complaints]);
 
   const getPriorityBarColor = (score: number) => {
@@ -275,7 +302,17 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
               {/* Header Section */}
               <div className="px-5 py-4 border-b border-gray-100 flex justify-between items-start gap-4 bg-white">
                 <div className="flex-1 min-w-0">
-                  <h2 className="text-lg font-bold text-gray-900 leading-tight truncate mb-2">{selectedComplaint.title}</h2>
+                  {isEditing ? (
+                    <input
+                      type="text"
+                      value={editForm.title}
+                      onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
+                      className="w-full text-lg font-bold text-gray-900 border-b border-gray-300 focus:border-blue-500 focus:outline-none mb-2"
+                      placeholder="Complaint Title"
+                    />
+                  ) : (
+                    <h2 className="text-lg font-bold text-gray-900 leading-tight truncate mb-2">{selectedComplaint.title}</h2>
+                  )}
 
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500">
                     <span className="font-mono text-gray-400">#{selectedComplaint.id.slice(0, 8)}</span>
@@ -296,6 +333,36 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
                 <div className="flex items-center gap-2">
                   {role === Role.OFFICIAL && (
                     <>
+                      {isEditing ? (
+                        <>
+                          <Tooltip content="Save Changes" placement="top">
+                            <button
+                              onClick={handleSaveEdit}
+                              className="p-2 rounded-lg border bg-green-50 border-green-200 text-green-600 hover:bg-green-100 transition-all"
+                            >
+                              <Save className="w-4 h-4" />
+                            </button>
+                          </Tooltip>
+                          <Tooltip content="Cancel Edit" placement="top">
+                            <button
+                              onClick={() => setIsEditing(false)}
+                              className="p-2 rounded-lg border bg-red-50 border-red-200 text-red-600 hover:bg-red-100 transition-all"
+                            >
+                              <X className="w-4 h-4" />
+                            </button>
+                          </Tooltip>
+                        </>
+                      ) : (
+                        <Tooltip content="Edit Details" placement="top">
+                          <button
+                            onClick={() => setIsEditing(true)}
+                            className="p-2 rounded-lg border bg-white border-gray-200 text-gray-600 hover:text-blue-600 hover:border-blue-200 hover:bg-blue-50 transition-all"
+                          >
+                            <Edit className="w-4 h-4" />
+                          </button>
+                        </Tooltip>
+                      )}
+
                       <Tooltip content="View photo evidence" placement="top">
                         <button
                           onClick={() => setIsPhotoModalOpen(true)}
@@ -322,6 +389,18 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
                         </button>
                       </Tooltip>
 
+                      <Tooltip content="Flag as Spam/Troll" placement="top">
+                        <button
+                          onClick={() => updateStatus(selectedComplaint.id, ComplaintStatus.SPAM)}
+                          className={`p-2 rounded-lg border transition-all ${selectedComplaint.status === ComplaintStatus.SPAM
+                            ? 'bg-gray-100 border-gray-300 text-gray-600 shadow-inner'
+                            : 'bg-white border-gray-200 text-gray-400 hover:text-red-600 hover:border-red-200 hover:bg-red-50'
+                            }`}
+                        >
+                          <Ban className="w-4 h-4" />
+                        </button>
+                      </Tooltip>
+
                       <div className="relative group">
                         <select
                           value={selectedComplaint.status}
@@ -332,6 +411,8 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
                           <option value={ComplaintStatus.IN_PROGRESS}>In Progress</option>
                           <option value={ComplaintStatus.RESOLVED}>Resolved</option>
                           <option value={ComplaintStatus.DISMISSED}>Dismissed</option>
+                          <option value={ComplaintStatus.ON_HOLD}>On Hold</option>
+                          <option value={ComplaintStatus.SPAM}>Spam</option>
                         </select>
                         <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none text-gray-400">
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -359,6 +440,20 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
                     </div>
                   )}
 
+                  {selectedComplaint.aiAnalysis?.isTroll && (
+                    <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 flex gap-3 items-start mb-4 animate-in slide-in-from-top-2 duration-300">
+                      <div className="bg-amber-100 p-1.5 rounded-md mt-0.5">
+                        <AlertTriangle className="w-4 h-4 text-amber-600" />
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-bold text-amber-900">Potential Troll/Prank Detected</h4>
+                        <p className="text-xs text-amber-700 mt-0.5">
+                          AI Analysis suggests this might be a non-serious submission: {selectedComplaint.aiAnalysis.trollAnalysis}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
                   <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
                     <FileText className="w-3.5 h-3.5" /> Description
                   </h3>
@@ -373,14 +468,32 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
                     <MapPin className="w-3.5 h-3.5 text-blue-500" />
                     <div className="flex flex-col">
                       <span className="text-[9px] font-bold text-gray-400 uppercase leading-none">Location</span>
-                      <span className="text-xs font-semibold text-gray-900 leading-tight">{selectedComplaint.location}</span>
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={editForm.location}
+                          onChange={(e) => setEditForm({ ...editForm, location: e.target.value })}
+                          className="text-xs font-semibold text-gray-900 border-b border-gray-300 focus:border-blue-500 focus:outline-none"
+                        />
+                      ) : (
+                        <span className="text-xs font-semibold text-gray-900 leading-tight">{selectedComplaint.location}</span>
+                      )}
                     </div>
                   </div>
                   <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-gray-200 shadow-sm transition-transform hover:scale-105 cursor-default">
                     <Info className="w-3.5 h-3.5 text-purple-500" />
                     <div className="flex flex-col">
                       <span className="text-[9px] font-bold text-gray-400 uppercase leading-none">Category</span>
-                      <span className="text-xs font-semibold text-gray-900 leading-tight">{selectedComplaint.category}</span>
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={editForm.category}
+                          onChange={(e) => setEditForm({ ...editForm, category: e.target.value })}
+                          className="text-xs font-semibold text-gray-900 border-b border-gray-300 focus:border-blue-500 focus:outline-none"
+                        />
+                      ) : (
+                        <span className="text-xs font-semibold text-gray-900 leading-tight">{selectedComplaint.category}</span>
+                      )}
                     </div>
                   </div>
                 </div>

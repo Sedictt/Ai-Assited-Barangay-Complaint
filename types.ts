@@ -7,7 +7,9 @@ export enum ComplaintStatus {
   PENDING = 'PENDING',
   IN_PROGRESS = 'IN_PROGRESS',
   RESOLVED = 'RESOLVED',
-  DISMISSED = 'DISMISSED'
+  DISMISSED = 'DISMISSED',
+  SPAM = 'SPAM',
+  ON_HOLD = 'ON_HOLD'
 }
 
 export enum UrgencyLevel {
@@ -25,6 +27,8 @@ export interface AIAnalysis {
   estimatedResourceIntensity: 'LOW' | 'MEDIUM' | 'HIGH';
   categoryCorrection?: string;
   confidenceScore?: number; // 0-100
+  isTroll?: boolean;
+  trollAnalysis?: string;
 }
 
 export interface Complaint {

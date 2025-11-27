@@ -36,8 +36,16 @@ const analysisSchema: Schema = {
       type: Type.INTEGER,
       description: "Confidence level (0-100) of the analysis based on input clarity and detail.",
     },
+    isTroll: {
+      type: Type.BOOLEAN,
+      description: "True if the complaint appears to be a prank, spam, or nonsensical troll submission.",
+    },
+    trollAnalysis: {
+      type: Type.STRING,
+      description: "Explanation of why this is flagged as a troll report, or null if not.",
+    },
   },
-  required: ["priorityScore", "urgencyLevel", "impactAnalysis", "suggestedAction", "estimatedResourceIntensity", "confidenceScore"],
+  required: ["priorityScore", "urgencyLevel", "impactAnalysis", "suggestedAction", "estimatedResourceIntensity", "confidenceScore", "isTroll"],
 };
 
 export const analyzeComplaint = async (
@@ -60,6 +68,7 @@ export const analyzeComplaint = async (
       - Flooding and drainage are common issues.
       - Peace and order (noise, fights) are high priority at night.
       - Public health (garbage, sanitation) is critical.
+      - Check for signs of prank/troll submissions (e.g., unrealistic claims, nonsensical text, profanity without substance).
       
       Output strictly in JSON format based on the provided schema.
     `;
@@ -88,6 +97,8 @@ export const analyzeComplaint = async (
       suggestedAction: "Review complaint manually.",
       estimatedResourceIntensity: "MEDIUM",
       confidenceScore: 0,
+      isTroll: false,
+      trollAnalysis: "Analysis failed",
     };
   }
 };

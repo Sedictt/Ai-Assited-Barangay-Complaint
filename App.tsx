@@ -8,36 +8,6 @@ import { HelpCircle, Users, AlertTriangle, CheckCircle, TrendingUp, FileText } f
 import Tooltip from './components/Tooltip';
 import { subscribeToComplaints, addComplaint as addComplaintToFirestore, updateComplaint as updateComplaintInFirestore } from './services/firestoreService';
 
-// Dummy Initial Data - Kept for reference but not used with Firebase
-/*
-const INITIAL_COMPLAINTS: Complaint[] = [
-  {
-    id: '1',
-    title: 'Clogged Drainage Causing Flooding',
-    description: 'The main drainage canal in Purok 2 is blocked by debris. Water is entering houses during light rain.',
-    location: 'Purok 2, Maysan Rd.',
-    category: 'Infrastructure',
-    submittedBy: 'Maria Clara (Resident)',
-    submittedAt: new Date(Date.now() - 86400000).toISOString(), // 1 day ago
-    status: ComplaintStatus.PENDING,
-    aiAnalysis: {
-      priorityScore: 92,
-      urgencyLevel: UrgencyLevel.CRITICAL,
-      impactAnalysis: "High risk of property damage and waterborne diseases (leptospirosis) due to flooding in residential area.",
-      suggestedAction: "Deploy engineering team immediately for declogging. Alert residents.",
-      estimatedResourceIntensity: 'MEDIUM',
-      confidenceScore: 95
-    },
-    photos: [
-      'https://images.unsplash.com/photo-1547683905-f686c993aae5?w=400&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=400&fit=crop',
-      'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&h=400&fit=crop'
-    ]
-  },
-  // ... other complaints
-];
-*/
-
 const App: React.FC = () => {
   const [role, setRole] = useState<Role>(Role.OFFICIAL);
   const [complaints, setComplaints] = useState<Complaint[]>([]);
@@ -49,8 +19,8 @@ const App: React.FC = () => {
   const stats = useMemo(() => {
     return {
       total: complaints.length,
-      pending: complaints.filter(c => c.status === ComplaintStatus.PENDING).length,
-      critical: complaints.filter(c => c.aiAnalysis?.urgencyLevel === UrgencyLevel.CRITICAL && c.status !== ComplaintStatus.RESOLVED).length,
+      pending: complaints.filter(c => c.status === ComplaintStatus.PENDING || c.status === ComplaintStatus.ON_HOLD).length,
+      critical: complaints.filter(c => c.aiAnalysis?.urgencyLevel === UrgencyLevel.CRITICAL && c.status !== ComplaintStatus.RESOLVED && c.status !== ComplaintStatus.SPAM).length,
       resolved: complaints.filter(c => c.status === ComplaintStatus.RESOLVED).length,
       residentSubmissions: complaints.filter(c => c.submittedBy.toLowerCase().includes('resident')).length,
     };
@@ -186,6 +156,16 @@ const App: React.FC = () => {
     }
   };
 
+  const updateComplaint = async (id: string, updates: Partial<Complaint>) => {
+    if (role !== Role.OFFICIAL) return;
+    try {
+      await updateComplaintInFirestore(id, updates);
+    } catch (error) {
+      console.error('Error updating complaint:', error);
+      triggerNotification('Error', 'Failed to update complaint details.', 'critical');
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col relative">
       <NotificationToast notifications={notifications} removeNotification={removeNotification} />
@@ -301,7 +281,13 @@ const App: React.FC = () => {
         {role === Role.RESIDENT ? (
           <ResidentView role={role} complaints={complaints} addComplaint={addComplaint} />
         ) : (
-          <OfficialDashboard role={role} complaints={complaints} updateStatus={updateStatus} toggleEscalation={toggleEscalation} />
+          <OfficialDashboard
+            role={role}
+            complaints={complaints}
+            updateStatus={updateStatus}
+            toggleEscalation={toggleEscalation}
+            updateComplaint={updateComplaint}
+          />
         )}
       </main>
 
