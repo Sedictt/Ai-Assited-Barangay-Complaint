@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Complaint, ComplaintStatus, Role } from '../types';
 import { analyzeComplaint } from '../services/geminiService';
-import { uploadPhotos } from '../services/firestoreService';
+import { uploadPhotos } from '../services/cloudinaryService';
 import StatusBadge from './StatusBadge';
 import { FileText, MapPin, Loader2, Lock, Info, Send, Clock, CheckCircle, Activity, ChevronRight, Upload, X, Image } from './Icons';
 import Tooltip from './Tooltip';
@@ -61,7 +61,7 @@ const ResidentView: React.FC<ResidentViewProps> = ({ complaints, addComplaint, r
 
             // Upload photos if any
             if (photoFiles.length > 0) {
-                photoUrls = await uploadPhotos(photoFiles, complaintId);
+                photoUrls = await uploadPhotos(photoFiles);
             }
 
             const newComplaint: Complaint = {
@@ -74,7 +74,7 @@ const ResidentView: React.FC<ResidentViewProps> = ({ complaints, addComplaint, r
                 submittedAt: new Date().toISOString(),
                 status: ComplaintStatus.PENDING,
                 isAnalyzing: true,
-                photos: photoUrls.length > 0 ? photoUrls : undefined,
+                photos: photoUrls,
             };
 
             // Optimistic UI Update (or wait for real update via subscription)
