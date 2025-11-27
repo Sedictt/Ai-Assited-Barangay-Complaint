@@ -6,8 +6,10 @@ import NotificationToast, { AppNotification } from './components/NotificationToa
 import HelpGuide from './components/HelpGuide';
 import { HelpCircle, Users, AlertTriangle, CheckCircle, TrendingUp, FileText } from './components/Icons';
 import Tooltip from './components/Tooltip';
+import { subscribeToComplaints, addComplaint as addComplaintToFirestore, updateComplaint as updateComplaintInFirestore } from './services/firestoreService';
 
-// Dummy Initial Data
+// Dummy Initial Data - Kept for reference but not used with Firebase
+/*
 const INITIAL_COMPLAINTS: Complaint[] = [
   {
     id: '1',
@@ -25,51 +27,23 @@ const INITIAL_COMPLAINTS: Complaint[] = [
       suggestedAction: "Deploy engineering team immediately for declogging. Alert residents.",
       estimatedResourceIntensity: 'MEDIUM',
       confidenceScore: 95
-    }
+    },
+    photos: [
+      'https://images.unsplash.com/photo-1547683905-f686c993aae5?w=400&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=400&h=400&fit=crop'
+    ]
   },
-  {
-    id: '2',
-    title: 'Late Night Videoke Noise',
-    description: 'Neighbors singing loudly past 1 AM. Cannot sleep.',
-    location: 'Sitio Gitna',
-    category: 'Peace and Order',
-    submittedBy: 'Jose Rizal (Resident)',
-    submittedAt: new Date(Date.now() - 3600000).toISOString(), // 1 hour ago
-    status: ComplaintStatus.PENDING,
-    aiAnalysis: {
-      priorityScore: 65,
-      urgencyLevel: UrgencyLevel.MEDIUM,
-      impactAnalysis: "Disturbance of public peace, affecting sleep and well-being of neighbors.",
-      suggestedAction: "Dispatch Tanod patrol to issue warning.",
-      estimatedResourceIntensity: 'LOW',
-      confidenceScore: 88
-    }
-  },
-  {
-    id: '3',
-    title: 'Broken Streetlight',
-    description: 'Streetlight near the elementary school is flickering.',
-    location: 'Near Maysan Elem. School',
-    category: 'Infrastructure',
-    submittedBy: 'Andres B. (Resident)',
-    submittedAt: new Date(Date.now() - 172800000).toISOString(), // 2 days ago
-    status: ComplaintStatus.RESOLVED,
-    aiAnalysis: {
-      priorityScore: 45,
-      urgencyLevel: UrgencyLevel.LOW,
-      impactAnalysis: "Reduced visibility at night, minor safety concern.",
-      suggestedAction: "Schedule repair with electrical maintenance.",
-      estimatedResourceIntensity: 'LOW',
-      confidenceScore: 92
-    }
-  }
+  // ... other complaints
 ];
+*/
 
 const App: React.FC = () => {
   const [role, setRole] = useState<Role>(Role.OFFICIAL);
-  const [complaints, setComplaints] = useState<Complaint[]>(INITIAL_COMPLAINTS);
+  const [complaints, setComplaints] = useState<Complaint[]>([]);
   const [notifications, setNotifications] = useState<AppNotification[]>([]);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
+  const [isLoadingComplaints, setIsLoadingComplaints] = useState(true);
 
   // Calculate stats for header (when in Official view)
   const stats = useMemo(() => {
@@ -81,6 +55,17 @@ const App: React.FC = () => {
       residentSubmissions: complaints.filter(c => c.submittedBy.toLowerCase().includes('resident')).length,
     };
   }, [complaints]);
+
+  // Subscribe to Firestore complaints
+  useEffect(() => {
+    setIsLoadingComplaints(true);
+    const unsubscribe = subscribeToComplaints((firestoreComplaints) => {
+      setComplaints(firestoreComplaints);
+      setIsLoadingComplaints(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   // Request Notification Permissions
   useEffect(() => {
@@ -109,21 +94,28 @@ const App: React.FC = () => {
     setNotifications(prev => prev.filter(n => n.id !== id));
   };
 
-  const addComplaint = (complaint: Complaint) => {
+  const addComplaint = async (complaint: Complaint) => {
     // Security Check
     if (role !== Role.RESIDENT) {
       console.error("Access Denied: Officials cannot submit complaints.");
       return;
     }
 
-    setComplaints(prev => {
-      const exists = prev.find(c => c.id === complaint.id);
+    try {
+      // Check if this is a new complaint or an update (AI analysis)
+      const exists = complaints.find(c => c.id === complaint.id);
+
       if (exists) {
+        // Update existing complaint (AI analysis completed)
+        await updateComplaintInFirestore(complaint.id, {
+          aiAnalysis: complaint.aiAnalysis,
+          isAnalyzing: complaint.isAnalyzing
+        });
+
         // Check if this is an AI update that turned out CRITICAL
         if (!exists.aiAnalysis && complaint.aiAnalysis) {
           const urgency = complaint.aiAnalysis.urgencyLevel;
           if (urgency === UrgencyLevel.CRITICAL || urgency === UrgencyLevel.HIGH) {
-            // Wait a tick to ensure simulation feels real
             setTimeout(() => {
               triggerNotification(
                 `⚠️ High Priority Alert`,
@@ -133,42 +125,65 @@ const App: React.FC = () => {
             }, 500);
           }
         }
-        return prev.map(c => c.id === complaint.id ? complaint : c);
+      } else {
+        // Add new complaint to Firestore
+        await addComplaintToFirestore(complaint);
       }
-      return [complaint, ...prev];
-    });
+    } catch (error) {
+      console.error('Error adding/updating complaint:', error);
+      triggerNotification(
+        'Error',
+        'Failed to save complaint. Please try again.',
+        'critical'
+      );
+    }
   };
 
-  const updateStatus = (id: string, status: ComplaintStatus) => {
+  const updateStatus = async (id: string, status: ComplaintStatus) => {
     // Security Check
     if (role !== Role.OFFICIAL) {
       console.error("Access Denied: Residents cannot update complaint status.");
       return;
     }
 
-    setComplaints(prev => prev.map(c =>
-      c.id === id ? { ...c, status } : c
-    ));
+    try {
+      await updateComplaintInFirestore(id, { status });
+    } catch (error) {
+      console.error('Error updating status:', error);
+      triggerNotification(
+        'Error',
+        'Failed to update status. Please try again.',
+        'critical'
+      );
+    }
   };
 
-  const toggleEscalation = (id: string) => {
+  const toggleEscalation = async (id: string) => {
     if (role !== Role.OFFICIAL) return;
 
-    setComplaints(prev => prev.map(c => {
-      if (c.id === id) {
-        const newValue = !c.isEscalated;
-        if (newValue) {
-          // Trigger notification only when escalating (not de-escalating)
-          triggerNotification(
-            "Escalation Alert",
-            `Complaint "${c.title}" has been escalated to higher authority for immediate review.`,
-            'critical'
-          );
-        }
-        return { ...c, isEscalated: newValue };
+    try {
+      const complaint = complaints.find(c => c.id === id);
+      if (!complaint) return;
+
+      const newValue = !complaint.isEscalated;
+      await updateComplaintInFirestore(id, { isEscalated: newValue });
+
+      if (newValue) {
+        // Trigger notification only when escalating (not de-escalating)
+        triggerNotification(
+          "Escalation Alert",
+          `Complaint "${complaint.title}" has been escalated to higher authority for immediate review.`,
+          'critical'
+        );
       }
-      return c;
-    }));
+    } catch (error) {
+      console.error('Error toggling escalation:', error);
+      triggerNotification(
+        'Error',
+        'Failed to update escalation status. Please try again.',
+        'critical'
+      );
+    }
   };
 
   return (

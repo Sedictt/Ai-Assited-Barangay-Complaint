@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Complaint, ComplaintStatus, Role } from '../types';
 import { analyzeComplaint } from '../services/geminiService';
+import { uploadPhotos } from '../services/firestoreService';
 import StatusBadge from './StatusBadge';
 import { FileText, MapPin, Loader2, Lock, Info, Send, Clock, CheckCircle, Activity, ChevronRight, Upload, X, Image } from './Icons';
 import Tooltip from './Tooltip';
@@ -19,20 +20,25 @@ const ResidentView: React.FC<ResidentViewProps> = ({ complaints, addComplaint, r
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const [photos, setPhotos] = useState<string[]>([]);
+    const [photoFiles, setPhotoFiles] = useState<File[]>([]);
 
     const handlePhotoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         if (!files) return;
 
         const newPhotos: string[] = [];
+        const newFiles: File[] = [];
+
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
+            newFiles.push(file);
             const reader = new FileReader();
             reader.onload = (event) => {
                 if (event.target?.result) {
                     newPhotos.push(event.target.result as string);
                     if (newPhotos.length === files.length) {
                         setPhotos([...photos, ...newPhotos]);
+                        setPhotoFiles([...photoFiles, ...newFiles]);
                     }
                 }
             };
@@ -42,49 +48,67 @@ const ResidentView: React.FC<ResidentViewProps> = ({ complaints, addComplaint, r
 
     const removePhoto = (index: number) => {
         setPhotos(photos.filter((_, i) => i !== index));
+        setPhotoFiles(photoFiles.filter((_, i) => i !== index));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
 
-        const newComplaint: Complaint = {
-            id: Math.random().toString(36).substr(2, 9),
-            title,
-            description,
-            location,
-            category,
-            submittedBy: "Juan Dela Cruz (Resident)",
-            submittedAt: new Date().toISOString(),
-            status: ComplaintStatus.PENDING,
-            isAnalyzing: true,
-            photos: photos.length > 0 ? photos : undefined,
-        };
-
-        // Optimistic UI Update
-        addComplaint(newComplaint);
-
-        // Simulate submission delay for UX
-        setTimeout(() => {
-            setIsSubmitting(false);
-            setShowSuccess(true);
-            // Clear form
-            setTitle('');
-            setDescription('');
-            setLocation('');
-            setPhotos([]);
-
-            // Hide success message after 3s
-            setTimeout(() => setShowSuccess(false), 3000);
-        }, 1000);
-
-        // Perform AI Analysis in background
         try {
-            const analysis = await analyzeComplaint(title, description, location, category);
-            addComplaint({ ...newComplaint, aiAnalysis: analysis, isAnalyzing: false });
-        } catch (err) {
-            console.error(err);
-            addComplaint({ ...newComplaint, isAnalyzing: false });
+            const complaintId = Math.random().toString(36).substr(2, 9);
+            let photoUrls: string[] = [];
+
+            // Upload photos if any
+            if (photoFiles.length > 0) {
+                photoUrls = await uploadPhotos(photoFiles, complaintId);
+            }
+
+            const newComplaint: Complaint = {
+                id: complaintId,
+                title,
+                description,
+                location,
+                category,
+                submittedBy: "Juan Dela Cruz (Resident)",
+                submittedAt: new Date().toISOString(),
+                status: ComplaintStatus.PENDING,
+                isAnalyzing: true,
+                photos: photoUrls.length > 0 ? photoUrls : undefined,
+            };
+
+            // Optimistic UI Update (or wait for real update via subscription)
+            // We'll call addComplaint which now calls Firestore
+            addComplaint(newComplaint);
+
+            // Simulate submission delay for UX
+            setTimeout(() => {
+                setIsSubmitting(false);
+                setShowSuccess(true);
+                // Clear form
+                setTitle('');
+                setDescription('');
+                setLocation('');
+                setPhotos([]);
+                setPhotoFiles([]);
+
+                // Hide success message after 3s
+                setTimeout(() => setShowSuccess(false), 3000);
+            }, 1000);
+
+            // Perform AI Analysis in background
+            try {
+                const analysis = await analyzeComplaint(title, description, location, category);
+                // This will update the existing complaint in Firestore
+                addComplaint({ ...newComplaint, aiAnalysis: analysis, isAnalyzing: false });
+            } catch (err) {
+                console.error(err);
+                addComplaint({ ...newComplaint, isAnalyzing: false });
+            }
+        } catch (error) {
+            console.error("Error submitting complaint:", error);
+            setIsSubmitting(false);
+            // Handle error (show toast maybe?)
         }
     };
 
@@ -263,8 +287,8 @@ const ResidentView: React.FC<ResidentViewProps> = ({ complaints, addComplaint, r
                                             <label
                                                 htmlFor="photo-upload"
                                                 className={`flex items-center justify-center gap-2 w-full px-4 py-3 border-2 border-dashed rounded-lg transition-all cursor-pointer ${photos.length >= 5
-                                                        ? 'border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed'
-                                                        : 'border-gray-300 hover:border-blue-400 hover:bg-blue-50 text-gray-600 hover:text-blue-600'
+                                                    ? 'border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed'
+                                                    : 'border-gray-300 hover:border-blue-400 hover:bg-blue-50 text-gray-600 hover:text-blue-600'
                                                     }`}
                                             >
                                                 <Upload className="w-5 h-5" />
