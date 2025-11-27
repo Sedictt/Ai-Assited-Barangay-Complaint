@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+/* Tailwind requires these directives for its utility classes to work */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add your custom styles below if needed */
