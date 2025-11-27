@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Complaint, ComplaintStatus, Role } from '../types';
 import { analyzeComplaint } from '../services/geminiService';
 import { uploadPhotos } from '../services/cloudinaryService';
+import { compressImage } from '../services/imageCompression';
 import { MapPin, Loader2, Info, Send, Upload, X, CheckCircle, ChevronRight, Filter, Zap } from './Icons';
 import Tooltip from './Tooltip';
 
@@ -37,19 +38,41 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
 
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
-            newFiles.push(file);
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                if (event.target?.result) {
-                    newPhotos.push(event.target.result as string);
-                    if (newPhotos.length === files.length) {
-                        setPhotos([...photos, ...newPhotos]);
-                        setPhotoFiles([...photoFiles, ...newFiles]);
-                    }
-                }
-            };
-            reader.readAsDataURL(file);
+            try {
+                // Compress the image before adding
+                const compressedFile = await compressImage(file);
+                newFiles.push(compressedFile);
+
+                // Generate preview from compressed file
+                const reader = new FileReader();
+                await new Promise<void>((resolve) => {
+                    reader.onload = (event) => {
+                        if (event.target?.result) {
+                            newPhotos.push(event.target.result as string);
+                        }
+                        resolve();
+                    };
+                    reader.readAsDataURL(compressedFile);
+                });
+            } catch (error) {
+                console.error("Error compressing image:", error);
+                // Fallback to original file if compression fails
+                newFiles.push(file);
+                const reader = new FileReader();
+                await new Promise<void>((resolve) => {
+                    reader.onload = (event) => {
+                        if (event.target?.result) {
+                            newPhotos.push(event.target.result as string);
+                        }
+                        resolve();
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
         }
+
+        setPhotos([...photos, ...newPhotos]);
+        setPhotoFiles([...photoFiles, ...newFiles]);
     };
 
     const removePhoto = (index: number) => {
