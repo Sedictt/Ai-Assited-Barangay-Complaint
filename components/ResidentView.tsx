@@ -16,6 +16,7 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
     const [description, setDescription] = useState('');
     const [location, setLocation] = useState('');
     const [contactNumber, setContactNumber] = useState('');
+    const [contactError, setContactError] = useState('');
     const [category, setCategory] = useState('Sanitation');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
@@ -86,15 +87,16 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
 
         if (contactNumber) {
             if (contactNumber.length !== 11) {
-                alert("Contact number must be exactly 11 digits.");
+                setContactError("Contact number must be exactly 11 digits.");
                 return;
             }
             if (!contactNumber.startsWith('09')) {
-                alert("Contact number must start with '09'.");
+                setContactError("Contact number must start with '09'.");
                 return;
             }
         }
 
+        setContactError('');
         setIsSubmitting(true);
 
         try {
@@ -253,11 +255,15 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
                                             const val = e.target.value;
                                             if (/^\d*$/.test(val) && val.length <= 11) {
                                                 setContactNumber(val);
+                                                setContactError('');
                                             }
                                         }}
                                         placeholder="e.g. 09123456789"
-                                        className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl leading-5 bg-gray-50 placeholder-gray-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all sm:text-sm font-medium"
+                                        className={`block w-full pl-10 pr-3 py-3 border rounded-xl leading-5 bg-gray-50 placeholder-gray-400 focus:outline-none focus:bg-white focus:ring-2 transition-all sm:text-sm font-medium ${contactError ? 'border-red-500 focus:ring-red-500/20 focus:border-red-500' : 'border-gray-200 focus:ring-blue-500/20 focus:border-blue-500'}`}
                                     />
+                                    {contactError && (
+                                        <p className="text-xs text-red-500 mt-1 ml-1 font-medium">{contactError}</p>
+                                    )}
                                 </div>
                             </div>
 
