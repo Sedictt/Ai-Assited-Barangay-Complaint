@@ -3,7 +3,7 @@ import { Complaint, ComplaintStatus, Role } from '../types';
 import { analyzeComplaint } from '../services/geminiService';
 import { uploadPhotos } from '../services/cloudinaryService';
 import { compressImage } from '../services/imageCompression';
-import { MapPin, Loader2, Info, Send, Upload, X, CheckCircle, ChevronRight, Filter, Zap } from './Icons';
+import { MapPin, Loader2, Info, Send, Upload, X, CheckCircle, ChevronRight, Filter, Zap, Phone } from './Icons';
 import Tooltip from './Tooltip';
 
 interface ResidentViewProps {
@@ -246,7 +246,7 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
                                 <label className="block text-sm font-bold text-gray-700">Contact Number (Optional)</label>
                                 <div className="relative group">
                                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <div className="h-4 w-4 text-gray-400 flex items-center justify-center font-bold text-xs">#</div>
+                                        <Phone className="h-4 w-4 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
                                     </div>
                                     <input
                                         type="tel"
