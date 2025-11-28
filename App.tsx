@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Complaint, Role, ComplaintStatus, UrgencyLevel, AIAnalysis } from './types';
 import ResidentView from './components/ResidentView';
 import OfficialDashboard from './components/OfficialDashboard';
@@ -9,7 +10,12 @@ import Tooltip from './components/Tooltip';
 import { subscribeToComplaints, addComplaint as addComplaintToFirestore, updateComplaint as updateComplaintInFirestore } from './services/firestoreService';
 
 const App: React.FC = () => {
-  const [role, setRole] = useState<Role>(Role.OFFICIAL);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Determine role based on URL
+  const role = location.pathname.startsWith('/official') ? Role.OFFICIAL : Role.RESIDENT;
+
   const [complaints, setComplaints] = useState<Complaint[]>([]);
   const [notifications, setNotifications] = useState<AppNotification[]>([]);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
@@ -256,39 +262,25 @@ const App: React.FC = () => {
                 </div>
               </div>
             )}
-
-            {/* Right: Role Switcher */}
-            <div className="flex bg-gray-100 p-1 rounded-lg flex-shrink-0">
-              <button
-                onClick={() => setRole(Role.RESIDENT)}
-                className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all whitespace-nowrap ${role === Role.RESIDENT ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-900'}`}
-              >
-                Resident
-              </button>
-              <button
-                onClick={() => setRole(Role.OFFICIAL)}
-                className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all whitespace-nowrap ${role === Role.OFFICIAL ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500 hover:text-gray-900'}`}
-              >
-                Official
-              </button>
-            </div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="flex-1 bg-gray-50 max-w-7xl mx-auto w-full">
-        {role === Role.RESIDENT ? (
-          <ResidentView role={role} addComplaint={addComplaint} />
-        ) : (
-          <OfficialDashboard
-            role={role}
-            complaints={complaints}
-            updateStatus={updateStatus}
-            toggleEscalation={toggleEscalation}
-            updateComplaint={updateComplaint}
-          />
-        )}
+        <Routes>
+          <Route path="/" element={<ResidentView role={Role.RESIDENT} addComplaint={addComplaint} />} />
+          <Route path="/official" element={
+            <OfficialDashboard
+              role={Role.OFFICIAL}
+              complaints={complaints}
+              updateStatus={updateStatus}
+              toggleEscalation={toggleEscalation}
+              updateComplaint={updateComplaint}
+            />
+          } />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </main>
 
       {/* Footer */}
