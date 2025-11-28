@@ -261,10 +261,10 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
                                         placeholder="e.g. 09123456789"
                                         className={`block w-full pl-10 pr-3 py-3 border rounded-xl leading-5 bg-gray-50 placeholder-gray-400 focus:outline-none focus:bg-white focus:ring-2 transition-all sm:text-sm font-medium ${contactError ? 'border-red-500 focus:ring-red-500/20 focus:border-red-500' : 'border-gray-200 focus:ring-blue-500/20 focus:border-blue-500'}`}
                                     />
-                                    {contactError && (
-                                        <p className="text-xs text-red-500 mt-1 ml-1 font-medium">{contactError}</p>
-                                    )}
                                 </div>
+                                {contactError && (
+                                    <p className="text-xs text-red-500 mt-1 ml-1 font-medium">{contactError}</p>
+                                )}
                             </div>
 
                             {/* Description */}
