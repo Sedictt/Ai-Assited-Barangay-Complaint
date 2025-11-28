@@ -84,9 +84,15 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (contactNumber && contactNumber.length !== 11) {
-            alert("Contact number must be exactly 11 digits.");
-            return;
+        if (contactNumber) {
+            if (contactNumber.length !== 11) {
+                alert("Contact number must be exactly 11 digits.");
+                return;
+            }
+            if (!contactNumber.startsWith('09')) {
+                alert("Contact number must start with '09'.");
+                return;
+            }
         }
 
         setIsSubmitting(true);
