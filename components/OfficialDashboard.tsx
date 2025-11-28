@@ -18,7 +18,7 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [editForm, setEditForm] = useState<{ title: string; category: string; location: string }>({ title: '', category: '', location: '' });
+  const [editForm, setEditForm] = useState<{ title: string; category: string; location: string; contactNumber: string }>({ title: '', category: '', location: '', contactNumber: '' });
 
   // Filter & Sort State
   const [statusFilter, setStatusFilter] = useState<string>('ALL');
@@ -95,7 +95,8 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
       setEditForm({
         title: selectedComplaint.title,
         category: selectedComplaint.category,
-        location: selectedComplaint.location
+        location: selectedComplaint.location,
+        contactNumber: selectedComplaint.contactNumber || ''
       });
       setIsEditing(false);
     }
@@ -493,6 +494,26 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
                         />
                       ) : (
                         <span className="text-xs font-semibold text-gray-900 leading-tight">{selectedComplaint.category}</span>
+                      )}
+                    </div>
+                  </div>
+                  {/* Contact Number Chip */}
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-gray-200 shadow-sm transition-transform hover:scale-105 cursor-default">
+                    <div className="w-3.5 h-3.5 flex items-center justify-center rounded-full bg-green-100 text-green-600 font-bold text-[10px]">#</div>
+                    <div className="flex flex-col">
+                      <span className="text-[9px] font-bold text-gray-400 uppercase leading-none">Contact</span>
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={editForm.contactNumber}
+                          onChange={(e) => setEditForm({ ...editForm, contactNumber: e.target.value })}
+                          className="text-xs font-semibold text-gray-900 border-b border-gray-300 focus:border-blue-500 focus:outline-none"
+                          placeholder="No contact info"
+                        />
+                      ) : (
+                        <span className="text-xs font-semibold text-gray-900 leading-tight">
+                          {selectedComplaint.contactNumber || 'N/A'}
+                        </span>
                       )}
                     </div>
                   </div>

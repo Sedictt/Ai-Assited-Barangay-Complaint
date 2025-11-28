@@ -15,6 +15,7 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [location, setLocation] = useState('');
+    const [contactNumber, setContactNumber] = useState('');
     const [category, setCategory] = useState('Sanitation');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
@@ -97,6 +98,7 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
                 title,
                 description,
                 location,
+                contactNumber,
                 category,
                 submittedBy: "Juan Dela Cruz (Resident)",
                 submittedAt: new Date().toISOString(),
@@ -113,6 +115,7 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
                 setTitle('');
                 setDescription('');
                 setLocation('');
+                setContactNumber('');
                 setPhotos([]);
                 setPhotoFiles([]);
                 setCategory('Sanitation');
@@ -219,6 +222,23 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
                                         value={location}
                                         onChange={(e) => setLocation(e.target.value)}
                                         placeholder="e.g. Near the Basketball Court"
+                                        className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl leading-5 bg-gray-50 placeholder-gray-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all sm:text-sm font-medium"
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Contact Number */}
+                            <div className="space-y-1.5">
+                                <label className="block text-sm font-bold text-gray-700">Contact Number (Optional)</label>
+                                <div className="relative group">
+                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <div className="h-4 w-4 text-gray-400 flex items-center justify-center font-bold text-xs">#</div>
+                                    </div>
+                                    <input
+                                        type="tel"
+                                        value={contactNumber}
+                                        onChange={(e) => setContactNumber(e.target.value)}
+                                        placeholder="e.g. 0912 345 6789"
                                         className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl leading-5 bg-gray-50 placeholder-gray-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all sm:text-sm font-medium"
                                     />
                                 </div>

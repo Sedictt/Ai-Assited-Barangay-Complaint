@@ -44,6 +44,7 @@ export interface Complaint {
   isAnalyzing?: boolean;
   isEscalated?: boolean;
   photos?: string[]; // Array of photo file paths/URLs as evidence
+  contactNumber?: string;
 }
 
 export interface Stats {
