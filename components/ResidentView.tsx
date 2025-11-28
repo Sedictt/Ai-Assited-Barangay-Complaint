@@ -83,6 +83,12 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (contactNumber && contactNumber.length !== 11) {
+            alert("Contact number must be exactly 11 digits.");
+            return;
+        }
+
         setIsSubmitting(true);
 
         try {
@@ -237,8 +243,13 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
                                     <input
                                         type="tel"
                                         value={contactNumber}
-                                        onChange={(e) => setContactNumber(e.target.value)}
-                                        placeholder="e.g. 0912 345 6789"
+                                        onChange={(e) => {
+                                            const val = e.target.value;
+                                            if (/^\d*$/.test(val) && val.length <= 11) {
+                                                setContactNumber(val);
+                                            }
+                                        }}
+                                        placeholder="e.g. 09123456789"
                                         className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl leading-5 bg-gray-50 placeholder-gray-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all sm:text-sm font-medium"
                                     />
                                 </div>
