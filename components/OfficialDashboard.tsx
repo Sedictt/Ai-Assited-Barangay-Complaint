@@ -2,7 +2,6 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Complaint, ComplaintStatus, UrgencyLevel, Role } from '../types';
 import StatusBadge from './StatusBadge';
 import { AlertTriangle, TrendingUp, CheckCircle, Users, Loader2, MapPin, Filter, Calendar, Lock, FileText, Info, Flag, Activity, Search, Image, Ban, Edit, Save, X } from './Icons';
-import { PieChart, Pie, Cell, Tooltip as RechartsTooltip, ResponsiveContainer, Legend } from 'recharts';
 import Tooltip from './Tooltip';
 import PhotoModal from './PhotoModal';
 
@@ -108,15 +107,6 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
       setIsEditing(false);
     }
   };
-
-  // Chart Data: Full Status Breakdown
-  const chartData = useMemo(() => [
-    { name: 'Pending', value: complaints.filter(c => c.status === ComplaintStatus.PENDING).length, color: '#f59e0b' }, // Amber
-    { name: 'In Progress', value: complaints.filter(c => c.status === ComplaintStatus.IN_PROGRESS).length, color: '#3b82f6' }, // Blue
-    { name: 'Resolved', value: complaints.filter(c => c.status === ComplaintStatus.RESOLVED).length, color: '#22c55e' }, // Green
-    { name: 'Dismissed', value: complaints.filter(c => c.status === ComplaintStatus.DISMISSED).length, color: '#94a3b8' }, // Gray
-    { name: 'On Hold', value: complaints.filter(c => c.status === ComplaintStatus.ON_HOLD).length, color: '#8b5cf6' }, // Violet
-  ].filter(item => item.value > 0), [complaints]);
 
   const getPriorityBarColor = (score: number) => {
     if (score >= 80) return 'bg-red-500';
@@ -594,52 +584,6 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
               <p className="text-gray-500">Select a complaint from the list to view details.</p>
             </div>
           )}
-
-          {/* Enhanced Chart Section */}
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <h3 className="font-semibold text-gray-900">Current Status Overview</h3>
-                <p className="text-sm text-gray-500">Distribution of complaints by status</p>
-              </div>
-            </div>
-
-            <div className="h-64 w-full">
-              {chartData.length > 0 ? (
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={chartData}
-                      innerRadius={60}
-                      outerRadius={80}
-                      paddingAngle={5}
-                      dataKey="value"
-                    >
-                      {chartData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} strokeWidth={0} />
-                      ))}
-                    </Pie>
-                    <RechartsTooltip
-                      contentStyle={{ backgroundColor: '#fff', borderRadius: '8px', border: '1px solid #e5e7eb', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-                      itemStyle={{ fontSize: '12px', fontWeight: 600, color: '#374151' }}
-                    />
-                    <Legend
-                      verticalAlign="middle"
-                      align="right"
-                      layout="vertical"
-                      iconType="circle"
-                      wrapperStyle={{ paddingLeft: '20px' }}
-                    />
-                  </PieChart>
-                </ResponsiveContainer>
-              ) : (
-                <div className="h-full w-full flex flex-col items-center justify-center text-gray-400">
-                  <TrendingUp className="w-10 h-10 mb-2 opacity-20" />
-                  <p className="text-sm font-medium">No complaints recorded yet</p>
-                </div>
-              )}
-            </div>
-          </div>
         </div>
       </div>
 
