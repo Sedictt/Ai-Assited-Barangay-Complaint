@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Complaint, ComplaintStatus, Role } from '../types';
 import { analyzeComplaint } from '../services/geminiService';
 import { uploadPhotos } from '../services/cloudinaryService';
 import { compressImage } from '../services/imageCompression';
-import { MapPin, Loader2, Info, Send, Upload, X, CheckCircle, ChevronRight, Filter, Zap, Phone } from './Icons';
+import { MapPin, Loader2, Info, Send, Upload, X, CheckCircle, ChevronRight, Filter, Zap, Phone, Search } from './Icons';
 import Tooltip from './Tooltip';
 
 interface ResidentViewProps {
@@ -12,6 +13,7 @@ interface ResidentViewProps {
 }
 
 const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
+    const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [location, setLocation] = useState('');
@@ -152,6 +154,8 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
 
     return (
         <div className="min-h-[calc(100vh-140px)] flex flex-col items-center justify-center p-4 md:p-6 bg-gradient-to-b from-gray-50 to-gray-100">
+
+
             <div className="w-full max-w-lg bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden transition-all hover:shadow-2xl">
                 {/* Header */}
                 <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-5 flex items-center gap-3">

@@ -3,9 +3,10 @@ import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-
 import { Complaint, Role, ComplaintStatus, UrgencyLevel, AIAnalysis } from './types';
 import ResidentView from './components/ResidentView';
 import OfficialDashboard from './components/OfficialDashboard';
+import TrackComplaint from './components/TrackComplaint';
 import NotificationToast, { AppNotification } from './components/NotificationToast';
 import HelpGuide from './components/HelpGuide';
-import { HelpCircle, Users, AlertTriangle, CheckCircle, TrendingUp, FileText } from './components/Icons';
+import { HelpCircle, Users, AlertTriangle, CheckCircle, TrendingUp, FileText, Search } from './components/Icons';
 import Tooltip from './components/Tooltip';
 import { subscribeToComplaints, addComplaint as addComplaintToFirestore, updateComplaint as updateComplaintInFirestore } from './services/firestoreService';
 
@@ -71,12 +72,6 @@ const App: React.FC = () => {
   };
 
   const addComplaint = async (complaint: Complaint) => {
-    // Security Check - Allow both Residents and Officials (for manual entry)
-    // if (role !== Role.RESIDENT) {
-    //   console.error("Access Denied: Officials cannot submit complaints.");
-    //   return;
-    // }
-
     try {
       // Check if this is a new complaint or an update (AI analysis)
       const exists = complaints.find(c => c.id === complaint.id);
@@ -238,7 +233,7 @@ const App: React.FC = () => {
                     <p className="text-sm font-bold text-gray-900 leading-none mt-0.5">{stats.resolved}</p>
                   </div>
                 </div>
-                <div className="bg-white px-2 py-1.5 rounded-lg shadow-sm border border-gray-200 flex items-center gap-2">
+                <div className="bg-white px-2 py-1.5 rounded-lg shadow-sm border border-amber-200 flex items-center gap-2">
                   <Tooltip content="Awaiting review or action" placement="bottom">
                     <div className="p-1 bg-amber-100 rounded-full text-amber-600 cursor-help">
                       <TrendingUp className="w-3.5 h-3.5" />
@@ -262,6 +257,18 @@ const App: React.FC = () => {
                 </div>
               </div>
             )}
+
+            {/* Right: Actions */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => navigate('/track', { state: { from: location.pathname } })}
+                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full hover:from-blue-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg font-semibold text-xs transform hover:-translate-y-0.5"
+                title="Track a Complaint"
+              >
+                <Search className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Track</span>
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -270,6 +277,7 @@ const App: React.FC = () => {
       <main className="flex-1 bg-gray-50 max-w-7xl mx-auto w-full">
         <Routes>
           <Route path="/" element={<ResidentView role={Role.RESIDENT} addComplaint={addComplaint} />} />
+          <Route path="/track" element={<TrackComplaint complaints={complaints} />} />
           <Route path="/official" element={
             <OfficialDashboard
               role={Role.OFFICIAL}
