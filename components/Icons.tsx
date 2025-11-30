@@ -253,8 +253,7 @@ export const Shield = ({ className }: { className?: string }) => (
 
 export const Flame = ({ className }: { className?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-2.246-3.646-2.5-4.5A3.5 3.5 0 0 1 11 1c1 1 2.5 3 2.5 4.5 0 1-.5 2-1 3a2.5 2.5 0 0 0 2.5 2.5 2.5 2.5 0 0 0 2.5-2.5c0-1 .5-2 1-3a3.5 3.5 0 0 1 3.5 3.5c-.254.854-1.428 2.357-2.5 4.5-.5 1-1 1.62-1 3a2.5 2.5 0 0 0 2.5 2.5 2.5 2.5 0 0 0 2.5-2.5c0-1 .5-2 1-3" />
-    <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z" />
+    <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.1.243-2.143.5-3.5a6 6 0 1 0 6 6Z" />
   </svg>
 );
 
@@ -277,5 +276,12 @@ export const Building = ({ className }: { className?: string }) => (
     <path d="M16 14h.01" />
     <path d="M8 10h.01" />
     <path d="M8 14h.01" />
+  </svg>
+);
+
+export const Plus = ({ className }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M5 12h14" />
+    <path d="M12 5v14" />
   </svg>
 );

@@ -1,11 +1,12 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Complaint, ComplaintStatus, UrgencyLevel, Role } from '../types';
+import { Complaint, ComplaintStatus, UrgencyLevel, Role, InternalNote, User, AuditLogEntry, LogCategory } from '../types';
 import StatusBadge from './StatusBadge';
-import { AlertTriangle, TrendingUp, CheckCircle, Users, Loader2, MapPin, Filter, Calendar, Lock, FileText, Info, Flag, Activity, Search, Image, Ban, Edit, Save, X, Shield, Flame, Heart, Building, Phone } from './Icons';
+import { AlertTriangle, TrendingUp, CheckCircle, Users, Loader2, MapPin, Filter, Calendar, Lock, FileText, Info, Flag, Activity, Search, Image, Ban, Edit, Save, X } from './Icons';
 import Tooltip from './Tooltip';
 import PhotoModal from './PhotoModal';
 import HotlineSidebar from './HotlineSidebar';
 import ManualComplaintModal from './ManualComplaintModal';
+import { addInternalNote, addSystemLog } from '../services/firestoreService';
 
 interface OfficialDashboardProps {
   complaints: Complaint[];
@@ -14,14 +15,16 @@ interface OfficialDashboardProps {
   updateComplaint: (id: string, updates: Partial<Complaint>) => void;
   addComplaint?: (complaint: Complaint) => Promise<void>;
   role: Role;
+  currentUser: User;
 }
 
-const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updateStatus, toggleEscalation, updateComplaint, addComplaint, role }) => {
+const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updateStatus, toggleEscalation, updateComplaint, addComplaint, role, currentUser }) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
   const [isManualEntryOpen, setIsManualEntryOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState<{ title: string; category: string; location: string; contactNumber: string }>({ title: '', category: '', location: '', contactNumber: '' });
+  const [newNote, setNewNote] = useState('');
 
   // Unread State
   const [readComplaintIds, setReadComplaintIds] = useState<Set<string>>(() => {
@@ -142,7 +145,35 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
     if (addComplaint) {
       await addComplaint(complaint);
       setIsManualEntryOpen(false);
-      // Optionally select the new complaint or show a success toast
+    }
+  };
+
+  const handleAddNote = async () => {
+    if (!selectedId || !newNote.trim() || !selectedComplaint) return;
+
+    const note: InternalNote = {
+      id: Date.now().toString(),
+      author: currentUser.fullName,
+      content: newNote.trim(),
+      timestamp: new Date().toISOString()
+    };
+
+    try {
+      await addInternalNote(selectedId, note);
+
+      // Log Action
+      await addSystemLog({
+        timestamp: new Date().toISOString(),
+        action: 'INTERNAL_NOTE_ADDED',
+        category: LogCategory.COMPLAINT,
+        actor: currentUser.fullName,
+        details: `Added internal note to complaint ${selectedId}`,
+        metadata: { complaintId: selectedId, userId: currentUser.id }
+      });
+
+      setNewNote('');
+    } catch (error) {
+      console.error('Error adding note:', error);
     }
   };
 
@@ -618,6 +649,82 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
                       <p className="text-sm font-medium">AI Analysis unavailable for this complaint.</p>
                     </div>
                   )}
+                </div>
+
+                {/* Internal Notes & Audit Log Section */}
+                <div className="pt-6 border-t border-gray-100">
+                  <div className="mb-5">
+                    <h3 className="text-sm font-bold text-gray-900 flex items-center gap-2 mb-1">
+                      <Lock className="w-4 h-4 text-gray-500" /> Internal Notes & Activity Log
+                    </h3>
+                    <p className="text-xs text-gray-500">Private team notes and system activity history (Not visible to residents)</p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Notes Section */}
+                    <div className="space-y-3">
+                      <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">Team Notes</h4>
+                      <div className="bg-gray-50 rounded-xl border border-gray-200 p-3 h-64 overflow-y-auto space-y-3">
+                        {selectedComplaint.internalNotes && selectedComplaint.internalNotes.length > 0 ? (
+                          selectedComplaint.internalNotes.map((note) => (
+                            <div key={note.id} className="bg-white p-3 rounded-lg border border-gray-100 shadow-sm">
+                              <p className="text-xs text-gray-800 whitespace-pre-wrap">{note.content}</p>
+                              <div className="flex justify-between items-center mt-2 text-[10px] text-gray-400">
+                                <span className="font-medium text-gray-600">{note.author}</span>
+                                <span>{new Date(note.timestamp).toLocaleString()}</span>
+                              </div>
+                            </div>
+                          ))
+                        ) : (
+                          <div className="flex flex-col items-center justify-center h-full text-gray-400">
+                            <FileText className="w-6 h-6 mb-2 opacity-20" />
+                            <p className="text-xs">No internal notes yet.</p>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={newNote}
+                          onChange={(e) => setNewNote(e.target.value)}
+                          placeholder="Add a private note..."
+                          className="flex-1 text-xs border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          onKeyDown={(e) => e.key === 'Enter' && handleAddNote()}
+                        />
+                        <button
+                          onClick={handleAddNote}
+                          disabled={!newNote.trim()}
+                          className="px-3 py-2 bg-gray-900 text-white rounded-lg text-xs font-bold hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        >
+                          Add
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Audit Log Section */}
+                    <div className="space-y-3">
+                      <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">Activity History</h4>
+                      <div className="bg-gray-50 rounded-xl border border-gray-200 p-3 h-[308px] overflow-y-auto space-y-0">
+                        {selectedComplaint.auditLog && selectedComplaint.auditLog.length > 0 ? (
+                          [...selectedComplaint.auditLog].reverse().map((log, index) => (
+                            <div key={log.id} className="relative pl-4 pb-4 last:pb-0 border-l border-gray-200 ml-2">
+                              <div className="absolute -left-1.5 top-0.5 w-3 h-3 rounded-full bg-gray-300 border-2 border-gray-50"></div>
+                              <div className="flex flex-col">
+                                <span className="text-xs font-bold text-gray-700">{log.action.replace('_', ' ')}</span>
+                                <span className="text-[10px] text-gray-500 mb-1">{new Date(log.timestamp).toLocaleString()} • {log.author}</span>
+                                <p className="text-xs text-gray-600 bg-white p-2 rounded border border-gray-100 shadow-sm">{log.details}</p>
+                              </div>
+                            </div>
+                          ))
+                        ) : (
+                          <div className="flex flex-col items-center justify-center h-full text-gray-400">
+                            <Activity className="w-6 h-6 mb-2 opacity-20" />
+                            <p className="text-xs">No activity recorded yet.</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -1,6 +1,16 @@
 export enum Role {
   RESIDENT = 'RESIDENT',
-  OFFICIAL = 'OFFICIAL'
+  OFFICIAL = 'OFFICIAL',
+  SUPERADMIN = 'SUPERADMIN'
+}
+
+export interface User {
+  id: string;
+  username: string;
+  password?: string; // Only used for creation/auth, usually not returned in list
+  fullName: string;
+  role: Role;
+  createdAt: string;
 }
 
 export enum ComplaintStatus {
@@ -31,6 +41,21 @@ export interface AIAnalysis {
   trollAnalysis?: string;
 }
 
+export interface InternalNote {
+  id: string;
+  author: string;
+  content: string;
+  timestamp: string;
+}
+
+export interface AuditLogEntry {
+  id: string;
+  action: string;
+  author: string;
+  timestamp: string;
+  details: string;
+}
+
 export interface Complaint {
   id: string;
   title: string;
@@ -45,6 +70,8 @@ export interface Complaint {
   isEscalated?: boolean;
   photos?: string[]; // Array of photo file paths/URLs as evidence
   contactNumber?: string;
+  internalNotes?: InternalNote[];
+  auditLog?: AuditLogEntry[];
 }
 
 export interface Stats {
@@ -52,4 +79,25 @@ export interface Stats {
   pending: number;
   resolved: number;
   critical: number;
+}
+
+export enum LogCategory {
+  AUTH = 'AUTH',
+  USER_MANAGEMENT = 'USER_MANAGEMENT',
+  COMPLAINT = 'COMPLAINT',
+  SYSTEM = 'SYSTEM'
+}
+
+export interface SystemLog {
+  id: string;
+  timestamp: string;
+  action: string;
+  category: LogCategory;
+  actor: string;
+  details: string;
+  metadata?: {
+    userId?: string;
+    complaintId?: string;
+    target?: string;
+  };
 }

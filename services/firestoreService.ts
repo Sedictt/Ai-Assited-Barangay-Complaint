@@ -9,13 +9,16 @@ import {
     orderBy,
     Timestamp,
     QuerySnapshot,
-    DocumentData
+    DocumentData,
+    arrayUnion,
+    limit
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from './firebase';
-import { Complaint } from '../types';
+import { Complaint, InternalNote, AuditLogEntry, SystemLog } from '../types';
 
 const COMPLAINTS_COLLECTION = 'complaints';
+const SYSTEM_LOGS_COLLECTION = 'systemLogs';
 
 /**
  * Subscribe to real-time complaints updates
@@ -78,6 +81,42 @@ export const updateComplaint = async (
 };
 
 /**
+ * Add an internal note to a complaint
+ */
+export const addInternalNote = async (
+    complaintId: string,
+    note: InternalNote
+): Promise<void> => {
+    try {
+        const complaintRef = doc(db, COMPLAINTS_COLLECTION, complaintId);
+        await updateDoc(complaintRef, {
+            internalNotes: arrayUnion(note)
+        });
+    } catch (error) {
+        console.error('Error adding internal note:', error);
+        throw error;
+    }
+};
+
+/**
+ * Add an audit log entry to a complaint
+ */
+export const addAuditLogEntry = async (
+    complaintId: string,
+    entry: AuditLogEntry
+): Promise<void> => {
+    try {
+        const complaintRef = doc(db, COMPLAINTS_COLLECTION, complaintId);
+        await updateDoc(complaintRef, {
+            auditLog: arrayUnion(entry)
+        });
+    } catch (error) {
+        console.error('Error adding audit log entry:', error);
+        throw error;
+    }
+};
+
+/**
  * Upload photo to Firebase Storage and return the download URL
  */
 export const uploadPhoto = async (
@@ -117,4 +156,36 @@ export const uploadPhotos = async (
         console.error('Error uploading photos:', error);
         throw error;
     }
+};
+
+/**
+ * Add a system-wide log entry
+ */
+export const addSystemLog = async (log: Omit<SystemLog, 'id'>): Promise<void> => {
+    try {
+        await addDoc(collection(db, SYSTEM_LOGS_COLLECTION), log);
+    } catch (error) {
+        console.error('Error adding system log:', error);
+    }
+};
+
+/**
+ * Subscribe to system logs
+ */
+export const subscribeToSystemLogs = (
+    callback: (logs: SystemLog[]) => void
+): (() => void) => {
+    const q = query(
+        collection(db, SYSTEM_LOGS_COLLECTION),
+        orderBy('timestamp', 'desc'),
+        limit(100)
+    );
+
+    return onSnapshot(q, (snapshot) => {
+        const logs = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        } as SystemLog));
+        callback(logs);
+    });
 };
