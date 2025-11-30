@@ -4,7 +4,7 @@ import { Complaint, ComplaintStatus, Role } from '../types';
 import { analyzeComplaint } from '../services/geminiService';
 import { uploadPhotos } from '../services/cloudinaryService';
 import { compressImage } from '../services/imageCompression';
-import { MapPin, Loader2, Info, Send, Upload, X, CheckCircle, ChevronRight, Filter, Zap, Phone, Search } from './Icons';
+import { MapPin, Loader2, Info, Send, Upload, X, CheckCircle, ChevronRight, Filter, Zap, Phone, Search, Mail } from './Icons';
 import Tooltip from './Tooltip';
 
 interface ResidentViewProps {
@@ -18,6 +18,7 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
     const [description, setDescription] = useState('');
     const [location, setLocation] = useState('');
     const [contactNumber, setContactNumber] = useState('');
+    const [email, setEmail] = useState('');
     const [contactError, setContactError] = useState('');
     const [category, setCategory] = useState('Sanitation');
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -115,6 +116,7 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
                 description,
                 location,
                 contactNumber,
+                email,
                 category,
                 submittedBy: "Juan Dela Cruz (Resident)",
                 submittedAt: new Date().toISOString(),
@@ -132,6 +134,7 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
                 setDescription('');
                 setLocation('');
                 setContactNumber('');
+                setEmail('');
                 setPhotos([]);
                 setPhotoFiles([]);
                 setCategory('Sanitation');
@@ -269,6 +272,24 @@ const ResidentView: React.FC<ResidentViewProps> = ({ addComplaint, role }) => {
                                 {contactError && (
                                     <p className="text-xs text-red-500 mt-1 ml-1 font-medium">{contactError}</p>
                                 )}
+                            </div>
+
+                            {/* Email Address */}
+                            <div className="space-y-1.5">
+                                <label className="block text-sm font-bold text-gray-700">Email Address (Optional)</label>
+                                <div className="relative group">
+                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <Mail className="h-4 w-4 text-gray-400 group-focus-within:text-blue-500 transition-colors" />
+                                    </div>
+                                    <input
+                                        type="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        placeholder="e.g. juan@example.com"
+                                        className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl leading-5 bg-gray-50 placeholder-gray-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all sm:text-sm font-medium"
+                                    />
+                                </div>
+                                <p className="text-[10px] text-gray-400 ml-1">We'll send you updates about your report status.</p>
                             </div>
 
                             {/* Description */}

@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Complaint, ComplaintStatus, UrgencyLevel, Role, InternalNote, User, AuditLogEntry, LogCategory } from '../types';
 import StatusBadge from './StatusBadge';
-import { AlertTriangle, TrendingUp, CheckCircle, Users, Loader2, MapPin, Filter, Calendar, Lock, FileText, Info, Flag, Activity, Search, Image, Ban, Edit, Save, X } from './Icons';
+import { AlertTriangle, TrendingUp, CheckCircle, Users, Loader2, MapPin, Filter, Calendar, Lock, FileText, Info, Flag, Activity, Search, Image, Ban, Edit, Save, X, Mail } from './Icons';
 import Tooltip from './Tooltip';
 import PhotoModal from './PhotoModal';
 import HotlineSidebar from './HotlineSidebar';
@@ -23,7 +23,7 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
   const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
   const [isManualEntryOpen, setIsManualEntryOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [editForm, setEditForm] = useState<{ title: string; category: string; location: string; contactNumber: string }>({ title: '', category: '', location: '', contactNumber: '' });
+  const [editForm, setEditForm] = useState<{ title: string; category: string; location: string; contactNumber: string; email: string }>({ title: '', category: '', location: '', contactNumber: '', email: '' });
   const [newNote, setNewNote] = useState('');
 
   // Unread State
@@ -122,7 +122,8 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
         title: selectedComplaint.title,
         category: selectedComplaint.category,
         location: selectedComplaint.location,
-        contactNumber: selectedComplaint.contactNumber || ''
+        contactNumber: selectedComplaint.contactNumber || '',
+        email: selectedComplaint.email || ''
       });
       setIsEditing(false);
     }
@@ -576,6 +577,26 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
                       ) : (
                         <span className="text-xs font-semibold text-gray-900 leading-tight">
                           {selectedComplaint.contactNumber || 'N/A'}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  {/* Email Chip */}
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-gray-200 shadow-sm transition-transform hover:scale-105 cursor-default">
+                    <Mail className="w-3.5 h-3.5 text-blue-500" />
+                    <div className="flex flex-col">
+                      <span className="text-[9px] font-bold text-gray-400 uppercase leading-none">Email</span>
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={editForm.email}
+                          onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
+                          className="text-xs font-semibold text-gray-900 border-b border-gray-300 focus:border-blue-500 focus:outline-none"
+                          placeholder="No email info"
+                        />
+                      ) : (
+                        <span className="text-xs font-semibold text-gray-900 leading-tight">
+                          {selectedComplaint.email || 'N/A'}
                         </span>
                       )}
                     </div>

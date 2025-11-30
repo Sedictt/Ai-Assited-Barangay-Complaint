@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Save, Users, FileText, MapPin, Phone, Info } from './Icons';
+import { X, Save, Users, FileText, MapPin, Phone, Info, Mail } from './Icons';
 import { Complaint, ComplaintStatus } from '../types';
 
 interface ManualComplaintModalProps {
@@ -15,6 +15,7 @@ const ManualComplaintModal: React.FC<ManualComplaintModalProps> = ({ isOpen, onC
         category: 'General',
         location: '',
         contactNumber: '',
+        email: '',
         residentName: ''
     });
 
@@ -31,6 +32,7 @@ const ManualComplaintModal: React.FC<ManualComplaintModalProps> = ({ isOpen, onC
             category: formData.category,
             location: formData.location,
             contactNumber: formData.contactNumber,
+            email: formData.email,
             submittedBy: formData.residentName || 'Walk-in Resident',
             submittedAt: new Date().toISOString(),
             status: ComplaintStatus.PENDING,
@@ -47,6 +49,7 @@ const ManualComplaintModal: React.FC<ManualComplaintModalProps> = ({ isOpen, onC
             category: 'General',
             location: '',
             contactNumber: '',
+            email: '',
             residentName: ''
         });
     };
@@ -119,6 +122,9 @@ const ManualComplaintModal: React.FC<ManualComplaintModalProps> = ({ isOpen, onC
                                     <option value="Traffic">Traffic</option>
                                 </select>
                             </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Contact No.</label>
                                 <div className="relative">
@@ -129,6 +135,19 @@ const ManualComplaintModal: React.FC<ManualComplaintModalProps> = ({ isOpen, onC
                                         onChange={(e) => setFormData({ ...formData, contactNumber: e.target.value })}
                                         className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
                                         placeholder="09..."
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <label className="block text-xs font-bold text-gray-700 uppercase mb-1">Email (Optional)</label>
+                                <div className="relative">
+                                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                    <input
+                                        type="email"
+                                        value={formData.email}
+                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                        className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                                        placeholder="Email..."
                                     />
                                 </div>
                             </div>

@@ -70,6 +70,7 @@ export interface Complaint {
   isEscalated?: boolean;
   photos?: string[]; // Array of photo file paths/URLs as evidence
   contactNumber?: string;
+  email?: string;
   internalNotes?: InternalNote[];
   auditLog?: AuditLogEntry[];
 }
