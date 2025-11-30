@@ -1,23 +1,46 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Complaint, ComplaintStatus, UrgencyLevel, Role } from '../types';
 import StatusBadge from './StatusBadge';
-import { AlertTriangle, TrendingUp, CheckCircle, Users, Loader2, MapPin, Filter, Calendar, Lock, FileText, Info, Flag, Activity, Search, Image, Ban, Edit, Save, X } from './Icons';
+import { AlertTriangle, TrendingUp, CheckCircle, Users, Loader2, MapPin, Filter, Calendar, Lock, FileText, Info, Flag, Activity, Search, Image, Ban, Edit, Save, X, Shield, Flame, Heart, Building, Phone } from './Icons';
 import Tooltip from './Tooltip';
 import PhotoModal from './PhotoModal';
+import HotlineSidebar from './HotlineSidebar';
+import ManualComplaintModal from './ManualComplaintModal';
 
 interface OfficialDashboardProps {
   complaints: Complaint[];
   updateStatus: (id: string, status: ComplaintStatus) => void;
   toggleEscalation: (id: string) => void;
   updateComplaint: (id: string, updates: Partial<Complaint>) => void;
+  addComplaint?: (complaint: Complaint) => Promise<void>;
   role: Role;
 }
 
-const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updateStatus, toggleEscalation, updateComplaint, role }) => {
+const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updateStatus, toggleEscalation, updateComplaint, addComplaint, role }) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
+  const [isManualEntryOpen, setIsManualEntryOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState<{ title: string; category: string; location: string; contactNumber: string }>({ title: '', category: '', location: '', contactNumber: '' });
+
+  // Unread State
+  const [readComplaintIds, setReadComplaintIds] = useState<Set<string>>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('readComplaintIds');
+      return new Set(saved ? JSON.parse(saved) : []);
+    }
+    return new Set();
+  });
+
+  const handleComplaintClick = (id: string) => {
+    setSelectedId(id);
+    if (!readComplaintIds.has(id)) {
+      const newSet = new Set(readComplaintIds);
+      newSet.add(id);
+      setReadComplaintIds(newSet);
+      localStorage.setItem('readComplaintIds', JSON.stringify(Array.from(newSet)));
+    }
+  };
 
   // Filter & Sort State
   const [statusFilter, setStatusFilter] = useState<string>('ALL');
@@ -79,6 +102,7 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
   // Auto-select first complaint on load or when filter changes
   useEffect(() => {
     if (!selectedId && filteredComplaints.length > 0) {
+      // Don't mark as read automatically on auto-select, only on user interaction
       setSelectedId(filteredComplaints[0].id);
     } else if (selectedId && !filteredComplaints.some(c => c.id === selectedId)) {
       // If the currently selected complaint is no longer in the filtered list, select the first one or clear
@@ -114,8 +138,18 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
     return 'bg-green-500';
   };
 
+  const handleManualSubmit = async (complaint: Complaint) => {
+    if (addComplaint) {
+      await addComplaint(complaint);
+      setIsManualEntryOpen(false);
+      // Optionally select the new complaint or show a success toast
+    }
+  };
+
   return (
     <div className="p-6 space-y-6">
+      <HotlineSidebar />
+
       {/* Toolbar: Filter & Sort */}
       <div className="bg-gradient-to-br from-white to-gray-50/50 p-4 rounded-xl shadow-md border border-gray-200/80 flex flex-col xl:flex-row xl:items-center justify-between gap-4 transition-all duration-300 hover:shadow-lg backdrop-blur-sm">
         <div className="flex flex-col md:flex-row gap-3 flex-1">
@@ -176,13 +210,13 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
             </select>
           </div>
 
-          {/* Restricted Add Button */}
-          <Tooltip content="Restricted: Only Residents can file complaints." placement="bottom">
+          {/* Restricted Add Button - Now Enabled for Manual Entry */}
+          <Tooltip content="Manually enter a complaint for a walk-in resident." placement="bottom">
             <button
-              disabled={true}
-              className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-400 rounded-lg text-sm font-medium cursor-not-allowed opacity-75 border border-gray-200 ml-2 whitespace-nowrap"
+              onClick={() => setIsManualEntryOpen(true)}
+              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-bold hover:bg-blue-700 transition-all shadow-md hover:shadow-lg ml-2 whitespace-nowrap"
             >
-              <Lock className="w-4 h-4" /> New Complaint
+              <FileText className="w-4 h-4" /> Walk-in Report
             </button>
           </Tooltip>
         </div>
@@ -239,7 +273,7 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
                 {filteredComplaints.map((c, index) => (
                   <div
                     key={c.id}
-                    onClick={() => setSelectedId(c.id)}
+                    onClick={() => handleComplaintClick(c.id)}
                     className={`relative p-4 rounded-xl cursor-pointer transition-all duration-200 border shadow-sm group ${selectedId === c.id
                       ? 'bg-blue-50 border-blue-600 ring-1 ring-blue-600 shadow-md scale-[1.01]'
                       : 'bg-white border-transparent hover:border-blue-300 hover:shadow-md hover:scale-[1.01]'
@@ -262,7 +296,15 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
 
                     <div className="flex justify-between items-start mb-1">
                       <div className="flex-1 min-w-0 pl-2 pr-6">
-                        <p className={`text-sm font-bold truncate transition-colors ${selectedId === c.id ? 'text-blue-700' : 'text-gray-900 group-hover:text-blue-600'}`}>{c.title}</p>
+                        <div className="flex items-center gap-2">
+                          {!readComplaintIds.has(c.id) && (
+                            <span className="flex h-2.5 w-2.5 relative shrink-0">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500"></span>
+                            </span>
+                          )}
+                          <p className={`text-sm font-bold truncate transition-colors ${selectedId === c.id ? 'text-blue-700' : 'text-gray-900 group-hover:text-blue-600'}`}>{c.title}</p>
+                        </div>
                         <p className="text-xs text-gray-500 mt-0.5">{c.category} • {new Date(c.submittedAt).toLocaleDateString()}</p>
                       </div>
                       {c.aiAnalysis ? (
@@ -596,6 +638,13 @@ const OfficialDashboard: React.FC<OfficialDashboardProps> = ({ complaints, updat
           complaintTitle={selectedComplaint.title}
         />
       )}
+
+      {/* Manual Entry Modal */}
+      <ManualComplaintModal
+        isOpen={isManualEntryOpen}
+        onClose={() => setIsManualEntryOpen(false)}
+        onSubmit={handleManualSubmit}
+      />
     </div>
   );
 };

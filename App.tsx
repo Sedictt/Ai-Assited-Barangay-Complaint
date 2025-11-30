@@ -71,11 +71,11 @@ const App: React.FC = () => {
   };
 
   const addComplaint = async (complaint: Complaint) => {
-    // Security Check
-    if (role !== Role.RESIDENT) {
-      console.error("Access Denied: Officials cannot submit complaints.");
-      return;
-    }
+    // Security Check - Allow both Residents and Officials (for manual entry)
+    // if (role !== Role.RESIDENT) {
+    //   console.error("Access Denied: Officials cannot submit complaints.");
+    //   return;
+    // }
 
     try {
       // Check if this is a new complaint or an update (AI analysis)
@@ -277,6 +277,7 @@ const App: React.FC = () => {
               updateStatus={updateStatus}
               toggleEscalation={toggleEscalation}
               updateComplaint={updateComplaint}
+              addComplaint={addComplaint}
             />
           } />
           <Route path="*" element={<Navigate to="/" replace />} />
