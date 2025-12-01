@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation, useNavigate, Link } from 'react-router-dom';
 import { Complaint, Role, ComplaintStatus, UrgencyLevel, AIAnalysis, AuditLogEntry, User, LogCategory } from './types';
 import ResidentView from './components/ResidentView';
 import OfficialDashboard from './components/OfficialDashboard';
@@ -8,7 +8,12 @@ import NotificationToast, { AppNotification } from './components/NotificationToa
 import HelpGuide from './components/HelpGuide';
 import Login from './components/Login';
 import SuperAdminDashboard from './components/SuperAdminDashboard';
-import { HelpCircle, Users, AlertTriangle, CheckCircle, TrendingUp, FileText, Search } from './components/Icons';
+import LandingPage from './components/LandingPage';
+import Services from './components/Services';
+import Announcements from './components/Announcements';
+import CommunityMap from './components/CommunityMap';
+import ChatAssistant from './components/ChatAssistant';
+import { HelpCircle, Users, AlertTriangle, CheckCircle, TrendingUp, FileText, Search, Menu, X } from './components/Icons';
 import Tooltip from './components/Tooltip';
 import { subscribeToComplaints, addComplaint as addComplaintToFirestore, updateComplaint as updateComplaintInFirestore, addAuditLogEntry, addSystemLog } from './services/firestoreService';
 import { seedSuperAdmin } from './services/userService';
@@ -27,6 +32,7 @@ const App: React.FC = () => {
   const [notifications, setNotifications] = useState<AppNotification[]>([]);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [isLoadingComplaints, setIsLoadingComplaints] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Seed Super Admin on mount
   useEffect(() => {
@@ -255,9 +261,12 @@ const App: React.FC = () => {
     navigate('/login');
   };
 
+  const isOfficialView = location.pathname.startsWith('/official') || location.pathname.startsWith('/admin');
+
   return (
-    <div className="min-h-screen flex flex-col relative">
+    <div className="min-h-screen flex flex-col relative font-sans">
       <NotificationToast notifications={notifications} removeNotification={removeNotification} />
+      <ChatAssistant />
       <HelpGuide isOpen={isHelpOpen} onClose={() => setIsHelpOpen(false)} role={role} />
 
       {/* Floating Help Button - Only show if not on login page */}
@@ -277,19 +286,19 @@ const App: React.FC = () => {
       {/* Header - Hide on Login Page */}
       {location.pathname !== '/login' && (
         <header className="bg-white shadow-sm border-b border-gray-200 z-50 sticky top-0">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 z-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 z-50">
             <div className="flex items-center justify-between gap-3">
               {/* Left: Branding */}
               <div className="flex items-center gap-2 flex-shrink-0 cursor-pointer" onClick={() => navigate('/')}>
-                <div className="bg-blue-600 text-white p-1.5 rounded-lg font-bold text-sm">BM</div>
+                <div className="bg-gradient-to-br from-blue-600 to-indigo-700 text-white p-2 rounded-lg font-bold text-sm shadow-sm">BM</div>
                 <div>
-                  <h1 className="font-bold text-gray-900 leading-tight text-sm">Barangay Maysan</h1>
-                  <p className="text-[10px] text-gray-500">AI-Assisted Governance</p>
+                  <h1 className="font-bold text-gray-900 leading-tight text-base">Barangay Maysan</h1>
+                  <p className="text-[10px] text-gray-500 font-medium tracking-wide uppercase">Official Portal</p>
                 </div>
               </div>
 
-              {/* Center: Stats Cards - Only show in Official view */}
-              {currentUser && (
+              {/* Center: Navigation (Public) or Stats (Official) */}
+              {currentUser && isOfficialView ? (
                 <div className="hidden lg:flex items-center gap-2 flex-1 justify-center overflow-x-auto">
                   <div className="bg-white px-2 py-1.5 rounded-lg shadow-sm border border-gray-200 flex items-center gap-2">
                     <Tooltip content="Total complaints in system" placement="bottom">
@@ -335,18 +344,15 @@ const App: React.FC = () => {
                       <p className="text-sm font-bold text-gray-900 leading-none mt-0.5">{stats.pending}</p>
                     </div>
                   </div>
-                  <div className="bg-white px-2 py-1.5 rounded-lg shadow-sm border border-purple-200 flex items-center gap-2 ring-1 ring-purple-100">
-                    <Tooltip content="Submitted by residents" placement="bottom">
-                      <div className="p-1 bg-purple-100 rounded-full text-purple-600 cursor-help">
-                        <FileText className="w-3.5 h-3.5" />
-                      </div>
-                    </Tooltip>
-                    <div>
-                      <p className="text-[10px] text-gray-500 leading-none">Resident</p>
-                      <p className="text-sm font-bold text-gray-900 leading-none mt-0.5">{stats.residentSubmissions}</p>
-                    </div>
-                  </div>
                 </div>
+              ) : (
+                <nav className="hidden md:flex items-center gap-6">
+                  <Link to="/" className={`text-sm font-medium transition-colors ${location.pathname === '/' ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600'}`}>Home</Link>
+                  <Link to="/services" className={`text-sm font-medium transition-colors ${location.pathname === '/services' ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600'}`}>Services</Link>
+                  <Link to="/announcements" className={`text-sm font-medium transition-colors ${location.pathname === '/announcements' ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600'}`}>Bulletin</Link>
+                  <Link to="/map" className={`text-sm font-medium transition-colors ${location.pathname === '/map' ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600'}`}>Map</Link>
+                  <Link to="/track" className={`text-sm font-medium transition-colors ${location.pathname === '/track' ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600'}`}>Track Status</Link>
+                </nav>
               )}
 
               {/* Right: Actions */}
@@ -380,26 +386,53 @@ const App: React.FC = () => {
                     </button>
                   </div>
                 ) : (
-                  <button
-                    onClick={() => navigate('/track', { state: { from: location.pathname } })}
-                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full hover:from-blue-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg font-semibold text-xs transform hover:-translate-y-0.5"
-                    title="Track a Complaint"
-                  >
-                    <Search className="w-3.5 h-3.5" />
-                    <span className="hidden sm:inline">Track</span>
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => navigate('/complaints/file')}
+                      className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-full hover:bg-gray-800 transition-all shadow-md hover:shadow-lg font-semibold text-xs transform hover:-translate-y-0.5"
+                    >
+                      <FileText className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">Report Issue</span>
+                    </button>
+                  </div>
                 )}
+
+                {/* Mobile Menu Button */}
+                <button
+                  className="md:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                >
+                  {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                </button>
               </div>
             </div>
           </div>
+
+          {/* Mobile Menu */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden border-t border-gray-100 bg-white absolute w-full left-0 shadow-lg animate-in slide-in-from-top-2">
+              <div className="p-4 space-y-3">
+                <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg">Home</Link>
+                <Link to="/services" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg">Services</Link>
+                <Link to="/announcements" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg">Bulletin</Link>
+                <Link to="/map" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg">Map</Link>
+                <Link to="/complaints/file" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg">File Complaint</Link>
+                <Link to="/track" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg">Track Status</Link>
+              </div>
+            </div>
+          )}
         </header>
       )}
 
       {/* Main Content */}
-      <main className="flex-1 bg-gray-50 max-w-7xl mx-auto w-full">
+      <main className="flex-1 bg-gray-50 w-full">
         <Routes>
-          <Route path="/" element={<ResidentView role={Role.RESIDENT} addComplaint={addComplaint} />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/complaints/file" element={<ResidentView role={Role.RESIDENT} addComplaint={addComplaint} />} />
           <Route path="/track" element={<TrackComplaint complaints={complaints} />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/announcements" element={<Announcements />} />
+          <Route path="/map" element={<CommunityMap />} />
 
           {/* Login Route */}
           <Route path="/login" element={
@@ -444,9 +477,37 @@ const App: React.FC = () => {
 
       {/* Footer */}
       <footer className="bg-white border-t border-gray-200 mt-auto">
-        <div className="max-w-7xl mx-auto px-6 py-4 text-center text-xs text-gray-400">
-          <p>Barangay Maysan AI-Assisted Complaints Prioritization System Prototype.</p>
-          <p>© 2024 Valenzuela City. All Rights Reserved.</p>
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="bg-blue-600 text-white p-1.5 rounded-lg font-bold text-sm">BM</div>
+                <span className="font-bold text-gray-900">Barangay Maysan</span>
+              </div>
+              <p className="text-xs text-gray-500 leading-relaxed">
+                Empowering the community through technology and transparent governance.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-bold text-gray-900 text-sm mb-4">Quick Links</h4>
+              <ul className="space-y-2 text-xs text-gray-500">
+                <li><Link to="/" className="hover:text-blue-600">Home</Link></li>
+                <li><Link to="/complaints/file" className="hover:text-blue-600">File Complaint</Link></li>
+                <li><Link to="/track" className="hover:text-blue-600">Track Status</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold text-gray-900 text-sm mb-4">Contact</h4>
+              <ul className="space-y-2 text-xs text-gray-500">
+                <li>Maysan Road, Valenzuela City</li>
+                <li>(02) 8123-4567</li>
+                <li>info@barangaymaysan.gov.ph</li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-gray-100 pt-4 text-center text-[10px] text-gray-400">
+            <p>© 2024 Barangay Maysan. All Rights Reserved.</p>
+          </div>
         </div>
       </footer>
     </div>

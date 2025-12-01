@@ -102,3 +102,31 @@ export const analyzeComplaint = async (
     };
   }
 };
+
+export const generateAIResponse = async (
+  userMessage: string,
+  context: string
+): Promise<string> => {
+  try {
+    const prompt = `
+      ${context}
+
+      User Question: ${userMessage}
+      
+      Provide a helpful, concise, and friendly response.
+    `;
+
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: prompt,
+      config: {
+        temperature: 0.7, // Higher temperature for more natural conversation
+      },
+    });
+
+    return response.text || "I apologize, but I couldn't generate a response at this time.";
+  } catch (error) {
+    console.error("AI Chat failed:", error);
+    return "I'm having trouble connecting to the server. Please try again later.";
+  }
+};
