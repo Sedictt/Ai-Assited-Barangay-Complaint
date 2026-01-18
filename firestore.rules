@@ -1,0 +1,70 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOfficial() {
+      return isAuthenticated() && request.auth.token.role == 'OFFICIAL';
+    }
+    
+    function isSuperAdmin() {
+      return isAuthenticated() && request.auth.token.role == 'SUPERADMIN';
+    }
+
+    // Existing rules for complaints
+    match /complaints/{complaintId} {
+      allow read: if true; // Public read for tracking (could be restricted)
+      allow create: if true; // Public submission
+      allow update: if isAuthenticated(); // Only logged-in users (officials/admins) can update status
+    }
+    
+    // Existing rules for system logs
+    match /systemLogs/{logId} {
+      allow read: if isOfficial() || isSuperAdmin();
+      allow create: if true; // System can create logs
+    }
+
+    // --- Disaster Resilience ---
+    
+    match /evacuation_centers/{centerId} {
+      allow read: if true; // Public can view evacuation centers
+      allow write: if isOfficial() || isSuperAdmin(); // Only officials can manage centers
+    }
+    
+    match /safety_checkins/{checkInId} {
+      allow read: if isOfficial() || isSuperAdmin(); // Only officials can view all check-ins
+      allow create: if true; // Public can check in
+      allow update: if request.auth.uid == resource.data.userId; // Users can update their own status
+    }
+
+    // --- Transparency ---
+    
+    match /projects/{projectId} {
+      allow read: if true; // Public can view projects
+      allow write: if isOfficial() || isSuperAdmin(); // Only officials can manage projects
+    }
+    
+    match /ordinances/{ordinanceId} {
+      allow read: if true; // Public can view ordinances
+      allow write: if isOfficial() || isSuperAdmin(); // Only officials can manage ordinances
+    }
+
+    // --- Local Economy ---
+    
+    match /jobs/{jobId} {
+      allow read: if true; // Public can view jobs
+      allow create: if isAuthenticated(); // Registered users can post jobs (could be restricted to officials or verified employers)
+      allow update, delete: if request.auth.uid == resource.data.employerId || isOfficial() || isSuperAdmin();
+    }
+    
+    match /marketplace_items/{itemId} {
+      allow read: if true; // Public can view items
+      allow create: if isAuthenticated(); // Registered users can post items
+      allow update, delete: if request.auth.uid == resource.data.sellerId || isOfficial() || isSuperAdmin();
+    }
+  }
+}

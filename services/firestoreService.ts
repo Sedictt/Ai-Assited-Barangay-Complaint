@@ -15,7 +15,18 @@ import {
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from './firebase';
-import { Complaint, InternalNote, AuditLogEntry, SystemLog } from '../types';
+import {
+    Complaint,
+    InternalNote,
+    AuditLogEntry,
+    SystemLog,
+    EvacuationCenter,
+    SafetyCheckIn,
+    Project,
+    Ordinance,
+    Job,
+    MarketplaceItem
+} from '../types';
 
 const COMPLAINTS_COLLECTION = 'complaints';
 const SYSTEM_LOGS_COLLECTION = 'systemLogs';
@@ -188,4 +199,98 @@ export const subscribeToSystemLogs = (
         } as SystemLog));
         callback(logs);
     });
+};
+
+// New Collections
+const EVACUATION_CENTERS_COLLECTION = 'evacuation_centers';
+const SAFETY_CHECKINS_COLLECTION = 'safety_checkins';
+const PROJECTS_COLLECTION = 'projects';
+const ORDINANCES_COLLECTION = 'ordinances';
+const JOBS_COLLECTION = 'jobs';
+const MARKETPLACE_ITEMS_COLLECTION = 'marketplace_items';
+
+// --- Disaster Resilience ---
+
+export const subscribeToEvacuationCenters = (callback: (centers: EvacuationCenter[]) => void) => {
+    const q = query(collection(db, EVACUATION_CENTERS_COLLECTION));
+    return onSnapshot(q, (snapshot) => {
+        const centers = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as EvacuationCenter));
+        callback(centers);
+    });
+};
+
+export const addEvacuationCenter = async (center: Omit<EvacuationCenter, 'id'>) => {
+    await addDoc(collection(db, EVACUATION_CENTERS_COLLECTION), center);
+};
+
+export const updateEvacuationCenter = async (id: string, updates: Partial<EvacuationCenter>) => {
+    await updateDoc(doc(db, EVACUATION_CENTERS_COLLECTION, id), updates);
+};
+
+export const addSafetyCheckIn = async (checkIn: Omit<SafetyCheckIn, 'id'>) => {
+    await addDoc(collection(db, SAFETY_CHECKINS_COLLECTION), checkIn);
+};
+
+export const subscribeToSafetyCheckIns = (callback: (checkIns: SafetyCheckIn[]) => void) => {
+    const q = query(collection(db, SAFETY_CHECKINS_COLLECTION), orderBy('timestamp', 'desc'));
+    return onSnapshot(q, (snapshot) => {
+        const checkIns = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as SafetyCheckIn));
+        callback(checkIns);
+    });
+};
+
+// --- Transparency ---
+
+export const subscribeToProjects = (callback: (projects: Project[]) => void) => {
+    const q = query(collection(db, PROJECTS_COLLECTION), orderBy('startDate', 'desc'));
+    return onSnapshot(q, (snapshot) => {
+        const projects = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Project));
+        callback(projects);
+    });
+};
+
+export const addProject = async (project: Omit<Project, 'id'>) => {
+    await addDoc(collection(db, PROJECTS_COLLECTION), project);
+};
+
+export const updateProject = async (id: string, updates: Partial<Project>) => {
+    await updateDoc(doc(db, PROJECTS_COLLECTION, id), updates);
+};
+
+export const subscribeToOrdinances = (callback: (ordinances: Ordinance[]) => void) => {
+    const q = query(collection(db, ORDINANCES_COLLECTION), orderBy('dateEnacted', 'desc'));
+    return onSnapshot(q, (snapshot) => {
+        const ordinances = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Ordinance));
+        callback(ordinances);
+    });
+};
+
+export const addOrdinance = async (ordinance: Omit<Ordinance, 'id'>) => {
+    await addDoc(collection(db, ORDINANCES_COLLECTION), ordinance);
+};
+
+// --- Local Economy ---
+
+export const subscribeToJobs = (callback: (jobs: Job[]) => void) => {
+    const q = query(collection(db, JOBS_COLLECTION), orderBy('postedAt', 'desc'));
+    return onSnapshot(q, (snapshot) => {
+        const jobs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Job));
+        callback(jobs);
+    });
+};
+
+export const addJob = async (job: Omit<Job, 'id'>) => {
+    await addDoc(collection(db, JOBS_COLLECTION), job);
+};
+
+export const subscribeToMarketplaceItems = (callback: (items: MarketplaceItem[]) => void) => {
+    const q = query(collection(db, MARKETPLACE_ITEMS_COLLECTION), orderBy('postedAt', 'desc'));
+    return onSnapshot(q, (snapshot) => {
+        const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as MarketplaceItem));
+        callback(items);
+    });
+};
+
+export const addMarketplaceItem = async (item: Omit<MarketplaceItem, 'id'>) => {
+    await addDoc(collection(db, MARKETPLACE_ITEMS_COLLECTION), item);
 };

@@ -102,3 +102,68 @@ export interface SystemLog {
     target?: string;
   };
 }
+export interface EvacuationCenter {
+  id: string;
+  name: string;
+  location: string;
+  capacity: number;
+  currentCount: number;
+  status: 'ACTIVE' | 'INACTIVE' | 'FULL';
+  needs?: string; // e.g., "Blankets, Water"
+}
+
+export interface SafetyCheckIn {
+  id: string;
+  userId: string;
+  userName: string;
+  status: 'SAFE' | 'NEED_RESCUE';
+  location: string;
+  timestamp: string;
+  message?: string;
+}
+
+export interface Project {
+  id: string;
+  title: string;
+  description: string;
+  budget: string;
+  contractor: string;
+  startDate: string;
+  endDate: string;
+  status: 'PLANNED' | 'ONGOING' | 'COMPLETED' | 'DELAYED';
+  progress: number; // 0-100
+  photos?: string[];
+}
+
+export interface Ordinance {
+  id: string;
+  title: string;
+  category: string;
+  summary: string;
+  fullText?: string;
+  dateEnacted: string;
+}
+
+export interface Job {
+  id: string;
+  title: string;
+  employer: string;
+  type: 'FULL_TIME' | 'PART_TIME' | 'CONTRACT' | 'FREELANCE';
+  salary: string;
+  description: string;
+  contactInfo: string;
+  postedAt: string;
+}
+
+export interface MarketplaceItem {
+  id: string;
+  sellerId: string;
+  sellerName: string;
+  title: string;
+  price: string;
+  description: string;
+  category: string;
+  images?: string[];
+  contactInfo: string;
+  postedAt: string;
+}

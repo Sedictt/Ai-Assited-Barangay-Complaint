@@ -13,7 +13,14 @@ import Services from './components/Services';
 import Announcements from './components/Announcements';
 import CommunityMap from './components/CommunityMap';
 import ChatAssistant from './components/ChatAssistant';
-import { HelpCircle, Users, AlertTriangle, CheckCircle, TrendingUp, FileText, Search, Menu, X } from './components/Icons';
+import EvacuationCenterList from './components/Disaster/EvacuationCenterList';
+import SafetyCheckIn from './components/Disaster/SafetyCheckIn';
+import DisasterDashboard from './components/Official/DisasterDashboard';
+import TransparencyPage from './components/Transparency/TransparencyPage';
+
+import JobBoard from './components/Economy/JobBoard';
+import Marketplace from './components/Economy/Marketplace';
+import { HelpCircle, Users, AlertTriangle, CheckCircle, TrendingUp, FileText, Search, Menu, X, LifeBuoy, Briefcase, BookOpen } from './components/Icons';
 import Tooltip from './components/Tooltip';
 import { subscribeToComplaints, addComplaint as addComplaintToFirestore, updateComplaint as updateComplaintInFirestore, addAuditLogEntry, addSystemLog } from './services/firestoreService';
 import { seedSuperAdmin } from './services/userService';
@@ -123,7 +130,7 @@ const App: React.FC = () => {
           action: 'COMPLAINT_CREATED',
           category: LogCategory.COMPLAINT,
           actor: currentUser ? currentUser.fullName : 'Resident (Public)',
-          details: `New complaint created: ${complaint.title}`,
+          details: `New complaint created: ${complaint.title} `,
           metadata: { complaintId: complaint.id, userId: currentUser?.id }
         });
       }
@@ -153,7 +160,7 @@ const App: React.FC = () => {
         action: 'STATUS_CHANGE',
         author: currentUser.fullName,
         timestamp: new Date().toISOString(),
-        details: `Changed status from ${complaint.status} to ${status}`
+        details: `Changed status from ${complaint.status} to ${status} `
       };
 
       await updateComplaintInFirestore(id, { status });
@@ -165,7 +172,7 @@ const App: React.FC = () => {
         action: 'COMPLAINT_STATUS_CHANGE',
         category: LogCategory.COMPLAINT,
         actor: currentUser.fullName,
-        details: `Changed status of complaint ${id} to ${status}`,
+        details: `Changed status of complaint ${id} to ${status} `,
         metadata: { complaintId: id, userId: currentUser.id }
       });
 
@@ -205,7 +212,7 @@ const App: React.FC = () => {
         action: newValue ? 'COMPLAINT_ESCALATED' : 'COMPLAINT_DE_ESCALATED',
         category: LogCategory.COMPLAINT,
         actor: currentUser.fullName,
-        details: newValue ? `Escalated complaint ${id}` : `De-escalated complaint ${id}`,
+        details: newValue ? `Escalated complaint ${id} ` : `De - escalated complaint ${id} `,
         metadata: { complaintId: id, userId: currentUser.id }
       });
 
@@ -351,7 +358,9 @@ const App: React.FC = () => {
                   <Link to="/services" className={`text-sm font-medium transition-colors ${location.pathname === '/services' ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600'}`}>Services</Link>
                   <Link to="/announcements" className={`text-sm font-medium transition-colors ${location.pathname === '/announcements' ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600'}`}>Bulletin</Link>
                   <Link to="/map" className={`text-sm font-medium transition-colors ${location.pathname === '/map' ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600'}`}>Map</Link>
-                  <Link to="/track" className={`text-sm font-medium transition-colors ${location.pathname === '/track' ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600'}`}>Track Status</Link>
+                  <Link to="/disaster" className={`text-sm font-medium transition-colors ${location.pathname === '/disaster' ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600'}`}>Disaster</Link>
+                  <Link to="/transparency" className={`text-sm font-medium transition-colors ${location.pathname === '/transparency' ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600'}`}>Transparency</Link>
+                  <Link to="/economy" className={`text-sm font-medium transition-colors ${location.pathname === '/economy' ? 'text-blue-600 font-bold' : 'text-gray-600 hover:text-blue-600'}`}>Economy</Link>
                 </nav>
               )}
 
@@ -416,6 +425,9 @@ const App: React.FC = () => {
                 <Link to="/services" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg">Services</Link>
                 <Link to="/announcements" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg">Bulletin</Link>
                 <Link to="/map" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg">Map</Link>
+                <Link to="/disaster" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg">Disaster Resilience</Link>
+                <Link to="/transparency" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg">Transparency</Link>
+                <Link to="/economy" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg">Local Economy</Link>
                 <Link to="/complaints/file" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg">File Complaint</Link>
                 <Link to="/track" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg">Track Status</Link>
               </div>
@@ -433,6 +445,83 @@ const App: React.FC = () => {
           <Route path="/services" element={<Services />} />
           <Route path="/announcements" element={<Announcements />} />
           <Route path="/map" element={<CommunityMap />} />
+
+          {/* New Feature Routes */}
+          <Route path="/disaster" element={
+            <div className="min-h-screen bg-gray-50">
+              {/* Hero Section */}
+              <div className="bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 text-white py-16 px-4 relative overflow-hidden">
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+                <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+                <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-400 opacity-10 rounded-full blur-2xl transform -translate-x-1/2 translate-y-1/2"></div>
+
+                <div className="max-w-7xl mx-auto relative z-10 text-center">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                    <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                    <span className="text-xs font-medium tracking-wide uppercase">Emergency Response System</span>
+                  </div>
+                  <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight font-heading animate-in fade-in slide-in-from-bottom-5 duration-700 delay-100">
+                    Disaster Resilience Center
+                  </h1>
+                  <p className="text-blue-100 text-lg max-w-2xl mx-auto leading-relaxed animate-in fade-in slide-in-from-bottom-6 duration-700 delay-200">
+                    Real-time updates, evacuation center monitoring, and safety check-ins to keep our community safe and informed during emergencies.
+                  </p>
+                </div>
+              </div>
+
+              {/* Main Content */}
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 -mt-8 relative z-20">
+                <div className="grid lg:grid-cols-3 gap-8">
+                  <div className="lg:col-span-2 space-y-8">
+                    <EvacuationCenterList />
+                  </div>
+                  <div className="lg:col-span-1">
+                    <div className="sticky top-24">
+                      <SafetyCheckIn userId="guest" userName="Guest User" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          } />
+          <Route path="/transparency" element={<TransparencyPage />} />
+          <Route path="/economy" element={
+            <div className="min-h-screen bg-gray-50">
+              {/* Hero Section */}
+              <div className="bg-gradient-to-r from-amber-900 via-orange-900 to-yellow-900 text-white py-16 px-4 relative overflow-hidden">
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+                <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+                <div className="absolute bottom-0 left-0 w-48 h-48 bg-amber-400 opacity-10 rounded-full blur-2xl transform -translate-x-1/2 translate-y-1/2"></div>
+
+                <div className="max-w-7xl mx-auto relative z-10 text-center">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                    <Briefcase className="w-4 h-4 text-amber-300" />
+                    <span className="text-xs font-medium tracking-wide uppercase text-amber-100">Local Opportunities</span>
+                  </div>
+                  <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight font-heading animate-in fade-in slide-in-from-bottom-5 duration-700 delay-100">
+                    Local Economy Hub
+                  </h1>
+                  <p className="text-amber-100 text-lg max-w-2xl mx-auto leading-relaxed animate-in fade-in slide-in-from-bottom-6 duration-700 delay-200">
+                    Empowering our community through local jobs, businesses, and a thriving marketplace.
+                  </p>
+                </div>
+              </div>
+
+              {/* Main Content */}
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 -mt-8 relative z-20 space-y-16">
+                <JobBoard />
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                    <div className="w-full border-t border-gray-200"></div>
+                  </div>
+                  <div className="relative flex justify-center">
+                    <span className="bg-gray-50 px-4 text-sm text-gray-500 font-medium uppercase tracking-wider">Community Marketplace</span>
+                  </div>
+                </div>
+                <Marketplace />
+              </div>
+            </div>
+          } />
 
           {/* Login Route */}
           <Route path="/login" element={
